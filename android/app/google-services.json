@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "373250685685",
+    "project_id": "placementapp-cfe12",
+    "storage_bucket": "placementapp-cfe12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373250685685:android:9fc8ddd3b61ca73fb523bc",
+        "android_client_info": {
+          "package_name": "com.placementapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373250685685-g1oq969ogajvfehllomd5ugcks5mlh1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqD2Gyu6O-Eu7ZHBqRrKGVY1bAiu9D7cg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373250685685-g1oq969ogajvfehllomd5ugcks5mlh1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
