@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import UserSignupDesign from './Design';
-import firestore from '@react-native-firebase/firestore';
+import AddTpoDesign from './Design';
+import firestore from "@react-native-firebase/firestore";
 
-const UserSignupActivity = ({ navigation }) => {
+const AddTpoActivity = ({ navigation }) => {
     const [users, setUsers] = useState([]);
     const departmentlist = [];
 
@@ -37,9 +37,9 @@ const UserSignupActivity = ({ navigation }) => {
 
 
     return (
-        <UserSignupDesign
+        <AddTpoDesign
             navigation={navigation}
             departmentlist={users} />
     );
 }
-export default UserSignupActivity;
+export default AddTpoActivity;

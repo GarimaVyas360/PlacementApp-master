@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import UserSignupDesign from './Design';
-import firestore from '@react-native-firebase/firestore';
+import AddDepartmentDesign from './Design';
+import prompt from "react-native-prompt-android";
+import firestore from "@react-native-firebase/firestore";
 
-const UserSignupActivity = ({ navigation }) => {
+const AddDepartmentActivity = ({ navigation }) => {
     const [users, setUsers] = useState([]);
     const departmentlist = [];
 
@@ -37,9 +38,21 @@ const UserSignupActivity = ({ navigation }) => {
 
 
     return (
-        <UserSignupDesign
+        <AddDepartmentDesign
             navigation={navigation}
-            departmentlist={users} />
+            list={users}
+            validateDepartment={(department) => { validateDepartment(department) }}
+        />
     );
+
+
+    function validateDepartment(department) {
+        if (!department) {
+            return (
+                setError = 'true',
+                setErrorText = "Enter the Department"
+            );
+        }
+    }
 }
-export default UserSignupActivity;
+export default AddDepartmentActivity;

@@ -17,10 +17,10 @@
 //     },
 // }
 const images = {
-    onboarding:{
+    onboarding: {
         user_admin: require('../images/user_admin.png'),
     },
-    college:{
+    college: {
         logo_square: require('../images/college_logo.png'),
     },
     splash: {
@@ -30,6 +30,7 @@ const images = {
         student: require('../images/student.png'),
         tpo: require('../images/teacher.png'),
         admin: require('../images/admin.png'),
+        department: require('../images/department.png'),
     },
 }
 export default images;

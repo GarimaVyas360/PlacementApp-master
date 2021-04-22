@@ -8,9 +8,10 @@ import strings from '../../../../res/strings';
 import images from '../../../../res/images';
 import { useState } from 'react/cjs/react.development';
 import CreateUserAuth from "../../../../firebase/CreateUser";
-import UserSignUp from '../../../../firebase/firestore/UserSignUp';
+import { UserSignUp } from '../../../../firebase/firestore/UserSignUp';
+import firestore from '@react-native-firebase/firestore';
 
-const UserSignupDesign = () => {
+const UserSignupDesign = ({ navigation, departmentlist }) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -19,7 +20,8 @@ const UserSignupDesign = () => {
     const [gender, setGender] = useState("Female");
     const [enrollment, setEnroll] = useState("");
     const [phoneno, setphoneno] = useState("");
-
+    const [selectedDepartment, setSelectedDepartment] = useState('');
+    const [departmentKey, setDepartmentKey] = useState('');
 
     return (
         <View style={styles.mainContainer}>
@@ -149,14 +151,14 @@ const UserSignupDesign = () => {
                                 <View style={styles.pickerView}>
                                     <Picker
                                         style={{}}
-                                        selectedValue={branch}
-                                        onValueChange={(itemValue, itemIndex) => { setBranch(itemValue) }}>
+                                        selectedValue={selectedDepartment}
+                                        onValueChange={(itemValue, itemIndex) => { setDepartmentKey(itemValue); departmentName(itemValue) }} >
                                         <Picker.Item label="--- Select Branch ---" value="" />
-                                        <Picker.Item label="Information Technology" value="IT" />
-                                        <Picker.Item label="Mechanical " value="Mechanical" />
-                                        <Picker.Item label="Management" value="Management" />
-                                        <Picker.Item label="Civil" value="Civil" />
-                                        <Picker.Item label="Electrical" value="Electrical" />
+                                        {departmentlist.map((item, index) => {
+                                            return (
+                                                <Picker.Item label={item.department} value={item.key} key={item.key} />
+                                            )
+                                        })}
                                     </Picker>
                                 </View>
                                 <HelperText type="error" visible={true}>Error</HelperText>
@@ -194,7 +196,7 @@ const UserSignupDesign = () => {
                                     style={styles.loginButton}
                                     icon="login"
                                     mode="contained"
-                                    onPress={() => { UserSignUp(firstName, lastName, gender, email, password, phoneno, branch, enrollment) }}
+                                    onPress={() => { UserSignUp(firstName, lastName, gender, email, password, phoneno, selectedDepartment, enrollment) }}
                                 >
                                     SIGNUP
                                 </Button>
@@ -219,5 +221,22 @@ const UserSignupDesign = () => {
             </View>
         </View>
     );
+
+
+    function departmentName(userId) {
+        firestore()
+            .collection('departments')
+            .doc(userId)
+            .get()
+            .then(documentSnapshot => {
+                console.log('User exists: ', documentSnapshot.exists);
+
+                if (documentSnapshot.exists) {
+                    console.log('User data: ', documentSnapshot.data());
+                    console.log(documentSnapshot.get('department'));
+                    setSelectedDepartment(documentSnapshot.get('department'));
+                }
+            });
+    }
 }
 export default UserSignupDesign;

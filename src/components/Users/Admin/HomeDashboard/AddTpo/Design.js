@@ -6,7 +6,7 @@ import { Picker } from '@react-native-picker/picker';
 import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
-import { AddTpo } from '../../../../../firebase/firestore/UserSignUp';
+import { addTPO } from '../../../../../firebase/firestore/UserSignUp';
 import firestore from '@react-native-firebase/firestore';
 
 const AddTpoDesign = ({ navigation, departmentlist }) => {
@@ -169,7 +169,7 @@ const AddTpoDesign = ({ navigation, departmentlist }) => {
                                 <Button
                                     style={styles.loginButton}
                                     mode="contained"
-                                    onPress={() => { AddTpo(firstName, lastName, email, phoneno, selectedDepartment, password) }}
+                                    onPress={() => { addTPO(firstName, lastName, email, phoneno, selectedDepartment, password) }}
                                 >
                                     {strings.buttons.create_account}
                                 </Button>
