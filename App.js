@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -21,15 +22,22 @@ import AdminProfileEditActivity from './src/components/Users/Admin/ProfileDashbo
 import AdminProfileChangePasswordActivity from './src/components/Users/Admin/ProfileDashboard/ChangePassword';
 import AdminProfileSetMpinActivity from './src/components/Users/Admin/ProfileDashboard/SetMpin';
 import AdminProfileSetSecurityCodeActivity from './src/components/Users/Admin/ProfileDashboard/SetSecurityCode';
-import firebaseSession from "./src/firebase/firebaseSession";
+import TermsConditionActivity from './src/components/Users/User/TermsCondition';
+import AdminBottomNavActivity from './src/components/Users/Admin/BottomNavigation';
 
 const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        {/* Splash Section */}
+        <Stack.Screen options={{ headerShown: false }} name="SplashActivity" component={SplashActivity} />
+        <Stack.Screen options={{ headerShown: false }} name="UserDashboardActivity" component={UserDashboardActivity} />
+        <Stack.Screen options={{ headerShown: false }} name="UserLoginActivity" component={UserLoginActivity} />
+        <Stack.Screen options={{ headerShown: false }} name="UserSignupActivity" component={UserSignupActivity} />
+        <Stack.Screen options={{ title: 'Terms & Condition' }} name="TermsConditionActivity" component={TermsConditionActivity} />
         {/* Dashboard Section */}
-        <Stack.Screen options={{ headerShown: true }} name="AdminBottomNavActivity" component={AdminBottomNavDesign} />
+        <Stack.Screen options={{ headerShown: true }} name="AdminBottomNavActivity" component={AdminBottomNavActivity} />
         <Stack.Screen options={{ headerShown: true }} name="AdminDashboardActivity" component={AdminDashboardActivity} />
         <Stack.Screen options={{ headerShown: true }} name="AddDepartmentActivity" component={AddDepartmentActivity} />
         <Stack.Screen options={{ headerShown: true }} name="AddTpoActivity" component={AddTpoActivity} />
@@ -38,7 +46,6 @@ const App = () => {
         <Stack.Screen options={{ headerShown: true }} name="StudentListActivity" component={StudentListActivity} />
         <Stack.Screen options={{ headerShown: true }} name="SuspendTpoListActivity" component={SuspendTpoListActivity} />
         <Stack.Screen options={{ headerShown: true }} name="SuspendStudentListActivity" component={SuspendStudentListActivity} />
-
         {/* Profile Section */}
         <Stack.Screen options={{ headerShown: true }} name="AdminProfileDashboardActivity" component={AdminProfileDashboardActivity} />
         <Stack.Screen options={{ headerShown: true }} name="AdminProfileEditActivity" component={AdminProfileEditActivity} />
@@ -46,7 +53,6 @@ const App = () => {
         <Stack.Screen options={{ headerShown: true }} name="AdminProfileSetMpinActivity" component={AdminProfileSetMpinActivity} />
         <Stack.Screen options={{ headerShown: true }} name="AdminProfileSetSecurityCodeActivity" component={AdminProfileSetSecurityCodeActivity} />
         {/* Notification Section */}
-
 
       </Stack.Navigator>
     </NavigationContainer>

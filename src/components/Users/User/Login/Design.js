@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
-import { View, Image, ScrollView, } from 'react-native';
+import { View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Headline, TextInput, Button, Text, HelperText, Divider } from 'react-native-paper';
 import { styles } from "./styles";
 import strings from '../../../../res/strings';
 import images from '../../../../res/images';
-import UserDashboardDesign from '../../../UserDashboard/Design';
-import SignupAuth from '../../../../firebase/firebaseAuth';
-import UserDashboardActivity from "../../../UserDashboard/index";
+import dimensions from '../../../../res/dimensions';
+import SignupAuth from "../../../../firebase/firebaseAuth";
 
-const UserLoginDesign = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+const UserLoginDesign = ({ navigation, user, submitLogin, validateEmail, validatePassword, formClear, changePassIcon, keyboardHide }) => {
+    const [email, setEmail] = useState('');
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorEmailText, setErrorEmailText] = useState('');
+    const [isErrorEmail, setIsErrorEmail] = useState(false);
 
+    const [password, setPassword] = useState('');
+    const [errorPass, setErrorPass] = useState(false);
+    const [errorPassText, setErrorPassText] = useState('');
+    const [isErrorPass, setIsErrorPass] = useState(false);
+
+    const [passHide, setPassHide] = useState(true);
+    const [passIcon, setPassIcon] = useState('eye');
     return (
-        <View style={styles.mainContainer}>
+        <View style={styles.mainContainer} onPress={() => keyboardHide()}>
             <View style={styles.container}>
                 <ScrollView contentContainerStyle={styles.scrollView}>
                     <View style={styles.headerView}>
-                        <Text style={styles.headingText}>{strings.users.welcome_admin}</Text>
+                        <Text style={styles.headingText}>{strings.users.welcome}&nbsp;{user}</Text>
                     </View>
                     <View style={styles.loginView}>
                         <View style={styles.cardView}>
@@ -34,15 +42,19 @@ const UserLoginDesign = () => {
                                     placeholder={strings.textInput.email}
                                     blurOnSubmit={true}
                                     autoCapitalize='none'
-                                    // autoFocus
                                     keyboardType="email-address"
-                                    // error={isErrorEmail}
+                                    // autoFocus
+                                    error={isErrorEmail}
                                     value={email}
-                                    // onChangeText={ (email) => { setEmail(email); validateEmailId(text); } }
-                                    onChangeText={(email) => setEmail(email)}
+                                    onChangeText={(email) => {
+                                        setEmail((email.replace(/[\s]/g, '')));
+                                        validateEmail(email);
+                                        checkEmail(email);
+                                    }}
+                                    selectionColor={dimensions.color.select_color}
                                     left={<TextInput.Icon name="email" color={"darkblue"} disabled={true} />}
                                 />
-                                <HelperText type="error" visible={true}>Error Message</HelperText>
+                                <HelperText type="error" visible={errorEmail}>{errorEmailText}</HelperText>
                             </View>
                             <View style={styles.spacing15}></View>
                             <View>
@@ -50,19 +62,24 @@ const UserLoginDesign = () => {
                                     autoCompleteType="password"
                                     label={strings.textInput.password}
                                     mode="outlined"
-                                    placeholder={strings.textInput.password}
+                                    label={strings.textInput.password}
                                     blurOnSubmit={true}
-                                    secureTextEntry={true}
+                                    secureTextEntry={passHide}
                                     autoCorrect={false}
                                     textContentType={'password'}
                                     multiline={false}
-                                    error={false}
                                     value={password}
-                                    onChangeText={(password) => { setPassword(password) }}
+                                    error={isErrorPass}
+                                    onChangeText={(password) => {
+                                        setPassword(password.replace(/[\s]/g, ''));
+                                        validatePassword(password);
+                                        checkPassword(password);
+                                    }}
+                                    selectionColor={dimensions.color.select_color}
                                     left={<TextInput.Icon name="key-variant" color={"darkblue"} disabled={true} />}
-                                    right={<TextInput.Icon name="eye" color={"darkblue"} disabled={false} onPress={() => { }} />}
+                                    right={<TextInput.Icon name={passIcon} color={"darkblue"} disabled={false} onPress={() => hidePasswordIcon(passIcon)} />}
                                 />
-                                <HelperText type="info" visible={true}>Error Message</HelperText>
+                                <HelperText type="error" visible={errorPass}>{errorPassText}</HelperText>
                             </View>
                             <View style={styles.spacing25}></View>
                             <View style={styles.submitButton} >
@@ -70,15 +87,19 @@ const UserLoginDesign = () => {
                                     style={styles.loginButton}
                                     icon="login"
                                     mode="contained"
-                                    onPress={() => { SignupAuth(email, password); console.log(email, password); }}
+                                    onPress={() => {
+                                        submitLogin(email, password);
+                                        checkEmail(email);
+                                        checkPassword(password);
+                                        formDataClear(formClear(true));
+
+                                    }}
                                 >
-                                    LOGIN
+                                    {strings.buttons.login}
                                 </Button>
-                            </View>
-                            <View style={styles.newAcc}>
                                 <View style={styles.spacing15}></View>
-                                <Text style={styles.newAccText}>Don't have an account? Create one new</Text>
                             </View>
+                            {user == strings.users.student ? newAccount() : []}
                         </View>
                     </View>
                 </ScrollView>
@@ -92,5 +113,34 @@ const UserLoginDesign = () => {
             </View>
         </View>
     );
+    function newAccount() {
+        return (
+            <View style={styles.newAcc}>
+                <TouchableOpacity onPress={() => navigation.navigate('UserSignupActivity')}>
+                    <Text style={styles.newAccText}>{strings.buttons.signup_page}</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+    function hidePasswordIcon(icon) {
+        setPassIcon(changePassIcon(icon).passIcon);
+        setPassHide(changePassIcon(icon).passHide)
+    }
+    function formDataClear(allow) {
+        if (submitLogin(email, password)) {
+            setEmail('');
+            setPassword('');
+        }
+    }
+    function checkEmail(email) {
+        setErrorEmail(validateEmail(email).errorEmail);
+        setErrorEmailText(validateEmail(email).errorEmailText);
+        setIsErrorEmail(validateEmail(email).isErrorEmail);
+    }
+    function checkPassword(password) {
+        setErrorPass(validatePassword(password).errorPass);
+        setErrorPassText(validatePassword(password).errorPassText);
+        setIsErrorPass(validatePassword(password).isErrorPass);
+    }
 }
 export default UserLoginDesign;

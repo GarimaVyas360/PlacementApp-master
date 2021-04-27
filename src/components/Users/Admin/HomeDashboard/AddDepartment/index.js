@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import AddDepartmentDesign from './Design';
 import prompt from "react-native-prompt-android";
 import firestore from "@react-native-firebase/firestore";
-
+import { ToastAndroid, Alert } from "react-native";
+import { departmentListCollection } from '../../../../../firebase/firestore/UserSignUp';
+import { updateDepartment } from "../../../../../firebase/firestore/UserSignUp";
 const AddDepartmentActivity = ({ navigation }) => {
     const [users, setUsers] = useState([]);
     const departmentlist = [];
@@ -41,17 +43,86 @@ const AddDepartmentActivity = ({ navigation }) => {
         <AddDepartmentDesign
             navigation={navigation}
             list={users}
-            validateDepartment={(department) => { validateDepartment(department) }}
+            // validateDepartment={(department) => { validateDepartment(department) }} 
+            validateBranch={(department) => validateBranch(department)}
+            submitDepartment={(department) => { submitDepartment(department) }}
+            formClear={(allow) => { formClear(allow) }}
+            updateAlert={(departmentKey, department) => { updateAlert(departmentKey, department) }}
         />
     );
 
 
+    function submitDepartment(department) {
+        if (validateDepartment(department).isValidate) {
+            console.log("btn click");
+            // createDepartment(department);
+            departmentListCollection(department);
+        }
+        else {
+            ToastAndroid.show("Enter the Valid  department", ToastAndroid.SHORT);
+        }
+        // formClear(true);
+    }
+
+
+    function formClear(status) {
+        return status;
+    }
+
+
     function validateDepartment(department) {
         if (!department) {
-            return (
-                setError = 'true',
-                setErrorText = "Enter the Department"
-            );
+            return {
+                errorDepartment: true,
+                errorText: "Enter the Department",
+                isErrorDepartment: true,
+                isValidate: false,
+            }
+        }
+        else {
+            return {
+                errorDepartment: false,
+                errorText: "",
+                isErrorDepartment: false,
+                isValidate: true,
+            }
+        }
+    }
+
+    function updateAlert(departmentkey, selectedDepartment) {
+        prompt(
+            'Update Department',
+            '',
+            [
+                { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                { text: 'OK', onPress: (department) => updateDepartment(departmentkey, department) },
+            ],
+            {
+                type: 'plain-text',
+                cancelable: false,
+                defaultValue: selectedDepartment,
+                placeholder: 'department'
+            }
+        );
+    }
+
+
+    function validateBranch(department) {
+        if (!department) {
+            return {
+                errorBranch: true,
+                errorBranchText: 'Select Department/Branch.',
+                isErrorBranch: true,
+                isValidate: false
+            };
+        }
+        else {
+            return {
+                errorBranch: false,
+                errorBranchText: '',
+                isErrorBranch: false,
+                isValidate: true,
+            };
         }
     }
 }

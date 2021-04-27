@@ -18,19 +18,19 @@
 // }
 const images = {
     onboarding: {
-        user_admin: require('../images/user_admin.png'),
+        user_admin: require('../images/user_admin.jpg'),
     },
     college: {
-        logo_square: require('../images/college_logo.png'),
+        logo_square: require('../images/college_logo.jpg'),
     },
     splash: {
-        icon: require('../images/splash.png'),
+        icon: require('../images/splash.jpg'),
     },
     user_dash: {
-        student: require('../images/student.png'),
-        tpo: require('../images/teacher.png'),
-        admin: require('../images/admin.png'),
-        department: require('../images/department.png'),
+        student: require('../images/student.jpg'),
+        tpo: require('../images/teacher.jpg'),
+        admin: require('../images/admin.jpg'),
+        department: require('../images/department.jpg'),
     },
 }
 export default images;

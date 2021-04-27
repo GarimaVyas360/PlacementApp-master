@@ -23,9 +23,10 @@ const strings = {
         powered_by: 'Powered by Medicaps University',
     },
     users: {
-        student: 'Student',
+        student: 'Students',
         tpo: 'TPO',
         admin: 'Admin',
+        welcome: 'Welcome',
         welcome_admin: 'Welcome Admin',
         welcome_tpo: 'Welcome TPO',
         welcome_student: 'Welcome Student',
@@ -60,6 +61,7 @@ const strings = {
         change_password: 'Change Password',
         update_password: 'Update Password',
         set_security_code: 'Manage High Security Password',
+        terms_condition: 'Terms & Conditions.'
     }
 }
 export default strings;

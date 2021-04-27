@@ -1,5 +1,5 @@
 const dimensions = {
-    font_size:{
+    font_size: {
         small_xx: 8,
         small_x: 10,
         small: 12,
@@ -13,6 +13,9 @@ const dimensions = {
     },
     color: {
         footer: '#e8e4c9',
+        lightblack: '#4d4d4d',
+        darkblue: '#0c1b32',
+        select_color: 'darkgray',
     },
 }
 export default dimensions;

@@ -2,7 +2,6 @@ import firestore from '@react-native-firebase/firestore';
 import CreateUser from '../CreateUser';
 
 export const UserSignUp = (firstName, lastName, gender, email, password, phoneno, branch, enrollment) => {
-    CreateUser(email, password);
     console.log(firstName, lastName, gender, email, password, phoneno, branch, enrollment);
     firestore()
         .collection('Students')
@@ -19,10 +18,10 @@ export const UserSignUp = (firstName, lastName, gender, email, password, phoneno
         .then(() => {
             console.log('User added!');
         });
+    return true;
 }
 
 export const addTPO = (firstName, lastName, email, phoneno, selectedDepartment, password) => {
-    CreateUser(email, password);
     console.log(firstName, lastName, email, password, phoneno, selectedDepartment);
     firestore()
         .collection('TPO')
@@ -41,24 +40,56 @@ export const addTPO = (firstName, lastName, email, phoneno, selectedDepartment, 
 
 
 
-
+function onSuccess(allow) {
+    return allow;
+}
 
 
 
 const count = 0;
+const departmentList = [];
+
 export const createDepartment = (department) => {
-    id = parseInt(count) + 1
     firestore()
         .collection('departments')
         .add({
-            id: id + 1,
             department: department,
             alias: ''
-        })
-        .then(() => {
-            console.log("department added");
-        })
+        }).then((response) => {
+            console.log("reponse --->>", response);
+        }).catch((error) => {
+            console.log("error --->>", error)
+        });
 }
+
+
+export function departmentListCollection(department) {
+    var size;
+    firestore()
+        .collection("departments")
+        // order by asc and desc order
+        .where('department', '==', department)
+        .get()
+        .then(querySnapshot => {
+            console.log('Total users: ', querySnapshot.size);
+            size = querySnapshot.size;
+            querySnapshot.forEach(documentSnapshot => {
+                console.log('User exists: ', size);
+
+                if (documentSnapshot.exists) {
+                    console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                    // return true;
+
+                }
+            });
+            if (size == 0) {
+                console.log('Total success user: ', querySnapshot.size);
+                createDepartment(department);
+            }
+        });
+}
+
+
 
 
 export const deleteDepartment = (key) => {

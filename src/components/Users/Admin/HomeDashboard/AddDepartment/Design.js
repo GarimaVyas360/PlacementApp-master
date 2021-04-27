@@ -6,18 +6,30 @@ import { Picker } from '@react-native-picker/picker';
 import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
+import prompt from 'react-native-prompt-android';
+import { updateDepartment } from "../../../../../firebase/firestore/UserSignUp";
+
 import { createDepartment, deleteDepartment } from "../../../../../firebase/firestore/UserSignUp";
 import firestore from "@react-native-firebase/firestore";
 
-const AddDepartmentDesign = ({ navigation, list, validateDepartment }) => {
+const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartment, formClear, updateAlert }) => {
     const [modalVisible, setModalVisible] = useState(false);
+
     const [department, setDepartment] = useState("");
-    const [error, SetError] = useState("");
+    const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState("");
-    const [branch, setBranch] = useState("");
+    const [isErrorDepartment, setIsErrorDepartment] = useState(false);
+
+    // const [branch, setBranch] = useState("");
     const [users, setUsers] = useState([]);
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [departmentKey, setDepartmentKey] = useState('');
+
+    const [branch, setBranch] = useState('');
+    const [errorBranch, setErrorBranch] = useState(false);
+    const [errorBranchText, setErrorBranchText] = useState('');
+    const [isErrorBranch, setIsErrorBranch] = useState(false);
+
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -42,7 +54,7 @@ const AddDepartmentDesign = ({ navigation, list, validateDepartment }) => {
                                 blurOnSubmit={true}
                                 autoCapitalize='words'
                                 // autoFocus
-                                // error={isErrorFirstName}
+                                error={errorBranch}
                                 // value={firstName}
                                 // onChangeText={ (text) => { 
                                 //     setFirstName(text);
@@ -53,16 +65,17 @@ const AddDepartmentDesign = ({ navigation, list, validateDepartment }) => {
                                 value={department}
                                 onChangeText={(department) => {
                                     setDepartment(department);
-                                    // ValidateDepartment(department);
+                                    validateBranch(department);
+                                    checkBranch(department);
                                 }}
                                 left={<TextInput.Icon name="book" color={"darkblue"} disabled={true} />}
                             />
-                            <HelperText type="error" visible={true}>error</HelperText>
+                            <HelperText type="error" visible={isErrorBranch}>{errorBranchText}</HelperText>
                             <View style={styles.submitButton} >
                                 <Button
                                     style={styles.loginButton}
                                     mode="contained"
-                                    onPress={() => { createDepartment(department); }}
+                                    onPress={() => { submitDepartment(department); formDataClear(formClear(true)); }}
 
                                 >
                                     Save
@@ -79,7 +92,12 @@ const AddDepartmentDesign = ({ navigation, list, validateDepartment }) => {
                                 <Picker
                                     style={{}}
                                     selectedValue={selectedDepartment}
-                                    onValueChange={(itemValue, itemIndex) => { setDepartmentKey(itemValue); departmentName(itemValue), setModalVisible(true) }} >
+                                    onValueChange={(itemValue, itemIndex) => {
+                                        checkBranch(itemValue);
+                                        setDepartmentKey(itemValue);
+                                        departmentName(itemValue),
+                                            setModalVisible(true)
+                                    }} >
                                     <Picker.Item label="--- Select Branch ---" value="" />
                                     {list.map((item, index) => {
                                         return (
@@ -105,7 +123,7 @@ const AddDepartmentDesign = ({ navigation, list, validateDepartment }) => {
                             <Text style={styles.modalText}>{strings.onBoarding.do_you_want_delete}</Text>
                             <View style={styles.modalSubTextView}>
                                 <Text style={styles.modalSubText}>"{selectedDepartment}" Department</Text>
-                                <TouchableOpacity onPress={() => { alert(departmentKey) }}>
+                                <TouchableOpacity onPress={() => { updateAlert(departmentKey, selectedDepartment), setModalVisible(false) }}>
                                     <Icon name="playlist-edit" size={25} style={styles.modalEditIcon} />
                                 </TouchableOpacity>
                             </View>
@@ -113,7 +131,7 @@ const AddDepartmentDesign = ({ navigation, list, validateDepartment }) => {
                                 <Button
                                     style={styles.cancelButton}
                                     mode="contained"
-                                    onPress={() => { setSelectedDepartment(""); setModalVisible(!modalVisible) }}
+                                    onPress={() => { setModalVisible(!modalVisible); setDepartmentKey(""); console.log("selected departemnt", selectedDepartment); }}
                                 >
                                     {strings.buttons.cancel}
                                 </Button>
@@ -150,7 +168,18 @@ const AddDepartmentDesign = ({ navigation, list, validateDepartment }) => {
             });
     }
 
+    function formDataClear(allow) {
+        if (submitDepartment(department)) {
+            setDepartment("");
 
+        }
+    }
+
+    function checkBranch(department) {
+        setErrorBranch(validateBranch(department).errorBranch);
+        setErrorBranchText(validateBranch(department).errorBranchText);
+        setIsErrorBranch(validateBranch(department).isErrorBranch);
+    }
 
 }
 export default AddDepartmentDesign;
