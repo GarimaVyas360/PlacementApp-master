@@ -1,19 +1,20 @@
-import React, {useState} from 'react';
-import {View,Image, ScrollView, TouchableOpacity, FlatList, Linking} from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, ScrollView, TouchableOpacity, FlatList, Linking } from 'react-native';
 import { Headline, TextInput, Button, Text, HelperText, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
+import suspendedList from "../TpoList/Design";
 
-const SuspendTpoListDesign = ({navigation,data}) => {
+const SuspendTpoListDesign = ({ navigation, data }) => {
     React.useLayoutEffect(() => {
         navigation.setOptions({
-          title: strings.onBoarding.suspend_tpo_staff, //Set Header Title
+            title: strings.onBoarding.suspend_tpo_staff, //Set Header Title
         });
     }, [navigation]);
-     
+
     const renderItem = ({ item }) => {
         return (
             // <TouchableOpacity style={styles.item}>
@@ -24,11 +25,11 @@ const SuspendTpoListDesign = ({navigation,data}) => {
                     <Text style={styles.listDataName}>{item.name}</Text>
                     <View style={styles.listDataEmailView}>
                         <Icon style={styles.activityHeadingIcon} name='email' type='MaterialIcons' color='gray' />
-                        <Text onPress={ () => {Linking.openURL('mailto:'+item.email); }} style={styles.listDataEmail}>{item.email}</Text>
+                        <Text onPress={() => { Linking.openURL('mailto:' + item.email); }} style={styles.listDataEmail}>{item.email}</Text>
                     </View>
                     <View style={styles.listDataContactView}>
                         <Icon style={styles.activityHeadingIcon} name='phone' type='MaterialIcons' color='gray' />
-                        <Text onPress={ () => {Linking.openURL('tel:'+item.contact); }} style={styles.listDataContact}>{item.contact}</Text>
+                        <Text onPress={() => { Linking.openURL('tel:' + item.contact); }} style={styles.listDataContact}>{item.contact}</Text>
                     </View>
                     <Text style={styles.listDataBranch}>{item.branch}</Text>
                 </View>
@@ -36,39 +37,39 @@ const SuspendTpoListDesign = ({navigation,data}) => {
                     <Button
                         style={styles.listActionButton}
                         mode="contained"
-                        labelStyle={{fontSize: 11}}
-                        onPress={ () => { }}
-                        >
+                        labelStyle={{ fontSize: 11 }}
+                        onPress={() => { }}
+                    >
                         {strings.buttons.activate}
                     </Button>
                     <Button
                         style={styles.listActionButtonDelete}
                         icon={'delete'}
                         mode="contained"
-                        labelStyle={{fontSize: 11}}
-                        onPress={ () => { }}
-                        >
+                        labelStyle={{ fontSize: 11 }}
+                        onPress={() => { }}
+                    >
                         {strings.buttons.delete}
                     </Button>
                 </View>
             </View>
         );
     };
-    return(
+    return (
         <View style={styles.mainContainer}>
-            <View style={styles.container}> 
+            <View style={styles.container}>
                 <View style={styles.activityView}>
                     <View style={styles.spacing15}>
                         <Picker
                             style={{}}
                             // selectedValue={}
-                            onValueChange={(itemValue, itemIndex) => {} }>
+                            onValueChange={(itemValue, itemIndex) => { }}>
                             <Picker.Item label="All Department/Branch" value="" />
                             <Picker.Item label="Ankush" value="" />
                             <Picker.Item label="Shefali" value="" />
                             <Picker.Item label="Garima" value="" />
                         </Picker>
-                        <Divider style={{height:1,backgroundColor:'lightgray',}}></Divider>
+                        <Divider style={{ height: 1, backgroundColor: 'lightgray', }}></Divider>
                     </View>
                     <View style={styles.listView}>
                         <FlatList
@@ -81,6 +82,6 @@ const SuspendTpoListDesign = ({navigation,data}) => {
             </View>
         </View>
     );
-    
+
 }
 export default SuspendTpoListDesign;

@@ -1,22 +1,39 @@
-import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, ScrollView, ToastAndroid, BackHandler, Alert,
-       Image, TouchableOpacity, PermissionsAndroid, Animated, Easing, Dimensions, TouchableNativeFeedback} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+    StyleSheet, View, ScrollView, ToastAndroid, BackHandler, Alert,
+    Image, TouchableOpacity, PermissionsAndroid, Animated, Easing, Dimensions, TouchableNativeFeedback
+} from 'react-native';
 import { Headline, TextInput, Button, Text, HelperText, Divider, RadioButton } from 'react-native-paper';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import CardView from 'react-native-cardview';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
+import { addAdmin } from '../../../../../firebase/firestore/UserSignUp';
 
-const AdminProfileEditDesign = ({navigation,nav_title}) => {
+const AdminProfileEditDesign = ({ navigation, nav_title, FirstName, LastName, Gender, Email, Mobile, Enrollment, Department, list }) => {
+    const firstname = FirstName;
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState(LastName);
+    const [gender, setGender] = useState('Male');
+    const [email, setEmail] = useState(Email);
+    const [mobile, setMobile] = useState(Mobile);
+    const [enrollment, setEnrollment] = useState(Enrollment);
+    const [selectedDepartment, setSelectedDepartment] = useState(Department);
+
+    useEffect(() => {
+        setFirstName(FirstName);
+    })
+
+
     React.useLayoutEffect(() => {
         navigation.setOptions({
-          title: strings.onBoarding.edit_profile, //Set Header Title
+            title: strings.onBoarding.edit_profile, //Set Header Title
         });
     }, [navigation]);
-    return(
+    return (
         <View style={styles.mainContainer}>
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
@@ -30,13 +47,13 @@ const AdminProfileEditDesign = ({navigation,nav_title}) => {
                         cornerRadius={100}
                         style={styles.cardViewStyle}
                     >
-                      <TouchableNativeFeedback 
-                        style={styles.tinyLogo}>
-                        <Image 
-                            style={styles.tinyImageLogo}
-                            source={images.user_dash.admin}
-                        />
-                      </TouchableNativeFeedback>
+                        <TouchableNativeFeedback
+                            style={styles.tinyLogo}>
+                            <Image
+                                style={styles.tinyImageLogo}
+                                source={images.user_dash.admin}
+                            />
+                        </TouchableNativeFeedback>
                     </CardView>
                 </View>
                 <View style={styles.baseContainer}>
@@ -50,9 +67,9 @@ const AdminProfileEditDesign = ({navigation,nav_title}) => {
                             autoCapitalize='words'
                             // autoFocus
                             error={false}
-                            //value={firstName}
-                            onChangeText={ (text) => {} }
-                            left={ <TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
+                            value={firstName}
+                            onChangeText={(firstName) => { setFirstName(firstName) }}
+                            left={<TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
                         />
                         <HelperText type="error" visible={true}>Error Message</HelperText>
                     </View>
@@ -67,9 +84,9 @@ const AdminProfileEditDesign = ({navigation,nav_title}) => {
                             autoCapitalize='words'
                             // autoFocus
                             error={false}
-                            //value={firstName}
-                            onChangeText={ (text) => {} }
-                            left={ <TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
+                            value={LastName}
+                            onChangeText={(lastName) => { setLastName(lastName) }}
+                            left={<TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
                         />
                         <HelperText type="error" visible={true}>Error Message</HelperText>
                     </View>
@@ -79,22 +96,24 @@ const AdminProfileEditDesign = ({navigation,nav_title}) => {
                             <RadioButton style={styles.textInputFieldRadioButton}
                                 value="first"
                                 //status={ gender === 'Male' ? 'checked' : 'unchecked' }
+                                // status='checked'
+                                status={gender === 'Male' ? 'checked' : 'unchecked'}
                                 color="black"
                                 uncheckedColor="gray"
-                                onPress={() => {}}
-                                // setGender('Male')
+                                onPress={() => { setGender('Male') }}
+                            // setGender('Male')
                             />
                             <Text style={styles.textInputFieldRadioButtonText}>Male</Text>
                         </View>
                         <View style={styles.textInputFieldRadioButtonView}>
                             <RadioButton style={styles.textInputFieldRadioButton}
                                 value="second"
-                                //status={ gender === 'Female' ? 'checked' : 'unchecked' }
-                                status={'checked'}
+                                status={gender === 'Female' ? 'checked' : 'unchecked'}
+                                // status={'checked'}
                                 color="black"
                                 uncheckedColor="gray"
-                                onPress={() => {}}
-                                // setGender('Female')
+                                onPress={() => { setGender('Female') }}
+                            // setGender('Female')
                             />
                             <Text style={styles.textInputFieldRadioButtonText}>Female</Text>
                         </View>
@@ -110,9 +129,9 @@ const AdminProfileEditDesign = ({navigation,nav_title}) => {
                             keyboardType="email-address"
                             // autoFocus
                             error={false}
-                            //value={email}
-                            onChangeText={ (text) => {} }
-                            left={ <TextInput.Icon name="email" color={"darkblue"} disabled={true} />}
+                            value={Email}
+                            onChangeText={(email) => { setEmail(email) }}
+                            left={<TextInput.Icon name="email" color={"darkblue"} disabled={true} />}
                         />
                         <HelperText type="error" visible={true}>Error</HelperText>
                     </View>
@@ -128,10 +147,10 @@ const AdminProfileEditDesign = ({navigation,nav_title}) => {
                             keyboardType="phone-pad"
                             // autoFocus
                             error={false}
-                            //value={email}
-                            onChangeText={ (text) => {} }
+                            value={Mobile}
+                            onChangeText={(mobile) => { setMobile(mobile) }}
                             // text.replace(/[^0-9]/g, '')
-                            left={ <TextInput.Icon name="phone" color={"darkblue"} disabled={true} />}
+                            left={<TextInput.Icon name="phone" color={"darkblue"} disabled={true} />}
                         />
                         <HelperText type="error" visible={true}>Error</HelperText>
                     </View>
@@ -140,12 +159,23 @@ const AdminProfileEditDesign = ({navigation,nav_title}) => {
                         <View style={styles.pickerView}>
                             <Picker
                                 style={{}}
-                                // selectedValue={}
-                                onValueChange={(itemValue, itemIndex) => {} }>
+
+                                selectedValue={Department}
+                                onValueChange={(itemValue, itemIndex) => {
+                                    // checkBranch(itemValue);
+                                    // setDepartmentKey(itemValue);
+                                    // departmentName(itemValue);
+                                    setSelectedDepartment(itemValue);
+                                    // filterList(itemValue);
+                                    // setModalVisible(true)
+                                }} >
+
                                 <Picker.Item label="--- Select Branch ---" value="" />
-                                <Picker.Item label="Ankush" value="" />
-                                <Picker.Item label="Shefali" value="" />
-                                <Picker.Item label="Garima" value="" />
+                                {list.map((item, index) => {
+                                    return (
+                                        <Picker.Item label={item.department} value={item.department} key={item} />
+                                    )
+                                })}
                             </Picker>
                         </View>
                         <HelperText type="error" visible={true}>Error</HelperText>
@@ -161,19 +191,19 @@ const AdminProfileEditDesign = ({navigation,nav_title}) => {
                             autoCapitalize='characters'
                             // autoFocus
                             error={false}
-                            //value={firstName}
-                            onChangeText={ (text) => {} }
-                            left={ <TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
+                            value={Enrollment}
+                            onChangeText={(enrollment) => { setEnrollment(enrollment) }}
+                            left={<TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
                         />
                         <HelperText type="error" visible={true}>Error Message</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
                     <View style={styles.submitButton} >
-                        <Button 
+                        <Button
                             style={styles.loginButton}
                             mode="contained"
-                            onPress={ () => { navigation.goBack(); }}
-                            >
+                            onPress={() => { addAdmin(firstName, lastName, email, mobile, selectedDepartment, enrollment, gender), navigation.goBack(); }}
+                        >
                             {strings.buttons.update_profile}
                         </Button>
                     </View>

@@ -1,13 +1,15 @@
 import firestore from '@react-native-firebase/firestore';
 import CreateUser from '../CreateUser';
+import keywords from "../../res/databasekeywords/keywords";
 
 export const UserSignUp = (firstName, lastName, gender, email, password, phoneno, branch, enrollment) => {
     console.log(firstName, lastName, gender, email, password, phoneno, branch, enrollment);
+    // keywords.student_table.FirstName = FirstName;
     firestore()
         .collection('Students')
         .add({
             FirstName: firstName,
-            lastName: lastName,
+            LastName: lastName,
             Gender: gender,
             Email: email,
             Password: password,
@@ -27,7 +29,7 @@ export const addTPO = (firstName, lastName, email, phoneno, selectedDepartment, 
         .collection('TPO')
         .add({
             FirstName: firstName,
-            lastName: lastName,
+            LastName: lastName,
             Email: email,
             Password: password,
             Department: selectedDepartment,
@@ -89,8 +91,25 @@ export function departmentListCollection(department) {
         });
 }
 
+export const deleteTpo = (key) => {
+    firestore()
+        .collection('TPO')
+        .doc(key)
+        .delete()
+        .then(() => {
+            console.log("tpo deleted");
+        })
+}
 
-
+export const deleteStudents = (key) => {
+    firestore()
+        .collection('Students')
+        .doc(key)
+        .delete()
+        .then(() => {
+            console.log("Students deleted");
+        })
+}
 
 export const deleteDepartment = (key) => {
     firestore()
@@ -112,4 +131,23 @@ export const updateDepartment = (key, newdepartment) => {
         .then(() => {
             console.log("department updated");
         })
+}
+
+export const addAdmin = (firstName, lastName, email, phoneno, selectedDepartment, password, enrollment, gender) => {
+    console.log(firstName, lastName, email, password, phoneno, selectedDepartment, enrollment, gender);
+    firestore()
+        .collection('TPO')
+        .add({
+            FirstName: firstName,
+            LastName: lastName,
+            Email: email,
+            Password: password,
+            Department: selectedDepartment,
+            Mobile: phoneno,
+            Enrollment: enrollment,
+            Gender: gender
+        })
+        .then(() => {
+            console.log('TPO added!');
+        });
 }
