@@ -24,6 +24,8 @@ import AdminProfileSetMpinActivity from './src/components/Users/Admin/ProfileDas
 import AdminProfileSetSecurityCodeActivity from './src/components/Users/Admin/ProfileDashboard/SetSecurityCode';
 import TermsConditionActivity from './src/components/Users/User/TermsCondition';
 import AdminBottomNavActivity from './src/components/Users/Admin/BottomNavigation';
+import AdminChattingDashboardActivity from './src/components/Users/Admin/ChattingDashboard/Dashboard';
+import AdminChattingGroupActivity from './src/components/Users/Admin/ChattingDashboard/Group';
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -52,8 +54,10 @@ const App = () => {
         <Stack.Screen options={{ headerShown: true }} name="AdminProfileChangePasswordActivity" component={AdminProfileChangePasswordActivity} />
         <Stack.Screen options={{ headerShown: true }} name="AdminProfileSetMpinActivity" component={AdminProfileSetMpinActivity} />
         <Stack.Screen options={{ headerShown: true }} name="AdminProfileSetSecurityCodeActivity" component={AdminProfileSetSecurityCodeActivity} />
-        {/* Notification Section */}
 
+        {/* Admin's Chatting Section */}
+        <Stack.Screen options={{ headerShown: true }} name="AdminChattingDashboardActivity" component={AdminChattingDashboardActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="AdminChattingGroupActivity" component={AdminChattingGroupActivity} />
       </Stack.Navigator>
     </NavigationContainer>
   );

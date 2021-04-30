@@ -235,3 +235,19 @@ export function suspendStudent(userId) {
         });
 
 }
+
+export function SubmitGroup(groupName, id, sender, message, date, time) {
+    firestore()
+        .collection(groupName)
+        .doc(id)
+        .set({
+            Sender: sender,
+            Message: message,
+            Date: date,
+            Time: time
+        }).then((response) => {
+            console.log("reponse --->>", response);
+        }).catch((error) => {
+            console.log("error --->>", error)
+        });
+}

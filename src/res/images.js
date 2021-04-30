@@ -16,6 +16,7 @@
 //         admin: 'https://i.ibb.co/bHBNkTg/admin.png',
 //     },
 // }
+
 const images = {
     onboarding: {
         user_admin: require('../images/user_admin.jpg'),
@@ -32,5 +33,9 @@ const images = {
         admin: require('../images/admin.jpg'),
         department: require('../images/department.jpg'),
     },
+    chat: {
+        group_bg: require('../images/group_bg.jpg'),
+    }
+
 }
 export default images;

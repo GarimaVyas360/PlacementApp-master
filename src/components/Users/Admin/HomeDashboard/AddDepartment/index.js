@@ -56,7 +56,9 @@ const AddDepartmentActivity = ({ navigation }) => {
         if (validateDepartment(department).isValidate) {
             console.log("btn click");
             // createDepartment(department);
+            formClear(true);
             departmentListCollection(department);
+            ToastAndroid.show("Department Added ", ToastAndroid.SHORT);
         }
         else {
             ToastAndroid.show("Enter the Valid  department", ToastAndroid.SHORT);
