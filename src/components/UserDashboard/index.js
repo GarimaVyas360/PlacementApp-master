@@ -1,11 +1,10 @@
 import React from 'react';
 import UserDashboardDesign from './Design';
 
-const UserDashboardActivity = () => {
-    console.log("dashboard test");
+const UserDashboardActivity = ({ navigation }) => {
     return (
-
-        <UserDashboardDesign />
+        <UserDashboardDesign
+            navigation={navigation} />
     );
 }
 export default UserDashboardActivity;

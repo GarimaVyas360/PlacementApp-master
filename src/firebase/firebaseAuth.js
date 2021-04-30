@@ -3,12 +3,12 @@ import { View, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 
-const SignupAuth = (email, password) => {
-    console.log(email, password);
+export const SignupAuth = (email, password) => {
+    console.log("EMail + Password" + email + password);
     auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
-            console.log('User account created & signed in!');
+            console.log('User account signed in!');
         })
         .catch(error => {
             if (error.code === 'auth/email-already-in-use') {
@@ -23,4 +23,21 @@ const SignupAuth = (email, password) => {
         });
 }
 
-export default SignupAuth;
+
+
+// export function studentVerify(email) {
+//     console.log("EMail" + email);
+//     firestore()
+//         .collection('Students')
+//         .where('Email', '==', email)
+//         .get()
+//         .then(documentSnapshot => {
+//             console.log('User exists: ', documentSnapshot.exists);
+
+//             if (documentSnapshot.exists) {
+//                 console.log('User data: ', documentSnapshot.data());
+//                 console.log(documentSnapshot.get('Email'));
+
+//             }
+//         });
+// }
