@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Image, ScrollView, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
+import { View, Image, ScrollView, TouchableOpacity, TouchableNativeFeedback, FlatList } from 'react-native';
 import { Headline, TextInput, Button, Text, HelperText, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from "./styles";
