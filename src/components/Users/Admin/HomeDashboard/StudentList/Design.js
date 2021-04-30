@@ -7,12 +7,13 @@ import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
 import firestore from "@react-native-firebase/firestore";
-import { deleteStudents } from '../../../../../firebase/firestore/UserSignUp';
+import { deleteStudents, suspendStudentList } from '../../../../../firebase/firestore/UserSignUp';
 
 const StudentListDesign = ({ navigation, StudentData, departmentList }) => {
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [departmentKey, setDepartmentKey] = useState('');
     var dataList = StudentData.slice();
+    var emptyList = [];
     const [user, setusers] = useState(dataList);
     const [suspendedList, setSuspendedList] = useState([]);
 
@@ -53,7 +54,10 @@ const StudentListDesign = ({ navigation, StudentData, departmentList }) => {
                         style={styles.listActionButton}
                         mode="contained"
                         labelStyle={{ fontSize: 10 }}
-                        onPress={() => { console.log("btn click" + item.key); suspendStudents(item.key); }}
+                        onPress={() => {
+                            console.log("btn click" + item.key);
+                            suspendStudentList(item.FirstName, item.LastName, item.Email, item.Phoneno, item.Department, item.Password, item.key);
+                        }}
                     >
                         {strings.buttons.suspend}
                     </Button>
@@ -101,28 +105,28 @@ const StudentListDesign = ({ navigation, StudentData, departmentList }) => {
 
 
 
-    function suspendStudents(userId) {
-        const suspendList = [];
-        firestore()
-            .collection('Students')
-            .doc(userId)
-            .get()
-            .then(documentSnapshot => {
-                if (documentSnapshot.exists) {
-                    console.log('User data: ', documentSnapshot.data());
-                    suspendList.push({
-                        ...documentSnapshot.data(),
-                        key: documentSnapshot.id,
-                    });
-                }
-                setSuspendedList(suspendList);
-                suspendList.map((item, index) => {
-                    console.log("item :--" + item.FirstName);
-                })
-                deleteStudents(userId);
-            });
+    // function suspendStudents(userId) {
+    //     const suspendList = [];
+    //     firestore()
+    //         .collection('Students')
+    //         .doc(userId)
+    //         .get()
+    //         .then(documentSnapshot => {
+    //             if (documentSnapshot.exists) {
+    //                 console.log('User data: ', documentSnapshot.data());
+    //                 suspendList.push({
+    //                     ...documentSnapshot.data(),
+    //                     key: documentSnapshot.id,
+    //                 });
+    //             }
+    //             setSuspendedList(suspendList);
+    //             suspendList.map((item, index) => {
+    //                 console.log("item :--" + item.FirstName);
+    //             })
+    //             deleteStudents(userId);
+    //         });
 
-    }
+    // }
 
     function filterList(selectedDepartment) {
         var size, filterList = [];
@@ -155,6 +159,7 @@ const StudentListDesign = ({ navigation, StudentData, departmentList }) => {
                 });
                 if (size == 0) {
                     console.log('Total success user: ', querySnapshot.size);
+                    setusers(emptyList);
                     // onSuccess(false);
                 }
             });

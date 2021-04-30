@@ -45,6 +45,7 @@ const strings = {
         old_password: 'Old Password',
         new_password: 'New Password',
         security_password: 'Security Password',
+        whatsapp_number: 'Whatsapp Number'
     },
     buttons: {
         create_account: 'Create Account',

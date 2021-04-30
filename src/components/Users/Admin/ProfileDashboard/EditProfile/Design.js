@@ -11,28 +11,80 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
-import { addAdmin } from '../../../../../firebase/firestore/UserSignUp';
+import dimensions from '../../../../../res/dimensions';
+import firestore from "@react-native-firebase/firestore";
 
-const AdminProfileEditDesign = ({ navigation, nav_title, FirstName, LastName, Gender, Email, Mobile, Enrollment, Department, list }) => {
-    const firstname = FirstName;
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState(LastName);
+const AdminProfileEditDesign = ({ navigation, submitEditeProfileAdmin, validateFirstName, validateLastName, validateEmail
+    , validateMobile, validateBranch, validateWhatsAppNumber, FirstName, LastName, Email, Gender, Mobile, Enrollment, Department }) => {
+
+    const [users, setUsers] = useState([]);
+    const [firstName, setFirstName] = useState('');
+    const [errorFirstName, setErrorFirstName] = useState(false);
+    const [errorFirstNameText, setErrorFirstNameText] = useState('');
+    const [isErrorFirstName, setIsErrorFirstName] = useState(false);
+
+    const [lastName, setLastName] = useState('');
+    const [errorLastName, setErrorLastName] = useState(false);
+    const [errorLastNameText, setErrorLastNameText] = useState('');
+    const [isErrorLastName, setIsErrorLastName] = useState(false);
+
     const [gender, setGender] = useState('Male');
-    const [email, setEmail] = useState(Email);
-    const [mobile, setMobile] = useState(Mobile);
-    const [enrollment, setEnrollment] = useState(Enrollment);
-    const [selectedDepartment, setSelectedDepartment] = useState(Department);
+
+    const [email, setEmail] = useState('');
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorEmailText, setErrorEmailText] = useState('');
+    const [isErrorEmail, setIsErrorEmail] = useState(false);
+
+    const [mobile, setMobile] = useState('');
+    const [errorMobile, setErrorMobile] = useState(false);
+    const [errorMobileText, setErrorMobileText] = useState('');
+    const [isErrorMobile, setIsErrorMobile] = useState(false);
+
+    const [whatsAppNumber, setWhatsAppNumber] = useState('');
+    const [errorWhatsAppNumber, setErrorWhatsAppNumber] = useState(false);
+    const [errorWhatsAppNumberText, setErrorWhatsAppNumberText] = useState('');
+    const [isErrorWhatsAppNumber, setIsErrorWhatsAppNumber] = useState(false);
+    const [adminKey, setAdminKey] = useState('');
 
     useEffect(() => {
-        setFirstName(FirstName);
-    })
+        const subscriber = firestore()
+            .collection('Admin')
+            .onSnapshot(querySnapshot => {
+                const users = [];
+                console.log('Total users: ', querySnapshot.size);
+                querySnapshot.forEach(documentSnapshot => {
+                    console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                    users.push({
+                        ...documentSnapshot.data(),
+                        key: documentSnapshot.id,
+                    });
+                });
+                setUsers(users);
+                users.map((item, index) => {
+                    console.log(item.FirstName, item.key);
+                    setFirstName(item.FirstName);
+                    setLastName(item.LastName);
+                    setGender(item.Gender);
+                    setEmail(item.Email);
+                    setMobile(item.Mobile);
+                    setWhatsAppNumber(item.WhatsAppNumber);
+                    // setAdminKey(item.adminKey);
+
+                    // setEnrollment(item.Enrollment);
+                    // setSelectedDepartment(item.Department);
+
+                })
+
+                // setUsers(users)
+            });
+        // Unsubscribe from events when no longer in use
+        return () => subscriber()
+    }, []);
 
 
-    React.useLayoutEffect(() => {
-        navigation.setOptions({
-            title: strings.onBoarding.edit_profile, //Set Header Title
-        });
-    }, [navigation]);
+
+
+
     return (
         <View style={styles.mainContainer}>
             <ScrollView style={styles.container}>
@@ -66,12 +118,17 @@ const AdminProfileEditDesign = ({ navigation, nav_title, FirstName, LastName, Ge
                             blurOnSubmit={true}
                             autoCapitalize='words'
                             // autoFocus
-                            error={false}
+                            error={isErrorFirstName}
                             value={firstName}
-                            onChangeText={(firstName) => { setFirstName(firstName) }}
+                            onChangeText={(firstName) => {
+                                setFirstName(firstName);
+                                validateFirstName(firstName);
+                                checkFirstName(firstName);
+                            }}
+                            selectionColor={dimensions.color.select_color}
                             left={<TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error Message</HelperText>
+                        <HelperText type="error" visible={errorFirstName}>{errorFirstNameText}</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
                     <View>
@@ -83,41 +140,20 @@ const AdminProfileEditDesign = ({ navigation, nav_title, FirstName, LastName, Ge
                             blurOnSubmit={true}
                             autoCapitalize='words'
                             // autoFocus
-                            error={false}
-                            value={LastName}
-                            onChangeText={(lastName) => { setLastName(lastName) }}
+                            error={isErrorLastName}
+                            value={lastName}
+                            onChangeText={(lastName) => {
+                                setLastName(lastName);
+                                validateLastName(LastName);
+                                checkLastName(LastName);
+                            }}
+                            selectionColor={dimensions.color.select_color}
                             left={<TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error Message</HelperText>
+                        <HelperText type="error" visible={errorLastName}>{errorLastNameText}</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
-                    <View style={styles.textInputFieldRadio}>
-                        <View style={styles.textInputFieldRadioButtonView}>
-                            <RadioButton style={styles.textInputFieldRadioButton}
-                                value="first"
-                                //status={ gender === 'Male' ? 'checked' : 'unchecked' }
-                                // status='checked'
-                                status={gender === 'Male' ? 'checked' : 'unchecked'}
-                                color="black"
-                                uncheckedColor="gray"
-                                onPress={() => { setGender('Male') }}
-                            // setGender('Male')
-                            />
-                            <Text style={styles.textInputFieldRadioButtonText}>Male</Text>
-                        </View>
-                        <View style={styles.textInputFieldRadioButtonView}>
-                            <RadioButton style={styles.textInputFieldRadioButton}
-                                value="second"
-                                status={gender === 'Female' ? 'checked' : 'unchecked'}
-                                // status={'checked'}
-                                color="black"
-                                uncheckedColor="gray"
-                                onPress={() => { setGender('Female') }}
-                            // setGender('Female')
-                            />
-                            <Text style={styles.textInputFieldRadioButtonText}>Female</Text>
-                        </View>
-                    </View>
+
                     <View>
                         <TextInput
                             autoCompleteType="email"
@@ -128,12 +164,17 @@ const AdminProfileEditDesign = ({ navigation, nav_title, FirstName, LastName, Ge
                             autoCapitalize='none'
                             keyboardType="email-address"
                             // autoFocus
-                            error={false}
-                            value={Email}
-                            onChangeText={(email) => { setEmail(email) }}
+                            error={isErrorEmail}
+                            value={email}
+                            onChangeText={(email) => {
+                                setEmail(email);
+                                validateEmail(email);
+                                checkEmail(email);
+                            }}
+                            selectionColor={dimensions.color.select_color}
                             left={<TextInput.Icon name="email" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error</HelperText>
+                        <HelperText type="error" visible={errorEmail}>{errorEmailText}</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
                     <View>
@@ -146,63 +187,62 @@ const AdminProfileEditDesign = ({ navigation, nav_title, FirstName, LastName, Ge
                             autoCapitalize='none'
                             keyboardType="phone-pad"
                             // autoFocus
-                            error={false}
-                            value={Mobile}
-                            onChangeText={(mobile) => { setMobile(mobile) }}
+                            error={isErrorMobile}
+                            value={mobile}
+                            onChangeText={(mobile) => {
+                                setMobile(mobile);
+                                validateMobile(mobile);
+                                checkMobile(mobile)
+                            }}
+                            selectionColor={dimensions.color.select_color}
                             // text.replace(/[^0-9]/g, '')
                             left={<TextInput.Icon name="phone" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error</HelperText>
+                        <HelperText type="error" visible={errorMobile}>{errorMobileText}</HelperText>
                     </View>
-                    <View style={styles.spacing15}></View>
-                    <View>
-                        <View style={styles.pickerView}>
-                            <Picker
-                                style={{}}
 
-                                selectedValue={Department}
-                                onValueChange={(itemValue, itemIndex) => {
-                                    // checkBranch(itemValue);
-                                    // setDepartmentKey(itemValue);
-                                    // departmentName(itemValue);
-                                    setSelectedDepartment(itemValue);
-                                    // filterList(itemValue);
-                                    // setModalVisible(true)
-                                }} >
-
-                                <Picker.Item label="--- Select Branch ---" value="" />
-                                {list.map((item, index) => {
-                                    return (
-                                        <Picker.Item label={item.department} value={item.department} key={item} />
-                                    )
-                                })}
-                            </Picker>
-                        </View>
-                        <HelperText type="error" visible={true}>Error</HelperText>
-                    </View>
                     <View style={styles.spacing5}></View>
                     <View>
                         <TextInput
                             autoCompleteType="username"
-                            label={strings.textInput.enrollment}
+                            label={strings.textInput.whatsapp_number}
                             mode="outlined"
-                            placeholder={strings.textInput.enrollment}
+                            placeholder={strings.textInput.whatsapp_number}
                             blurOnSubmit={true}
                             autoCapitalize='characters'
                             // autoFocus
-                            error={false}
-                            value={Enrollment}
-                            onChangeText={(enrollment) => { setEnrollment(enrollment) }}
+                            error={isErrorWhatsAppNumber}
+                            value={whatsAppNumber}
+                            onChangeText={(whatsAppNumber) => {
+                                setWhatsAppNumber(whatsAppNumber);
+                                validateWhatsAppNumber(whatsAppNumber);
+                                checkWhatsAppNumber(whatsAppNumber);
+                            }}
+                            selectionColor={dimensions.color.select_color}
                             left={<TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error Message</HelperText>
+                        <HelperText type="error" visible={errorWhatsAppNumber}>{errorWhatsAppNumberText}</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
                     <View style={styles.submitButton} >
                         <Button
                             style={styles.loginButton}
                             mode="contained"
-                            onPress={() => { addAdmin(firstName, lastName, email, mobile, selectedDepartment, enrollment, gender), navigation.goBack(); }}
+                            onPress={() => {
+                                submitEditeProfileAdmin(firstName, lastName, email, mobile, whatsAppNumber);
+                                validateFirstName(firstName);
+                                checkFirstName(firstName);
+                                validateLastName(lastName);
+                                validateEmail(email);
+                                validateMobile(mobile);
+                                validateWhatsAppNumber(whatsAppNumber);
+                                checkLastName(lastName);
+                                checkEmail(email);
+                                checkMobile(mobile);
+                                //  checkWhatsAppNumber(whatsAppNumber);
+                                // checkBranch(branch);
+
+                            }}
                         >
                             {strings.buttons.update_profile}
                         </Button>
@@ -211,5 +251,33 @@ const AdminProfileEditDesign = ({ navigation, nav_title, FirstName, LastName, Ge
             </ScrollView>
         </View>
     );
+
+    function checkFirstName(firstName) {
+        setErrorFirstName(validateFirstName(firstName).errorFirstName);
+        setErrorFirstNameText(validateFirstName(firstName).errorFirstNameText);
+        setIsErrorFirstName(validateFirstName(firstName).isErrorFirstName);
+    }
+    function checkLastName(lastName) {
+        setErrorLastName(validateLastName(lastName).errorLastName);
+        setErrorLastNameText(validateLastName(lastName).errorLastNameText);
+        setIsErrorLastName(validateLastName(lastName).isErrorLastName);
+    }
+    function checkEmail(email) {
+        setErrorEmail(validateEmail(email).errorEmail);
+        setErrorEmailText(validateEmail(email).errorEmailText);
+        setIsErrorEmail(validateEmail(email).isErrorEmail);
+    }
+    function checkMobile(mobile) {
+        setErrorMobile(validateMobile(mobile).errorMobile);
+        setErrorMobileText(validateMobile(mobile).errorMobileText);
+        setIsErrorMobile(validateMobile(mobile).isErrorMobile);
+    }
+    function checkWhatsAppNumber(whatsAppNumber) {
+        setErrorWhatsAppNumber(validateWhatsAppNumber(whatsAppNumber).errorWhatsAppNumber);
+        setErrorWhatsAppNumberText(validateWhatsAppNumber(whatsAppNumber).errorWhatsAppNumberText);
+        setIsErrorWhatsAppNumber(validateWhatsAppNumber(whatsAppNumber).isErrorWhatsAppNumber);
+    }
+
 }
+
 export default AdminProfileEditDesign;

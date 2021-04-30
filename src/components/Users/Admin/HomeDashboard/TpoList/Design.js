@@ -8,12 +8,13 @@ import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
 import firestore from "@react-native-firebase/firestore";
 import { useEffect } from 'react';
-import { deleteTpo } from '../../../../../firebase/firestore/UserSignUp';
+import { deleteTpo, suspendTPOList } from '../../../../../firebase/firestore/UserSignUp';
 
 const TpoListDesign = ({ navigation, data, list }) => {
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [departmentKey, setDepartmentKey] = useState('');
     var dataList = data.slice();
+    var emptyList = [];
     const [user, setusers] = useState(dataList);
     const [suspendedList, setSuspendedList] = useState([]);
 
@@ -53,7 +54,11 @@ const TpoListDesign = ({ navigation, data, list }) => {
                         style={styles.listActionButton}
                         mode="contained"
                         labelStyle={{ fontSize: 10 }}
-                        onPress={() => { console.log("btn click" + item.key); suspendTpo(item.key); }}
+                        onPress={() => {
+                            console.log("btn click" + item.key);
+                            suspendTPOList(item.FirstName, item.LastName, item.Email, item.Mobileno, item.Department, item.Password, item.key);
+                            // suspendTpo(item.key);
+                        }}
                     >
                         {strings.buttons.suspend}
                     </Button>
@@ -100,29 +105,29 @@ const TpoListDesign = ({ navigation, data, list }) => {
         </View>
     );
 
-    function suspendTpo(userId) {
-        const suspendList = [];
-        firestore()
-            .collection('TPO')
-            .doc(userId)
-            .get()
-            .then(documentSnapshot => {
-                if (documentSnapshot.exists) {
-                    console.log('User data: ', documentSnapshot.data());
-                    suspendList.push({
-                        ...documentSnapshot.data(),
-                        key: documentSnapshot.id,
-                    });
+    // function suspendTpo(userId) {
+    //     const suspendList = [];
+    //     firestore()
+    //         .collection('TPO')
+    //         .doc(userId)
+    //         .get()
+    //         .then(documentSnapshot => {
+    //             if (documentSnapshot.exists) {
+    //                 console.log('User data: ', documentSnapshot.data());
+    //                 suspendList.push({
+    //                     ...documentSnapshot.data(),
+    //                     key: documentSnapshot.id,
+    //                 });
 
-                }
-                setSuspendedList(suspendList);
-                deleteTpo(userId);
-                suspendList.map((item, index) => {
-                    console.log("item :--" + item.FirstName);
-                })
-            });
+    //             }
+    //             setSuspendedList(suspendList);
+    //             deleteTpo(userId);
+    //             suspendList.map((item, index) => {
+    //                 console.log("item :--" + item.FirstName);
+    //             })
+    //         });
 
-    }
+    // }
 
 
     function filterList(selectedDepartment) {
@@ -156,6 +161,7 @@ const TpoListDesign = ({ navigation, data, list }) => {
                 });
                 if (size == 0) {
                     console.log('Total success user: ', querySnapshot.size);
+                    setusers(emptyList);
                     // onSuccess(false);
                 }
             });

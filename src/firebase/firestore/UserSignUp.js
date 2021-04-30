@@ -2,7 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import CreateUser from '../CreateUser';
 import keywords from "../../res/databasekeywords/keywords";
 
-export const UserSignUp = (firstName, lastName, gender, email, password, phoneno, branch, enrollment) => {
+export const UserSignUp = (firstName, lastName, gender, email, password, phoneno, branch, enrollment, status) => {
     console.log(firstName, lastName, gender, email, password, phoneno, branch, enrollment);
     // keywords.student_table.FirstName = FirstName;
     firestore()
@@ -15,7 +15,8 @@ export const UserSignUp = (firstName, lastName, gender, email, password, phoneno
             Password: password,
             Department: branch,
             Enrollment: enrollment,
-            Phoneno: phoneno
+            Phoneno: phoneno,
+            value: status
         })
         .then(() => {
             console.log('User added!');
@@ -133,21 +134,104 @@ export const updateDepartment = (key, newdepartment) => {
         })
 }
 
-export const addAdmin = (firstName, lastName, email, phoneno, selectedDepartment, password, enrollment, gender) => {
-    console.log(firstName, lastName, email, password, phoneno, selectedDepartment, enrollment, gender);
+export const UpdateAdmin = (firstName, lastName, email, phoneno, whatsAppNumber) => {
+    console.log(firstName, lastName, email, phoneno, whatsAppNumber);
     firestore()
-        .collection('TPO')
+        .collection('Admin')
+        .doc('YfqQCFkWSiWoGBeOoiCX')
+        .update({
+            FirstName: firstName,
+            LastName: lastName,
+            Email: email,
+            Mobile: phoneno,
+            WhatsAppNumber: whatsAppNumber
+        })
+        .then(() => {
+            console.log('Admin added!');
+        });
+}
+
+
+export const suspendTPOList = (firstName, lastName, email, phoneno, selectedDepartment, password, key) => {
+    console.log(firstName, lastName, email, password, phoneno, selectedDepartment);
+    firestore()
+        .collection('SuspendTpo')
         .add({
             FirstName: firstName,
             LastName: lastName,
             Email: email,
             Password: password,
             Department: selectedDepartment,
-            Mobile: phoneno,
-            Enrollment: enrollment,
-            Gender: gender
+            Mobileno: phoneno
         })
         .then(() => {
-            console.log('TPO added!');
+            console.log(' Suspended TPO added!');
+            suspendTpo(key);
         });
+}
+
+export function suspendTpo(userId) {
+    const suspendList = [];
+    firestore()
+        .collection('TPO')
+        .doc(userId)
+        .get()
+        .then(documentSnapshot => {
+            if (documentSnapshot.exists) {
+                console.log('User data: ', documentSnapshot.data());
+                suspendList.push({
+                    ...documentSnapshot.data(),
+                    key: documentSnapshot.id,
+                });
+
+            }
+            // setSuspendedList(suspendList);
+            deleteTpo(userId);
+            // suspendList.map((item, index) => {
+            //     console.log("item :--" + item.FirstName);
+            // })
+        });
+
+}
+
+export const suspendStudentList = (firstName, lastName, email, phoneno, selectedDepartment, password, key) => {
+    console.log(firstName, lastName, email, password, phoneno, selectedDepartment);
+    firestore()
+        .collection('SuspendStudents')
+        .add({
+            FirstName: firstName,
+            LastName: lastName,
+            Email: email,
+            Password: password,
+            Department: selectedDepartment,
+            Mobileno: phoneno
+        })
+        .then(() => {
+            console.log(' Suspended Students added!');
+            suspendStudent(key);
+        });
+}
+
+export function suspendStudent(userId) {
+    const suspendList = [];
+    firestore()
+        .collection('Students')
+        .doc(userId)
+        .get()
+        .then(documentSnapshot => {
+            if (documentSnapshot.exists) {
+                console.log('User data: ', documentSnapshot.data());
+                suspendList.push({
+                    ...documentSnapshot.data(),
+                    key: documentSnapshot.id,
+                });
+
+            }
+            // setSuspendedList(suspendList);
+            deleteStudents(userId);
+            // suspendList.map((item, index) => {
+            //     console.log("item :--" + item.FirstName);
+            // })
+        });
+
 }
