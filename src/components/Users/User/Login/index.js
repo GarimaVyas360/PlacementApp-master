@@ -144,10 +144,10 @@ const UserLoginActivity = ({ route, navigation }) => {
                 }
             }
 
-            else {
-                ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT);
-                return false;
-            }
+            // else {
+            //     ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT);
+            //     return false;
+            // }
 
         }
         else {

@@ -277,12 +277,14 @@ export const newUserSignup = (firstName, lastName, gender, email, password, phon
 }
 
 
-export const addGroupsChats = (sender, message, date, time) => {
-    console.log(sender, message, date, time);
+export const addGroupsChats = (sender, message, date, time, size) => {
+    console.log(sender, message, date, time, size);
     // keywords.student_table.FirstName = FirstName;
+    var groupSize = size + 1;
     firestore()
-        .collection('Group1')
-        .add({
+        .collection('UserGroup')
+        .doc('' + groupSize)
+        .set({
             Sender: sender,
             Message: message,
             Date: date,

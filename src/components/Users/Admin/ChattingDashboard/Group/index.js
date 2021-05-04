@@ -12,7 +12,8 @@ const AdminChattingGroupActivity = ({ route, navigation }) => {
     const [group, setgroup] = useState([]);
     const user = route.params.user;
     const user_type = route.params.user_type;
-
+    var Size;
+    const [groupSize, setGroupSize] = useState('');
     // const GroupName = route.params.group;
     useEffect(() => {
         console.log("user routee  " + user);
@@ -25,7 +26,7 @@ const AdminChattingGroupActivity = ({ route, navigation }) => {
             headerTintColor: '#fff',
         });
         const subscribe = firestore()
-            .collection('Group1')
+            .collection('UserGroup')
             //   .orderBy('department', 'asc')
             .onSnapshot(querySnapshot => {
                 const groupChat = [];
@@ -42,14 +43,21 @@ const AdminChattingGroupActivity = ({ route, navigation }) => {
                 group.map((item, index) => {
                     console.log("data saved");
                 })
-
+                Size = querySnapshot.size;
+                // console.log("Size", Size);
+                showSize(Size);
             });
         return () => subscribe();
 
 
     }, []);
 
-
+    function showSize(size) {
+        Size = size;
+        console.log("Total Size", Size);
+        setGroupSize(Size);
+        return size;
+    }
     // const groupChats = () => {
     //     const subscribe = firestore()
     //         .collection('Group1')
@@ -93,8 +101,9 @@ const AdminChattingGroupActivity = ({ route, navigation }) => {
         var date = getCurrentDate().date;
         var time = getCurrentDate().time + " " + getCurrentDate().AMPM;
         if (validateInput(message)) {
-            addGroupsChats(sender, message, date, time);
-            // groupChats();
+            addGroupsChats(sender, message, date, time, groupSize);
+
+            console.log("Group Size" + groupSize);
             console.log(sender + "\n" + message + "\n" + date + "\n" + time);
         }
     }
