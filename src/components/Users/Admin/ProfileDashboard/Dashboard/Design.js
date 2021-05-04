@@ -11,7 +11,7 @@ import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
 
-const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastName, Gender, Email }) => {
+const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastName, Gender, Email, Password }) => {
     useEffect(() => {
         navigation.setOptions({
             title: nav_title, //Set Header Title
@@ -70,7 +70,7 @@ const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastNam
                 </View>
                 <View style={styles.footerView}>
                     <TouchableOpacity
-                        onPress={() => { navigation.navigate('AdminProfileChangePasswordActivity') }}>
+                        onPress={() => { navigation.navigate('AdminProfileChangePasswordActivity', { oldPassword: Password }); console.log("old Password " + Password); }}>
                         <Button>{strings.buttons.change_password}</Button>
                         <Divider style={styles.headingDividerBase}></Divider>
                     </TouchableOpacity>

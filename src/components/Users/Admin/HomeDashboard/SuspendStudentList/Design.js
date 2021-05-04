@@ -46,7 +46,10 @@ const SuspendStudentListDesign = ({ navigation, data, list }) => {
                         <Icon style={styles.activityHeadingIcon} name='phone' type='MaterialIcons' color='gray' />
                         <Text onPress={() => { Linking.openURL('tel:' + item.Mobileno); }} style={styles.listDataContact}>{item.Mobileno}</Text>
                     </View>
-                    <Text style={styles.listDataBranch}>{item.Department}</Text>
+                    <View style={styles.listDataBranchView}  >
+                        <Icon style={styles.activityHeadingIcon} name='book' type='MaterialIcons' color='gray' />
+                        <Text style={styles.listDataBranch}>{item.Department}</Text>
+                    </View>
                 </View>
                 <View style={styles.listAction}>
                     <Button
@@ -84,7 +87,7 @@ const SuspendStudentListDesign = ({ navigation, data, list }) => {
                                 // setModalVisible(true)
                             }} >
 
-                            <Picker.Item label="--- Select Branch ---" value="" />
+                            <Picker.Item label="--- All Departments ---" value="" />
                             {list.map((item, index) => {
                                 return (
                                     <Picker.Item label={item.department} value={item.department} key={item} />
@@ -92,6 +95,9 @@ const SuspendStudentListDesign = ({ navigation, data, list }) => {
                             })}
                         </Picker>
                         <Divider style={{ height: 1, backgroundColor: 'lightgray', }}></Divider>
+                    </View>
+                    <View style={styles.emptyListArea} >
+                        {user == "" || user == null ? <Text style={styles.emptyTextArea}>Record not found</Text> : []}
                     </View>
                     <View style={styles.listView}>
                         <FlatList

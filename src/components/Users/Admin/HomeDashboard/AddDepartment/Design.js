@@ -67,6 +67,7 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                                     setDepartment(department);
                                     validateBranch(department);
                                     checkBranch(department);
+
                                 }}
                                 left={<TextInput.Icon name="book" color={"darkblue"} disabled={true} />}
                             />
@@ -75,7 +76,7 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                                 <Button
                                     style={styles.loginButton}
                                     mode="contained"
-                                    onPress={() => { submitDepartment(department); formDataClear(formClear(true)); }}
+                                    onPress={() => { submitDepartment(department); clearDepartment(true); }}
 
                                 >
                                     Save
@@ -91,12 +92,13 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                             <View style={styles.pickerView}>
                                 <Picker
                                     style={{}}
-                                    selectedValue={selectedDepartment}
+                                    selectedValue={branch}
                                     onValueChange={(itemValue, itemIndex) => {
                                         checkBranch(itemValue);
                                         setDepartmentKey(itemValue);
-                                        departmentName(itemValue),
-                                            setModalVisible(true)
+                                        departmentName(itemValue);
+                                        setBranch(itemValue);
+                                        setModalVisible(true)
                                     }} >
                                     <Picker.Item label="--- Select Branch ---" value="" />
                                     {list.map((item, index) => {
@@ -138,7 +140,7 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                                 <Button
                                     style={styles.deleteButton}
                                     mode="contained"
-                                    onPress={() => { deleteDepartment(departmentKey), setModalVisible(false) }}
+                                    onPress={() => { deleteDepartment(departmentKey); setModalVisible(false) }}
                                 >
                                     {strings.buttons.delete}
                                 </Button>
@@ -151,6 +153,10 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
         </View>
     );
 
+    function clearDepartment() {
+        setDepartment('');
+        return false;
+    }
 
     function departmentName(userId) {
         firestore()
@@ -170,7 +176,7 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
 
     function formDataClear(allow) {
         if (submitDepartment(department)) {
-            setDepartment("");
+            setDepartment('');
 
         }
     }

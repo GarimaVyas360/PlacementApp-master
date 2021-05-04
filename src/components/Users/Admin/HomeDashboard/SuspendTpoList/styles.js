@@ -90,11 +90,25 @@ export const styles = StyleSheet.create(
             color: 'navy',
             fontWeight: 'bold',
         },
+        listDataBranchView: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+
         listDataBranch: {
             marginLeft: 10,
             fontSize: dimensions.font_size.small,
             color: 'gray',
             fontWeight: 'bold',
+        },
+        emptyListArea: {
+            backgroundColor: '#f3f3f3'
+        },
+        emptyTextArea: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            fontSize: 20,
+            marginTop: "50%"
         }
     }
 );

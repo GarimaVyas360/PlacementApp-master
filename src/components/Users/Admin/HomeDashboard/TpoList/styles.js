@@ -30,7 +30,7 @@ export const styles = StyleSheet.create(
         listView: {
             flex: 1,
             padding: 10,
-            // backgroundColor:'#f3f3f3',
+            backgroundColor: 'white',
         },
         listArea: {
             width: '98%',
@@ -85,6 +85,16 @@ export const styles = StyleSheet.create(
             fontSize: dimensions.font_size.small,
             color: 'navy',
             fontWeight: 'bold',
+        },
+        emptyListArea: {
+            backgroundColor: '#f3f3f3'
+        },
+        emptyTextArea: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            fontSize: 20,
+            marginTop: "50%"
         }
-    }
+    },
+
 );

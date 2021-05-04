@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import UserSignupDesign from './Design';
 import firestore from '@react-native-firebase/firestore';
 import { Alert, FlatList, ToastAndroid, Keyboard } from 'react-native';
-import { UserSignUp } from '../../../../firebase/firestore/UserSignUp';
+import { newUserSignup, UserSignUp } from '../../../../firebase/firestore/UserSignUp';
 
 const UserSignupActivity = ({ navigation }) => {
     const [users, setUsers] = useState([]);
@@ -78,7 +78,7 @@ const UserSignupActivity = ({ navigation }) => {
                     [
                         {
                             text: "Stay on Sign-Up Page",
-                            onPress: () => { formClear(allow) },
+                            onPress: () => { },
                             style: "cancel"
                         },
                         {
@@ -377,6 +377,7 @@ const UserSignupActivity = ({ navigation }) => {
     }
 
     function userVerification(firstName, lastName, gender, email, password, mobile, branch, enrollment) {
+        const status = "unVerified";
         const usersList = {
             FirstName: firstName,
             LastName: lastName,
@@ -385,10 +386,12 @@ const UserSignupActivity = ({ navigation }) => {
             Password: password,
             Department: branch,
             Enrollment: enrollment,
-            Phoneno: mobile
+            Phoneno: mobile,
+            value: status,
         }
 
         usersCreateList.push(usersList)
+        newUserSignup(firstName, lastName, gender, email, password, mobile, branch, enrollment, status);
         console.log("item saved");
         { usersCreateList.map((item, value) => { return (console.log("item user" + JSON.stringify(item))) }); }
 

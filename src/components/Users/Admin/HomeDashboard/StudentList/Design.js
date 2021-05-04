@@ -82,7 +82,7 @@ const StudentListDesign = ({ navigation, StudentData, departmentList }) => {
                                 // setModalVisible(true)
                             }} >
 
-                            <Picker.Item label="--- Select Branch ---" value="" />
+                            <Picker.Item label="--- All Departments  ---" value="" />
                             {departmentList.map((item, index) => {
                                 return (
                                     <Picker.Item label={item.department} value={item.department} key={item} />
@@ -90,6 +90,9 @@ const StudentListDesign = ({ navigation, StudentData, departmentList }) => {
                             })}
                         </Picker>
                         <Divider style={{ height: 1, backgroundColor: 'lightgray', }}></Divider>
+                    </View>
+                    <View style={styles.emptyListArea} >
+                        {user == "" || user == null ? <Text style={styles.emptyTextArea}>Record not found</Text> : []}
                     </View>
                     <View style={styles.listView}>
                         <FlatList

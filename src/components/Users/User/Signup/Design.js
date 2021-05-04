@@ -328,7 +328,7 @@ const UserSignupDesign = ({ navigation, departmentlist, submitSignup, validateFi
                                     icon="login"
                                     mode="contained"
                                     onPress={() => {
-                                        submitSignup(firstName, lastName, gender, email, mobile, branch, enrollment, password, passConf, allow);
+                                        submitSignup(firstName, lastName, gender, email, mobile, selectedDepartment, enrollment, password, passConf, allow);
                                         checkFirstName(firstName);
                                         checkLastName(lastName);
                                         checkEmail(email);

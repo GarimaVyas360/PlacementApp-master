@@ -32,7 +32,7 @@ const TpoListDesign = ({ navigation, data, list }) => {
     }, [navigation]);
 
     const renderItem = ({ item }) => {
-
+        console.log("item key " + item.key);
         return (
             // <TouchableOpacity style={styles.item}>
             //     <Text style={styles.title}>{item.title}</Text>
@@ -84,7 +84,7 @@ const TpoListDesign = ({ navigation, data, list }) => {
                                 // setModalVisible(true)
                             }} >
 
-                            <Picker.Item label="--- Select Branch ---" value="" />
+                            <Picker.Item label="--- All Departments ---" value="" />
                             {list.map((item, index) => {
                                 return (
                                     <Picker.Item label={item.department} value={item.department} key={item} />
@@ -93,16 +93,24 @@ const TpoListDesign = ({ navigation, data, list }) => {
                         </Picker>
                         <Divider style={{ height: 1, backgroundColor: 'lightgray', }}></Divider>
                     </View>
+                    <View style={styles.emptyListArea} >
+                        {user == "" || user == null ? <Text style={styles.emptyTextArea}>Record not found</Text> : []}
+                    </View>
                     <View style={styles.listView}>
-                        <FlatList
-                            data={user}
-                            renderItem={renderItem}
-                            keyExtractor={(item, index) => item.key}
-                        />
+
+                        {(user != []) ?
+                            <FlatList
+                                data={user}
+                                renderItem={renderItem}
+                                keyExtractor={(item, index) => item.key}
+                            />
+                            : <View style={{ backgroundColor: 'blue' }}  >  <Text>Record not found  </Text> </View>
+                        }
+
                     </View>
                 </View>
             </View>
-        </View>
+        </View >
     );
 
     // function suspendTpo(userId) {

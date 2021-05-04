@@ -10,6 +10,7 @@ const AdminProfileDashboardActivity = ({ navigation, nav_title }) => {
     const [gender, setGender] = useState('');
     const [email, setEmail] = useState('');
     const [mobileNo, setMobileNo] = useState('');
+    const [password, setPassword] = useState('');
 
 
     useEffect(() => {
@@ -35,6 +36,7 @@ const AdminProfileDashboardActivity = ({ navigation, nav_title }) => {
                     setLastName(item.LastName);
                     setGender(item.Gender);
                     setEmail(item.Email);
+                    setPassword(item.Password)
                 })
 
                 // setUsers(users)
@@ -51,7 +53,8 @@ const AdminProfileDashboardActivity = ({ navigation, nav_title }) => {
             FirstName={firstName}
             LastName={lastName}
             Email={email}
-            Gender={gender} />
+            Gender={gender}
+            Password={password} />
     );
 }
 export default AdminProfileDashboardActivity;

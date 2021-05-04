@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import AdminChattingDashboardDesign from './Design';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from "./styles";
 import strings from "../../../../../res/strings";
-const AdminChattingDashboardActivity = ({ navigation, nav_title }) => {
+const AdminChattingDashboardActivity = ({ navigation, nav_title, user, user_type }) => {
+    const [group, setGroup] = useState('');
     useEffect(() => {
         navigation.setOptions({
             title: nav_title, //Set Header Title
             headerStyle: {
                 backgroundColor: '#075E54',
-
             },
             headerTintColor: '#fff',
             headerRight: () => (
@@ -21,11 +21,16 @@ const AdminChattingDashboardActivity = ({ navigation, nav_title }) => {
                 </View>
             ),
         });
+        setGroup("Group...");
     }, []);
     return (
         <AdminChattingDashboardDesign
             navigation={navigation}
-            nav_title={nav_title} />
+            nav_title={nav_title}
+            group_name={group}
+            user={user}
+            user_type={user_type}
+        />
     );
 }
 export default AdminChattingDashboardActivity;

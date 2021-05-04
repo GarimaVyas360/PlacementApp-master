@@ -7,12 +7,51 @@ import firestore from "@react-native-firebase/firestore";
 
 const UserLoginActivity = ({ route, navigation }) => {
     const user = route.params.user;
+    // console.log(route.params.user);
+    // var currentUser = "";
     var userList;
     var currentuser;
     const [userData, setUser] = useState([]);
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [currentUser, setCurrentUser] = useState('');
+    // useEffect(() => {
+    //     const users = [];
+    //     const subscriber = firestore()
+    //         .collection(user)
+    //         .get()
+    //         .then(querySnapshot => {
+    //             console.log('Total users: ', querySnapshot.size);
+    //             size = querySnapshot.size;
+    //             querySnapshot.forEach(documentSnapshot => {
+    //                 // console.log('User exists: ', size);
+
+    //                     console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+    //                     // onSuccess(true);
+    //                     // console.log("User Id" + documentSnapshot.get('Email'));
+    //                     // setUserEmail(documentSnapshot.get('Email'));
+    //                     // setUserPassword(documentSnapshot.get('Password'));
+    //                     // setCurrentUser(documentSnapshot.get('FirstName'));
+
+    //                     users.push({
+    //                         ...documentSnapshot.data(),
+    //                         key: documentSnapshot.id,
+    //                     });
+    //                 }
+
+    //             });
+    //             setUser(users);
+    //             // setUserData(userData);
+    //             // if (size == 0) {
+    //             //     console.log('Total success user: ', querySnapshot.size);
+    //             //     onSuccess(false);
+    //             // }
+    //         });
+    //     return () => subscriber();
+    // }, []);
+
+
+
 
     useEffect(() => {
         const subscriber = firestore()
@@ -144,10 +183,38 @@ const UserLoginActivity = ({ route, navigation }) => {
                 }
             }
 
+
+
+
+            // if (status) {
+            //     // alert(user + " Success!");
+            //     navigation.replace('AdminBottomNavActivity', { user: currentUser });
+            // }
+            // if (userEmail == email && userPassword == password) {
+            //     navigation.replace('AdminBottomNavActivity', { user: currentUser });
+
+
+            //     // userVerify(email, (status) => {
+            //     //     console.log("status" + status)
+            //     //     if (status) {
+            //     //         navigation.replace('AdminBottomNavActivity', { user: currentUser });
+            //     //         // console.log("UserName ==> " +users);
+            //     //         { (users) => { console.log("Userss" + setUser(users)) } }
+            //     //     } else {
+            //     //         ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
+            //     //     }
+            //     //     // (status) ? navigation.replace('AdminBottomNavActivity') : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
+            //     //  onSuccess(status)
+            //     return true;
+            // }
+
+            // navigation.replace('AdminBottomNavActivity');
+
             else {
                 ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT);
                 return false;
             }
+            // return true;
 
         }
         else {
@@ -248,6 +315,20 @@ const UserLoginActivity = ({ route, navigation }) => {
     // }
 
     function setUserData(email, password, onSuccess) {
+        // console.log("user Data");
+        // userList.map((item, index) => {
+        //     if (item.Email == email && item.Password == password) {
+        //         console.log("item data" + item.email + item.password);
+        //         alert(user + " Success!");
+        //         setCurrentUser(item.FirstName);
+        //         onSuccess(true);
+        //     }
+        //     else {
+        //         onSuccess(false);
+        //     }
+
+        // })
+        // return false;
 
         userData.map((item, index) => {
             // console.log("user List" + item.Email + "  " + item.FirstName);

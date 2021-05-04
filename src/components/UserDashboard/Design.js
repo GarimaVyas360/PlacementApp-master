@@ -26,7 +26,7 @@ const UserDashboardDesign = ({ navigation }) => {
                 >
                     <View style={styles.cardContainer}
                         onTouchStart={() => { setStudentColor('black'), setStudentSize(dimensions.font_size.medium) }}
-                        onTouchEnd={() => { setStudentColor('gray'), setStudentSize(dimensions.font_size.normal), navigation.replace('UserLoginActivity', { user: strings.users.student }) }}
+                        onTouchEnd={() => { setStudentColor('gray'), setStudentSize(dimensions.font_size.normal), navigation.navigate('UserLoginActivity', { user: strings.users.student }) }}
                         onTouchEndCapture={() => { setStudentColor('gray'), setStudentSize(dimensions.font_size.normal) }}
                         onTouchCancel={() => { setStudentColor('gray'), setStudentSize(dimensions.font_size.normal) }}
                     >
@@ -49,7 +49,7 @@ const UserDashboardDesign = ({ navigation }) => {
                 >
                     <View style={styles.cardContainer}
                         onTouchStart={() => { setTpoColor('black'), setTpoSize(dimensions.font_size.medium) }}
-                        onTouchEnd={() => { setTpoColor('gray'), setTpoSize(dimensions.font_size.normal), navigation.replace('UserLoginActivity', { user: strings.users.tpo }) }}
+                        onTouchEnd={() => { setTpoColor('gray'), setTpoSize(dimensions.font_size.normal), navigation.navigate('UserLoginActivity', { user: strings.users.tpo }) }}
                         onTouchEndCapture={() => { setTpoColor('gray'), setTpoSize(dimensions.font_size.normal) }}
                         onTouchCancel={() => { setTpoColor('gray'), setTpoSize(dimensions.font_size.normal) }}
                     >
@@ -72,7 +72,7 @@ const UserDashboardDesign = ({ navigation }) => {
                 >
                     <View style={styles.cardContainer}
                         onTouchStart={() => { setAdminColor('black'), setAdminSize(dimensions.font_size.medium) }}
-                        onTouchEnd={() => { setAdminColor('gray'); setAdminSize(dimensions.font_size.normal), navigation.replace('UserLoginActivity', { user: strings.users.admin }) }}
+                        onTouchEnd={() => { setAdminColor('gray'); setAdminSize(dimensions.font_size.normal), navigation.navigate('UserLoginActivity', { user: strings.users.admin }) }}
                         onTouchEndCapture={() => { setAdminColor('gray'), setAdminSize(dimensions.font_size.normal) }}
                         onTouchCancel={() => { setAdminColor('gray'), setAdminSize(dimensions.font_size.normal) }}
                     >

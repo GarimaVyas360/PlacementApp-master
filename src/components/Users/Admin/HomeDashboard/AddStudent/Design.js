@@ -204,9 +204,9 @@ const AddStudentDesign = ({ navigation, departmentlist, submitAccount, validateF
                                         //     <Picker.Item label="Shefali" value="S" />
                                         //     <Picker.Item label="Garima" value="G" />
 
-                                        selectedValue={selectedDepartment}
+                                        selectedValue={branch}
                                         onValueChange={(itemValue, itemIndex) => {
-                                            // setBranch(itemValue);
+                                            setBranch(itemValue);
                                             validateBranch(itemValue);
                                             checkBranch(itemValue);
                                             setDepartmentKey(itemValue);
@@ -281,6 +281,7 @@ const AddStudentDesign = ({ navigation, departmentlist, submitAccount, validateF
                                     textContentType={'password'}
                                     multiline={false}
                                     onTextInput={() => { }}
+                                    value={passConf}
                                     onChangeText={(passConf) => {
                                         setPassConf(passConf.replace(/[\s]/g, ''));
                                         validatePassConf(passConf);
@@ -343,6 +344,7 @@ const AddStudentDesign = ({ navigation, departmentlist, submitAccount, validateF
             setEnrollment('');
             setPassword('');
             setPassConf('');
+            setGender('');
         }
     }
     function checkFirstName(firstName) {
