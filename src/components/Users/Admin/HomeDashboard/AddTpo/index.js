@@ -219,7 +219,7 @@ const AddTpoActivity = ({ navigation }) => {
         }
     }
     function validateMobile(mobile) {
-        const mobileReg = /^[0]?[789]\d{9}$/;
+        const mobileReg = /^[0]?[6789]\d{9}$/;
         if (!mobile) {
             return {
                 errorMobile: true,

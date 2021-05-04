@@ -27,6 +27,20 @@ import AdminBottomNavActivity from './src/components/Users/Admin/BottomNavigatio
 import AdminChattingDashboardActivity from './src/components/Users/Admin/ChattingDashboard/Dashboard';
 import AdminChattingGroupActivity from './src/components/Users/Admin/ChattingDashboard/Group';
 
+import TpoBottomNavActivity from './src/components/Users/TPO/BottomNavigation';
+import TpoDashboardActivity from './src/components/Users/TPO/HomeDashboard/Dashboard';
+import TpoAddStudentActivity from './src/components/Users/TPO/HomeDashboard/AddStudent';
+import TpoStudentListActivity from './src/components/Users/TPO/HomeDashboard/StudentList';
+import TpoSuspendStudentListActivity from './src/components/Users/TPO/HomeDashboard/SuspendStudentList';
+import TpoProfileDashboardActivity from './src/components/Users/TPO/ProfileDashboard/Dashboard';
+import TpoProfileEditActivity from './src/components/Users/TPO/ProfileDashboard/EditProfile';
+import TpoProfileChangePasswordActivity from './src/components/Users/TPO/ProfileDashboard/ChangePassword';
+import TpoProfileSetMpinActivity from './src/components/Users/TPO/ProfileDashboard/SetMpin';
+import TpoProfileSetSecurityCodeActivity from './src/components/Users/TPO/ProfileDashboard/SetSecurityCode';
+
+
+
+
 const Stack = createStackNavigator();
 const App = () => {
   return (
@@ -58,6 +72,20 @@ const App = () => {
         {/* Admin's Chatting Section */}
         <Stack.Screen options={{ headerShown: true }} name="AdminChattingDashboardActivity" component={AdminChattingDashboardActivity} />
         <Stack.Screen options={{ headerShown: true }} name="AdminChattingGroupActivity" component={AdminChattingGroupActivity} />
+
+         {/* Tpo's Dashboard Section */}
+         <Stack.Screen options={{ headerShown: true }} name="TpoBottomNavActivity" component={TpoBottomNavActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoDashboardActivity" component={TpoDashboardActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoAddStudentActivity" component={TpoAddStudentActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoStudentListActivity" component={TpoStudentListActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoSuspendStudentListActivity" component={TpoSuspendStudentListActivity} />
+        {/* Tpo's Profile Section */}
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileDashboardActivity" component={TpoProfileDashboardActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileEditActivity" component={TpoProfileEditActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileChangePasswordActivity" component={TpoProfileChangePasswordActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileSetMpinActivity" component={TpoProfileSetMpinActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileSetSecurityCodeActivity" component={TpoProfileSetSecurityCodeActivity} />
+        {/* Tpo's Notification Section */}
       </Stack.Navigator>
     </NavigationContainer>
   );

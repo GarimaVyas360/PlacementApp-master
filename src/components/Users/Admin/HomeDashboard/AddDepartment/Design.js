@@ -30,6 +30,7 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
     const [errorBranchText, setErrorBranchText] = useState('');
     const [isErrorBranch, setIsErrorBranch] = useState(false);
 
+    
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -75,7 +76,10 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                                 <Button
                                     style={styles.loginButton}
                                     mode="contained"
-                                    onPress={() => { submitDepartment(department); formDataClear(formClear(true)); }}
+                                    onPress={() => { submitDepartment(department);
+                                          clearDepartment(true);
+                                       //  formDataClear(formClear(true)); 
+                                        }}
 
                                 >
                                     Save
@@ -168,13 +172,16 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
             });
     }
 
-    function formDataClear(allow) {
-        if (submitDepartment(department)) {
-            setDepartment("");
+    // function formDataClear() {
+    //     if (submitDepartment(department)) {
+    //         setDepartment("");
 
-        }
+    //     }
+    // }
+    function clearDepartment(){
+        setDepartment('');
+        return false;
     }
-
     function checkBranch(department) {
         setErrorBranch(validateBranch(department).errorBranch);
         setErrorBranchText(validateBranch(department).errorBranchText);

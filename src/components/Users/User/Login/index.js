@@ -41,8 +41,8 @@ const UserLoginActivity = ({ route, navigation }) => {
             }
             else if (user == strings.users.tpo) {
                 userVerify(email);
-                alert(user + " Success!");
-                // navigation.replace('TpoBottomNavActivity');
+              //  alert(user + " Success!");
+                 navigation.replace('TpoBottomNavActivity');
             }
             else if (user == strings.users.admin) {
                 userVerify(email, (status) => {

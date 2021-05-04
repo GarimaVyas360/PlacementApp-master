@@ -46,7 +46,8 @@ const AddDepartmentActivity = ({ navigation }) => {
             // validateDepartment={(department) => { validateDepartment(department) }} 
             validateBranch={(department) => validateBranch(department)}
             submitDepartment={(department) => { submitDepartment(department) }}
-            formClear={(allow) => { formClear(allow) }}
+            clearDepartment={(departemnt)=>clearDepartment(departemnt)}
+           // formClear={(allow) => { formClear(allow) }}
             updateAlert={(departmentKey, department) => { updateAlert(departmentKey, department) }}
         />
     );
@@ -55,8 +56,8 @@ const AddDepartmentActivity = ({ navigation }) => {
     function submitDepartment(department) {
         if (validateDepartment(department).isValidate) {
             console.log("btn click");
-            // createDepartment(department);
-            formClear(true);
+             setDepartment()
+          //  formClear(true);
             departmentListCollection(department);
             ToastAndroid.show("Department Added ", ToastAndroid.SHORT);
         }
@@ -65,10 +66,12 @@ const AddDepartmentActivity = ({ navigation }) => {
         }
         // formClear(true);
     }
+    function clearDepartment(){
+        setDepartment('');
+    }
 
-
-    function formClear(status) {
-        return status;
+    function formClear() {
+        
     }
 
 
