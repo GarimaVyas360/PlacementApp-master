@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import AdminChattingDashboardDesign from './Design';
+import TpoChattingDashboardDesign from './Design';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from "./styles";
 
 import strings from "../../../../../res/strings";
-const AdminChattingDashboardActivity = ({ navigation, nav_title, user, user_type }) => {
+const TpoChattingDashboardActivity = ({ navigation, nav_title, user, user_type }) => {
     const [group, setGroup] = useState('');
     useEffect(() => {
         navigation.setOptions({
@@ -25,7 +25,7 @@ const AdminChattingDashboardActivity = ({ navigation, nav_title, user, user_type
         setGroup("Group...");
     }, []);
     return (
-        <AdminChattingDashboardDesign
+        <TpoChattingDashboardDesign
             navigation={navigation}
             nav_title={nav_title}
             group_name={group}
@@ -34,4 +34,4 @@ const AdminChattingDashboardActivity = ({ navigation, nav_title, user, user_type
         />
     );
 }
-export default AdminChattingDashboardActivity;
+export default TpoChattingDashboardActivity;

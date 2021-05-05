@@ -37,6 +37,8 @@ import TpoProfileEditActivity from './src/components/Users/TPO/ProfileDashboard/
 import TpoProfileChangePasswordActivity from './src/components/Users/TPO/ProfileDashboard/ChangePassword';
 import TpoProfileSetMpinActivity from './src/components/Users/TPO/ProfileDashboard/SetMpin';
 import TpoProfileSetSecurityCodeActivity from './src/components/Users/TPO/ProfileDashboard/SetSecurityCode';
+import TpoChattingDashboardActivity from './src/components/Users/TPO/ChattingDashboard/Dashboard';
+import TpoChattingGroupActivity from './src/components/Users/TPO/ChattingDashboard/Group';
 
 
 
@@ -86,6 +88,11 @@ const App = () => {
         <Stack.Screen options={{ headerShown: true }} name="TpoProfileSetMpinActivity" component={TpoProfileSetMpinActivity} />
         <Stack.Screen options={{ headerShown: true }} name="TpoProfileSetSecurityCodeActivity" component={TpoProfileSetSecurityCodeActivity} />
         {/* Tpo's Notification Section */}
+
+        {/* Tpo's Chatting Section */}
+        <Stack.Screen options={{ headerShown: true }} name="TpoChattingDashboardActivity" component={TpoChattingDashboardActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoChattingGroupActivity" component={TpoChattingGroupActivity} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import { ToastAndroid } from 'react-native';
 import strings from '../../../../../res/strings';
 import TpoProfileChangePasswordDesign from './Design';
 
@@ -9,7 +10,7 @@ const TpoProfileChangePasswordActivity = ({navigation}) => {
         });
     }, [navigation]);
 
-    const oldPassData= "Tpo@123";
+    const oldPassData= "Shfali@123";
     const newPassData= "Tpo@12345"
     return(
         <TpoProfileChangePasswordDesign 
@@ -28,8 +29,9 @@ const TpoProfileChangePasswordActivity = ({navigation}) => {
     function submitChangePass(oldPass,newPass,confirmPass){
         if(ValidateOldPass(oldPass).isValidate   && ValidateNewPass(newPass,oldPass).isValidate 
         && ValidateConfirmPass(confirmPass,newPass).isValidate){
- 
-                 alert("Successfull");
+                 ToastAndroid.show("Successfully changed password",ToastAndroid.SHORT);
+                 navigation.replace('TpoProfileDashboardActivity');
+                 //alert("Successfull");
            }
            
     }
@@ -108,52 +110,38 @@ const TpoProfileChangePasswordActivity = ({navigation}) => {
          }
    }
    
-   function ValidateConfirmPass(passConf,newPass){
+   function ValidateConfirmPass(passConf, newPass) {
 
-    if(newPass && ValidateOldPass(newPass).isValidate)
-    {
-        if(passConf)
-        {
-            if(passConf == newPass)
-            {
-                return{
-                    errorPassConf:false,
-                    errorPassConfText:'pass match',
-                    setErrorPassConf:false,
-                    isValidate:true,
-                    
+    // if (ValidateOldPass(newPass).isValidate) {
+    if (passConf) {
+            if (passConf == newPass) {
+                return {
+                    errorPassConf: false,
+                    errorPassConfText: 'pass match',
+                    setErrorPassConf: false,
+                    isValidate: true,
+
                 };
             }
-            else
-            {
-                return{
-                    errorPassConf:true,
-                    errorPassConfText:'password not match',
-                    setErrorPassConf:true,
-                    isValidate:false,
+            else {
+                return {
+                    errorPassConf: true,
+                    errorPassConfText: 'password not match',
+                    setErrorPassConf: true,
+                    isValidate: false,
                 };
             }
         }
-        else
-        {
-            return{
-                errorPassConf:true,
-                errorPassConfText:'',
-                setErrorPassConf:true,
-                isValidate:false
+        else {
+            return {
+                errorPassConf: true,
+                errorPassConfText: 'Confirm password required',
+                setErrorPassConf: true,
+                isValidate: false
             };
         }
+
     }
-    else
-    {
-        return{
-            errorPassConf:true,
-            errorPassConfText:'Confirm password required',
-            setErrorPassConf:true,
-            isValidate:false
-        };
-    }
-   }
 
    function ValidateNewPass(newPass,oldPass){
     const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,12}$/;

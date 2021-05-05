@@ -104,9 +104,6 @@ const AdminProfileEditActivity = ({ navigation, nav_title }) => {
             validateMobile={(mobile) => validateMobile(mobile)}
             validateWhatsAppNumber={(whatsAppNumber) => validateWhatsAppNumber(whatsAppNumber)} />
     );
-
-
-
     function submitEditeProfileAdmin(firstName, lastName, email, mobile, whatsAppNumber) {
         if (validateFirstName(firstName).isValidate && validateLastName(lastName).isValidate && validateEmail(email).isValidate
             && validateMobile(mobile).isValidate && validateWhatsAppNumber(whatsAppNumber).isValidate

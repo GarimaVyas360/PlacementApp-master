@@ -11,7 +11,43 @@ import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
 import dimensions from '../../../../../res/dimensions';
 
-const TpoProfileEditDesign = ({navigation}) => {
+const TpoProfileEditDesign = ({navigation,submitEditeProfileTpo, validateFirstName, validateLastName, validateEmail
+    , validateMobile, validateBranch, validateWhatsAppNumber, FirstName, LastName, Email, Gender, Mobile, Enrollment, Department}) => {
+
+
+    const [users, setUsers] = useState([]);
+    const [firstName, setFirstName] = useState('');
+    const [errorFirstName, setErrorFirstName] = useState(false);
+    const [errorFirstNameText, setErrorFirstNameText] = useState('');
+    const [isErrorFirstName, setIsErrorFirstName] = useState(false);
+
+    const [lastName, setLastName] = useState('');
+    const [errorLastName, setErrorLastName] = useState(false);
+    const [errorLastNameText, setErrorLastNameText] = useState('');
+    const [isErrorLastName, setIsErrorLastName] = useState(false);
+
+    const [email, setEmail] = useState('');
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorEmailText, setErrorEmailText] = useState('');
+    const [isErrorEmail, setIsErrorEmail] = useState(false);
+
+    const [branch, setBranch] = useState('');
+    const [errorBranch, setErrorBranch] = useState(false);
+    const [errorBranchText, setErrorBranchText] = useState('');
+    const [isErrorBranch, setIsErrorBranch] = useState(false);
+
+    const [mobile, setMobile] = useState('');
+    const [errorMobile, setErrorMobile] = useState(false);
+    const [errorMobileText, setErrorMobileText] = useState('');
+    const [isErrorMobile, setIsErrorMobile] = useState(false);
+
+    const [whatsAppNumber, setWhatsAppNumber] = useState('');
+    const [errorWhatsAppNumber, setErrorWhatsAppNumber] = useState(false);
+    const [errorWhatsAppNumberText, setErrorWhatsAppNumberText] = useState('');
+    const [isErrorWhatsAppNumber, setIsErrorWhatsAppNumber] = useState(false);
+    const [tpoKey, setTpoKey] = useState('');
+
+
     return(
         <View style={styles.mainContainer}>
             <ScrollView style={styles.container}>
@@ -37,7 +73,7 @@ const TpoProfileEditDesign = ({navigation}) => {
                 </View>
                 <View style={styles.baseContainer}>
                     <View>
-                        <TextInput
+                    <TextInput
                             autoCompleteType="name"
                             label={strings.textInput.first_name}
                             mode="outlined"
@@ -45,17 +81,21 @@ const TpoProfileEditDesign = ({navigation}) => {
                             blurOnSubmit={true}
                             autoCapitalize='words'
                             // autoFocus
-                            error={false}
-                            //value={firstName}
-                            onChangeText={ (text) => {} }
+                            error={isErrorFirstName}
+                            value={firstName}
+                            onChangeText={(firstName) => {
+                                setFirstName(firstName);
+                                validateFirstName(firstName);
+                                checkFirstName(firstName);
+                            }}
                             selectionColor={dimensions.color.select_color}
-                            left={ <TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
+                            left={<TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error Message</HelperText>
+                        <HelperText type="error" visible={errorFirstName}>{errorFirstNameText}</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
                     <View>
-                        <TextInput
+                    <TextInput
                             autoCompleteType="name"
                             label={strings.textInput.last_name}
                             mode="outlined"
@@ -63,42 +103,21 @@ const TpoProfileEditDesign = ({navigation}) => {
                             blurOnSubmit={true}
                             autoCapitalize='words'
                             // autoFocus
-                            error={false}
-                            //value={firstName}
-                            onChangeText={ (text) => {} }
+                            error={isErrorLastName}
+                            value={lastName}
+                            onChangeText={(lastName) => {
+                                setLastName(lastName);
+                                validateLastName(LastName);
+                                checkLastName(LastName);
+                            }}
                             selectionColor={dimensions.color.select_color}
-                            left={ <TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
+                            left={<TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error Message</HelperText>
+                        <HelperText type="error" visible={errorLastName}>{errorLastNameText}</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
-                    <View style={styles.textInputFieldRadio}>
-                        <View style={styles.textInputFieldRadioButtonView}>
-                            <RadioButton style={styles.textInputFieldRadioButton}
-                                value="first"
-                                //status={ gender === 'Male' ? 'checked' : 'unchecked' }
-                                color="black"
-                                uncheckedColor="gray"
-                                onPress={() => {}}
-                                // setGender('Male')
-                            />
-                            <Text style={styles.textInputFieldRadioButtonText}>Male</Text>
-                        </View>
-                        <View style={styles.textInputFieldRadioButtonView}>
-                            <RadioButton style={styles.textInputFieldRadioButton}
-                                value="second"
-                                //status={ gender === 'Female' ? 'checked' : 'unchecked' }
-                                status={'checked'}
-                                color="black"
-                                uncheckedColor="gray"
-                                onPress={() => {}}
-                                // setGender('Female')
-                            />
-                            <Text style={styles.textInputFieldRadioButtonText}>Female</Text>
-                        </View>
-                    </View>
                     <View>
-                        <TextInput
+                    <TextInput
                             autoCompleteType="email"
                             label={strings.textInput.email}
                             mode="outlined"
@@ -107,17 +126,40 @@ const TpoProfileEditDesign = ({navigation}) => {
                             autoCapitalize='none'
                             keyboardType="email-address"
                             // autoFocus
-                            error={false}
-                            //value={email}
-                            onChangeText={ (text) => {} }
+                            error={isErrorEmail}
+                            value={email}
+                            onChangeText={(email) => {
+                                setEmail(email);
+                                validateEmail(email);
+                                checkEmail(email);
+                            }}
                             selectionColor={dimensions.color.select_color}
-                            left={ <TextInput.Icon name="email" color={"darkblue"} disabled={true} />}
+                            left={<TextInput.Icon name="email" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error</HelperText>
+                        <HelperText type="error" visible={errorEmail}>{errorEmailText}</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
                     <View>
-                        <TextInput
+                        <View style={styles.pickerView}>
+                            <Picker
+                                style={{}}
+                                error={isErrorBranch}
+                                selectedValue={branch}
+                                onValueChange={(itemValue, itemIndex) => {
+                                    setBranch(itemValue);
+                                    validateBranch(itemValue);
+                                    checkBranch(itemValue);
+                                } }>
+                                <Picker.Item label="--- Select Branch ---" value="" />
+                                <Picker.Item label="Ankush" value="" />
+                                <Picker.Item label="Shefali" value="" />
+                                <Picker.Item label="Garima" value="" />
+                            </Picker>
+                        </View>
+                        <HelperText type="error" visible={errorBranch}>{errorBranchText}</HelperText>
+                    </View>
+                    <View>
+                    <TextInput
                             autoCompleteType="tel"
                             label={strings.textInput.contact}
                             mode="outlined"
@@ -126,54 +168,61 @@ const TpoProfileEditDesign = ({navigation}) => {
                             autoCapitalize='none'
                             keyboardType="phone-pad"
                             // autoFocus
-                            error={false}
-                            //value={email}
-                            onChangeText={ (text) => {} }
+                            error={isErrorMobile}
+                            value={mobile}
+                            onChangeText={(mobile) => {
+                                setMobile(mobile.replace(/[^0-9]/g, ''));
+                                validateMobile(mobile);
+                                checkMobile(mobile)
+                            }}
                             selectionColor={dimensions.color.select_color}
                             // text.replace(/[^0-9]/g, '')
-                            left={ <TextInput.Icon name="phone" color={"darkblue"} disabled={true} />}
+                            left={<TextInput.Icon name="phone" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error</HelperText>
-                    </View>
-                    <View style={styles.spacing15}></View>
-                    <View>
-                        <View style={styles.pickerView}>
-                            <Picker
-                                style={{}}
-                                // selectedValue={}
-                                onValueChange={(itemValue, itemIndex) => {} }>
-                                <Picker.Item label="--- Select Branch ---" value="" />
-                                <Picker.Item label="Ankush" value="" />
-                                <Picker.Item label="Shefali" value="" />
-                                <Picker.Item label="Garima" value="" />
-                            </Picker>
-                        </View>
-                        <HelperText type="error" visible={true}>Error</HelperText>
+                        <HelperText type="error" visible={errorMobile}>{errorMobileText}</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
                     <View>
                         <TextInput
                             autoCompleteType="username"
-                            label={strings.textInput.enrollment}
+                            label={strings.textInput.whatsapp_number}
                             mode="outlined"
-                            placeholder={strings.textInput.enrollment}
+                            placeholder={strings.textInput.whatsapp_number}
                             blurOnSubmit={true}
                             autoCapitalize='characters'
                             // autoFocus
-                            error={false}
-                            //value={firstName}
-                            onChangeText={ (text) => {} }
+                            error={isErrorWhatsAppNumber}
+                            value={whatsAppNumber}
+                            onChangeText={(whatsAppNumber) => {
+                                setWhatsAppNumber(whatsAppNumber.replace(/[^0-9]/g, ''));
+                                validateWhatsAppNumber(whatsAppNumber);
+                                checkWhatsAppNumber(whatsAppNumber);
+                            }}
                             selectionColor={dimensions.color.select_color}
-                            left={ <TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
+                            left={<TextInput.Icon name="account" color={"darkblue"} disabled={true} />}
                         />
-                        <HelperText type="error" visible={true}>Error Message</HelperText>
+                        <HelperText type="error" visible={errorWhatsAppNumber}>{errorWhatsAppNumberText}</HelperText>
                     </View>
                     <View style={styles.spacing5}></View>
                     <View style={styles.submitButton} >
                         <Button 
                             style={styles.loginButton}
                             mode="contained"
-                            onPress={ () => { navigation.goBack(); }}
+                            onPress={ () => {
+                                submitEditeProfileTpo(firstName, lastName, email,branch, mobile, whatsAppNumber);
+                                validateFirstName(firstName);
+                                checkFirstName(firstName);
+                                validateLastName(lastName);
+                                validateEmail(email);
+                                validateBranch(branch)
+                                validateMobile(mobile);
+                                validateWhatsAppNumber(whatsAppNumber);
+                                checkLastName(lastName);
+                                checkEmail(email);
+                                checkMobile(mobile);
+                                checkBranch(branch);
+                                checkWhatsAppNumber(whatsAppNumber);
+                             }}
                             >
                             {strings.buttons.update_profile}
                         </Button>
@@ -182,5 +231,36 @@ const TpoProfileEditDesign = ({navigation}) => {
             </ScrollView>
         </View>
     );
+    function checkFirstName(firstName) {
+        setErrorFirstName(validateFirstName(firstName).errorFirstName);
+        setErrorFirstNameText(validateFirstName(firstName).errorFirstNameText);
+        setIsErrorFirstName(validateFirstName(firstName).isErrorFirstName);
+    }
+    function checkLastName(lastName) {
+        setErrorLastName(validateLastName(lastName).errorLastName);
+        setErrorLastNameText(validateLastName(lastName).errorLastNameText);
+        setIsErrorLastName(validateLastName(lastName).isErrorLastName);
+    }
+    function checkEmail(email) {
+        setErrorEmail(validateEmail(email).errorEmail);
+        setErrorEmailText(validateEmail(email).errorEmailText);
+        setIsErrorEmail(validateEmail(email).isErrorEmail);
+    }
+    function checkBranch(branch) {
+        setErrorBranch(validateBranch(branch).errorBranch);
+        setErrorBranchText(validateBranch(branch).errorBranchText);
+        setIsErrorBranch(validateBranch(branch).isErrorBranch);
+    }
+    function checkMobile(mobile) {
+        setErrorMobile(validateMobile(mobile).errorMobile);
+        setErrorMobileText(validateMobile(mobile).errorMobileText);
+        setIsErrorMobile(validateMobile(mobile).isErrorMobile);
+    }
+    function checkWhatsAppNumber(whatsAppNumber) {
+        setErrorWhatsAppNumber(validateWhatsAppNumber(whatsAppNumber).errorWhatsAppNumber);
+        setErrorWhatsAppNumberText(validateWhatsAppNumber(whatsAppNumber).errorWhatsAppNumberText);
+        setIsErrorWhatsAppNumber(validateWhatsAppNumber(whatsAppNumber).isErrorWhatsAppNumber);
+    }
+
 }
 export default TpoProfileEditDesign;

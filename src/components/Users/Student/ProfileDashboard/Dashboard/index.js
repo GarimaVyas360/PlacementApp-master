@@ -4,15 +4,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import strings from '../../../../../res/strings';
 import { styles } from "./styles";
-import TpoProfileDashboardDesign from './Design';
+import StudentProfileDashboardDesign from './Design';
 
-const TpoProfileDashboardActivity = ({navigation,nav_title}) => {
+const StudentProfileDashboardActivity = ({navigation,nav_title}) => {
     useEffect(() => {
         navigation.setOptions({
             title: nav_title, //Set Header Title
             headerRight: () => (
                 <View style={styles.headerView}>
-                    <TouchableOpacity onPress={ () => navigation.replace("UserDashboardActivity") }>
+                    <TouchableOpacity onPress={ () => {alert("Logout") }}>
                         <Icon name="logout" size={30} color="black" style={styles.logoutEdit} />
                     </TouchableOpacity>
                 </View>
@@ -20,8 +20,8 @@ const TpoProfileDashboardActivity = ({navigation,nav_title}) => {
         });
     },[]);
     return(
-        <TpoProfileDashboardDesign 
+        <StudentProfileDashboardDesign 
             navigation={navigation} />
     );
 }
-export default TpoProfileDashboardActivity;
+export default StudentProfileDashboardActivity;

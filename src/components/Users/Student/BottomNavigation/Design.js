@@ -2,16 +2,15 @@ import React, {useState} from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 import dimensions from '../../../../res/dimensions';
 import strings from '../../../../res/strings';
-import TpoChattingDashboardActivity from '../ChattingDashboard/Dashboard';
-import TpoDashboardActivity from '../HomeDashboard/Dashboard/index';
-import TpoProfileDashboardActivity from '../ProfileDashboard/Dashboard';
+import StudentDashboardActivity from '../HomeDashboard/Dashboard/index';
+import StudentProfileDashboardActivity from '../ProfileDashboard/Dashboard';
 
-const TpoBottomNavDesign = ({navigation}) => {
-  const tpoTitle = 'Welcome TPO...';
+const StudentBottomNavDesign = ({navigation}) => {
+  const tpoTitle = 'Welcome Student...';
 
-  const Key1 = () => <TpoDashboardActivity navigation={navigation} nav_title={tpoTitle}/> ;
-  const Key2 = () => <TpoChattingDashboardActivity navigation={navigation} nav_title={tpoTitle}/>;
-  const Key3 = () => <TpoProfileDashboardActivity navigation={navigation} nav_title={tpoTitle}/>;
+  const Key1 = () => <StudentDashboardActivity navigation={navigation} nav_title={tpoTitle}/> ;
+  const Key2 = () => <Text>2</Text>;
+  const Key3 = () => <StudentProfileDashboardActivity navigation={navigation} nav_title={tpoTitle}/>;
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -41,4 +40,4 @@ const TpoBottomNavDesign = ({navigation}) => {
     />
   );
 };
-export default TpoBottomNavDesign;
+export default StudentBottomNavDesign;
