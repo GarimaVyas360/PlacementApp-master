@@ -172,9 +172,9 @@ const AddTpoDesign = ({ navigation, departmentlist, submitAccount, validateFirst
                                         //     <Picker.Item label="Shefali" value="S" />
                                         //     <Picker.Item label="Garima" value="G" />
                                         error={isErrorBranch}
-                                        selectedValue={selectedDepartment}
+                                        selectedValue={branch}
                                         onValueChange={(itemValue, itemIndex) => {
-
+                                            setBranch(itemValue);
                                             validateBranch(itemValue);
                                             checkBranch(itemValue);
                                             setDepartmentKey(itemValue);
@@ -284,10 +284,10 @@ const AddTpoDesign = ({ navigation, departmentlist, submitAccount, validateFirst
             setLastName('');
             setEmail('');
             setMobile('');
-            setSelectedDepartment('');
+            setBranch('');
             setPassword('');
             setPassConf('');
-            setSelectedDepartment('');
+
         }
     }
     function checkFirstName(firstName) {

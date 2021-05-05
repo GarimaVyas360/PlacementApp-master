@@ -3,6 +3,7 @@ import strings from '../../../../../res/strings';
 import AdminProfileEditDesign from './Design';
 import firestore from "@react-native-firebase/firestore";
 import { UpdateAdmin } from '../../../../../firebase/firestore/UserSignUp';
+import { ToastAndroid } from 'react-native';
 
 const AdminProfileEditActivity = ({ navigation, nav_title }) => {
     const [users, setUsers] = useState([]);
@@ -112,7 +113,7 @@ const AdminProfileEditActivity = ({ navigation, nav_title }) => {
             //  && whatsAppNumber(whatsAppNumber).isValidate
         ) {
             UpdateAdmin(firstName, lastName, email, mobile, whatsAppNumber);
-            alert("data edited");
+            ToastAndroid.show("Profile Saved", ToastAndroid.SHORT);
             navigation.goBack();
         }
     }

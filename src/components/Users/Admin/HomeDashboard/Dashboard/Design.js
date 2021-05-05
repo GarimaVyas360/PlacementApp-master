@@ -12,7 +12,7 @@ const AdminDashboardDesign = ({ navigation, nav_title }) => {
             title: nav_title, //Set Header Title
             headerRight: () => (
                 <View style={styles.headerView}>
-                    <TouchableOpacity onPress={() => { alert("Logout") }}>
+                    <TouchableOpacity onPress={() => { navigation.replace("UserDashboardActivity") }}>
                         <Icon name="logout" size={30} color="black" style={styles.logoutEdit} />
                     </TouchableOpacity>
                 </View>

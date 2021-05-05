@@ -6,13 +6,14 @@ import AdminChattingDashboardActivity from '../ChattingDashboard/Dashboard';
 import AdminDashboardActivity from '../HomeDashboard/Dashboard/index';
 import AdminProfileDashboardActivity from '../ProfileDashboard/Dashboard';
 
-const AdminBottomNavDesign = ({ navigation }) => {
-  const adminTitle = 'Welcome Admin...';
-
+const AdminBottomNavDesign = ({ navigation, users }) => {
+  // const adminTitle = 'Welcome Admin...';
+  const user = users;
+  const adminTitle = 'Welcome ' + user;
   const Key1 = () => <AdminDashboardActivity navigation={navigation} nav_title={adminTitle} />;
-  const Key2 = () => <AdminChattingDashboardActivity navigation={navigation} nav_title={adminTitle} />;
+  const Key2 = () => <AdminChattingDashboardActivity navigation={navigation} nav_title={adminTitle} user={user} user_type={strings.users.admin} />;
   const Key3 = () => <AdminProfileDashboardActivity navigation={navigation} nav_title={adminTitle} />;
-
+  // ab dekho  ok
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'key1', title: 'DASHBOARD', icon: 'home', }, // home-account, view-dashboard

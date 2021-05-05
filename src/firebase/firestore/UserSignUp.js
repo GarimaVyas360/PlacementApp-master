@@ -68,7 +68,7 @@ export const createDepartment = (department) => {
 
 export function departmentListCollection(department) {
     var size;
-    firestore()
+    const subscriber = firestore()
         .collection("departments")
         // order by asc and desc order
         .where('department', '==', department)
@@ -90,6 +90,7 @@ export function departmentListCollection(department) {
                 createDepartment(department);
             }
         });
+    return () => subscriber();
 }
 
 export const deleteTpo = (key) => {
@@ -250,4 +251,56 @@ export function SubmitGroup(groupName, id, sender, message, date, time) {
         }).catch((error) => {
             console.log("error --->>", error)
         });
+}
+
+
+export const newUserSignup = (firstName, lastName, gender, email, password, phoneno, branch, enrollment, status) => {
+    console.log(firstName, lastName, gender, email, password, phoneno, branch, enrollment);
+    // keywords.student_table.FirstName = FirstName;
+    firestore()
+        .collection('NewStudentsList')
+        .add({
+            FirstName: firstName,
+            LastName: lastName,
+            Gender: gender,
+            Email: email,
+            Password: password,
+            Department: branch,
+            Enrollment: enrollment,
+            Phoneno: phoneno,
+            value: status
+        })
+        .then(() => {
+            console.log('Students added!');
+        });
+    return true;
+}
+
+
+export const addGroupsChats = (sender, message, date, time) => {
+    console.log(sender, message, date, time);
+    // keywords.student_table.FirstName = FirstName;
+    firestore()
+        .collection('Group1')
+        .add({
+            Sender: sender,
+            Message: message,
+            Date: date,
+            Time: time,
+        })
+        .then(() => {
+            console.log('group chat added!');
+        });
+    return true;
+}
+export const updatePassword = (newPassword) => {
+    firestore()
+        .collection('Admin')
+        .doc('YfqQCFkWSiWoGBeOoiCX')
+        .update({
+            Password: newPassword,
+        })
+        .then(() => {
+            console.log("Password updated");
+        })
 }

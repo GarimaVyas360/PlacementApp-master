@@ -55,14 +55,20 @@ const AddDepartmentActivity = ({ navigation }) => {
 
     function submitDepartment(department) {
         if (validateDepartment(department).isValidate) {
-            console.log("btn click");
-             setDepartment()
-          //  formClear(true);
+//             console.log("btn click");
+// <<<<<<< HEAD
+//              setDepartment()
+//           //  formClear(true);
+// =======
+// >>>>>>> Garimarepository
             departmentListCollection(department);
             ToastAndroid.show("Department Added ", ToastAndroid.SHORT);
+            formClear(true);
+            return true;
         }
         else {
-            ToastAndroid.show("Enter the Valid  department", ToastAndroid.SHORT);
+            ToastAndroid.show("Enter The Valid  Department", ToastAndroid.SHORT);
+            return false;
         }
         // formClear(true);
     }

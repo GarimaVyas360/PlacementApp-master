@@ -1,9 +1,13 @@
 import React from 'react';
 import AdminBottomNavDesign from './Design';
 
-const AdminBottomNavActivity = ({ navigation }) => {
+const AdminBottomNavActivity = ({ route, navigation }) => {
+    const user = route.params.user;
     return (
-        <AdminBottomNavDesign navigation={navigation} />
+        <AdminBottomNavDesign navigation={navigation}
+            // route={route}
+            users={user}
+        />
     );
 }
 export default AdminBottomNavActivity;
