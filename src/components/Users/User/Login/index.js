@@ -4,55 +4,14 @@ import strings from '../../../../res/strings';
 import UserLoginDesign from './Design';
 import { SignupAuth } from "../../../../firebase/firebaseAuth";
 import firestore from "@react-native-firebase/firestore";
-
-const UserLoginActivity = ({ route, navigation }) => {
+function UserLoginActivity({ route, navigation }) {
     const user = route.params.user;
     var userList;
-    var currentuser;
-    const [userData, setUser] = useState([]);
-    const [userEmail, setUserEmail] = useState('');
-    const [userPassword, setUserPassword] = useState('');
+    var size, key, currentUsers, userEmail, Department, Enrollment, FirstName, Gender, LastName, userPassword, Phoneno;
+    // const [userData, setUser] = useState([]);
+    // const [userEmail, setUserEmail] = useState('');
+    // const [userPassword, setUserPassword] = useState('');
     const [currentUser, setCurrentUser] = useState('');
-
-    useEffect(() => {
-        const subscriber = firestore()
-            .collection(user)
-            .onSnapshot(querySnapshot => {
-                const users = [];
-                console.log('Total users: ', querySnapshot.size);
-
-                querySnapshot.forEach(documentSnapshot => {
-                    console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
-                    users.push({
-                        ...documentSnapshot.data(),
-                        key: documentSnapshot.id,
-                    });
-
-                    setUser(users);
-                });
-
-
-                users.map((item, index) => {
-                    console.log(item.key);
-                });
-                userList = users.slice();
-
-                userList.map((item, index) => {
-                    console.log("user Data" + item.Email + "  " + item.FirstName);
-                });
-
-                setUser(userList);
-
-            });
-
-        // Unsubscribe from events when no longer in use
-        return () => subscriber();
-    }, []);
-
-
-
-
-
 
 
     return (
@@ -69,90 +28,77 @@ const UserLoginActivity = ({ route, navigation }) => {
     );
     function submitLogin(email, password) {
         if (validateEmail(email).isValidate && validatePassword(password).isValidate) {
-            if (user == strings.users.student) {
-                // userVerify(email, (status) => {
-                //     console.log("status" + status),
-                //         (status) ? alert(user + " Success!") : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT),
-                //         onSuccess(status)
-                // });
-                {
-                    setUserData(email, password, (status, currentuser) => {
-                        console.log("status" + status),
-                            console.log("currentuser" + currentuser);
-                        // (status) ? alert(user + " Success!") : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT),
-                        onSuccess(status, currentuser)
+            if (user === strings.users.student) {
+                console.log("btn click");
+                // userVerify(email);
+                // console.log("usrs" + currentUser);
+                userVerify(email, (status) => {
+                    onSuccess(status)
+                    console.log("status" + status),
+                        console.log("usrs" + key + currentUsers + userEmail + Department + LastName + Enrollment + userPassword + Phoneno + Gender);
+                    (status) ?
+                        navigation.replace('StudentBottomNavActivity',
+                            { user: currentUsers, key: key, email: userEmail, department: Department, firstName: FirstName, lastName: LastName, password: userPassword, enrollment: Enrollment, phoneno: Phoneno, gender: Gender })
+                        : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
 
-                        if (status) {
-                            //     // alert(user + " Success!");
-                            navigation.replace('AdminBottomNavActivity', { user: currentuser });
-                            return true;
-                        }
-                        else {
-                            ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
-                            return false;
-                        }
-                    });
-                }
+                });
+
+
             }
-            // console.log("userexist " + userexist);
-            // navigation.replace('StudentBottomNavActivity');
 
             else if (user == strings.users.tpo) {
-                {
-                    setUserData(email, password, (status, currentuser) => {
-                        console.log("status" + status),
-                            console.log("currentuser" + currentuser);
-                        // (status) ? alert(user + " Success!") : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT),
-                        onSuccess(status, currentuser)
-
-                        if (status) {
-                            //     // alert(user + " Success!");
-                            navigation.replace('AdminBottomNavActivity', { user: currentuser });
-                            return true;
-                        }
-                        else {
-                            ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
-                            return false;
-                        }
-                    });
-                }
             }
-            // navigation.replace('TpoBottomNavActivity');
 
             else if (user == strings.users.admin) {
                 // var userValue = userName;
                 // console.log(setUserData(email, password));
                 // setUserData(email, password, (status) => { console.log("status " + status), onSuccess(status) });
 
-                {
-                    setUserData(email, password, (status, currentuser) => {
-                        console.log("status" + status),
-                            console.log("currentuser" + currentuser);
-                        // (status) ? alert(user + " Success!") : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT),
-                        onSuccess(status, currentuser)
+                //     {
+                //         setUserData(email, password, (status, currentuser) => {
+                //             // console.log("status" + status),
+                //             //     console.log("currentuser" + currentuser);
+                //             // (status) ? alert(user + " Success!") : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT),
+                //             onSuccess(status, currentuser)
 
-                        if (status) {
-                            //     // alert(user + " Success!");
-                            navigation.replace('AdminBottomNavActivity', { user: currentuser });
-                            return true;
-                        }
-                        else {
-                            ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
-                            return false;
-                        }
-                    });
-                }
+                //             if (status) {
+                //                 //     // alert(user + " Success!");
+                //                 navigation.replace('AdminBottomNavActivity', { user: currentuser });
+                //                 return true;
+                //             }
+                //             else {
+                //                 ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
+                //                 return false;
+                //             }
+                //         });
+                //     }
+                // }
+
+                // else {
+                //     ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT);
+                //     return false;
+                // }
+                console.log("btn click");
+                // userVerify(email);
+                // console.log("usrs" + currentUser);
+                userVerify(email, (status) => {
+                    onSuccess(status)
+                    console.log("status" + status),
+                        console.log("usrs" + currentUsers + userEmail + Department + LastName + Enrollment + userPassword + Phoneno + Gender);
+                    (status) ?
+                        navigation.replace('AdminBottomNavActivity',
+                            { user: currentUsers, key: key, email: userEmail, department: Department, firstName: FirstName, lastName: LastName, password: userPassword, enrollment: Enrollment, phoneno: Phoneno, gender: Gender })
+                        : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
+
+                });
+
+
+
             }
-
-            // else {
-            //     ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT);
-            //     return false;
-            // }
-
-        }
-        else {
-            ToastAndroid.show("All fields are mandatory!", ToastAndroid.SHORT);
-            return false;
+            else {
+                ToastAndroid.show("All fields are mandatory!", ToastAndroid.SHORT);
+                return false;
+            }
         }
     }
     function keyboardHide() {
@@ -175,6 +121,7 @@ const UserLoginActivity = ({ route, navigation }) => {
     function formClear(allow) {
         return allow;
     }
+
     function validateEmail(email) {
         const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (!email) {
@@ -235,66 +182,112 @@ const UserLoginActivity = ({ route, navigation }) => {
     }
 
     function onSuccess(status, currentuser) {
-        console.log("allow", status)
-        console.log("User " + currentuser);;
+        console.log("allow", status);
+        console.log("User " + currentuser);
+        setCurrentUser(currentuser);
         return status;
     }
 
-    // function setUser(users) {
-    //     // setCurrentUser(users);
-    //     currentUser = users;
-    //     console.log("ussers" + currentUser);
-    //     return currentUser;
-    // }
-
-    function setUserData(email, password, onSuccess) {
-
-        userData.map((item, index) => {
-            // console.log("user List" + item.Email + "  " + item.FirstName);
-            if (item.Email == email && item.Password == password) {
-                console.log("item data" + item.Email + " " + item.Password + " " + item.FirstName);
-                //         alert(user + " Success!");
-                currentuser = item.FirstName;
-                onSuccess(true, currentuser);
-
-            } else {
-                onSuccess(false);
-            }
-        });
-
-        setCurrentUser(currentuser);
-        console.log(currentuser);
+    function setUsers(users, userEmail) {
+        // setCurrentUser(users);
+        currentUsers = users;
+        console.log("ussers", currentUsers, userEmail);
+        return currentUsers;
     }
 
 
-    // function userVerify(email, onSuccess) {
-    //     var size;
-    //     firestore()
-    //         .collection(user)
-    //         // order by asc and desc order
-    //         .where('Email', '==', email)
-    //         .get()
-    //         .then(querySnapshot => {
-    //             console.log('Total users: ', querySnapshot.size);
-    //             size = querySnapshot.size;
-    //             querySnapshot.forEach(documentSnapshot => {
-    //                 console.log('User exists: ', size);
+    function userVerify(email, onSuccess) {
+        firestore()
+            .collection(user)
+            // order by asc and desc order
+            .where('Email', '==', email)
+            .get()
+            .then(querySnapshot => {
+                console.log('Total users: ', querySnapshot.size);
+                size = querySnapshot.size;
+                querySnapshot.forEach(documentSnapshot => {
+                    console.log('User exists: ', size);
 
-    //                 if (documentSnapshot.exists) {
-    //                     console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
-    //                     onSuccess(true);
-    //                     setUser(documentSnapshot.get('FirstName'));
-    //                 }
-    //             });
-    //             if (size == 0) {
-    //                 console.log('Total success user: ', querySnapshot.size);
-    //                 onSuccess(false);
-    //             }
-    //         });
+                    if (documentSnapshot.exists) {
+                        console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                        console.log(" Users Data", documentSnapshot.data().FirstName);
+
+                        currentUsers = documentSnapshot.data().FirstName;
+                        userEmail = documentSnapshot.data().Email;
+                        userPassword = documentSnapshot.data().Password;
+                        FirstName = documentSnapshot.data().FirstName;
+                        LastName = documentSnapshot.data().LastName;
+                        Gender = documentSnapshot.data().Gender;
+                        Department = documentSnapshot.data().Department;
+                        Enrollment = documentSnapshot.data().Enrollment;
+                        Phoneno = documentSnapshot.data().Phoneno;
+                        key = documentSnapshot.id;
+                        setCurrentUser(documentSnapshot.data().FirstName);
+                        console.log("currentUser" + currentUsers);
+                        setUsers(currentUsers, userEmail);
+                        onSuccess(true, currentUsers);
+
+                    }
+                });
+                if (size == 0) {
+                    console.log('Total success user: ', querySnapshot.size);
+                    onSuccess(false, currentUsers);
+
+                }
+            });
+    }
+
+    // function setUserData() {
+    //     console.log("user data");
+    //     userData.map((item, index) => {
+    //         // console.log("user List" + item.Email + "  " + item.FirstName);
+    //         if (item.Email == email && item.Password == password) {
+    //             // console.log("item data" + item.Email + " " + item.Password + " " + item.FirstName);
+    //             //         alert(user + " Success!");
+    //             currentuser = item.FirstName;
+    //             onSuccess(true, currentuser);
+    //             return true;
+    //         } else {
+    //             onSuccess(false);
+    //             return false;
+    //         }
+    //     });
+
+    //     setCurrentUser(currentuser);
+    //     // console.log(currentuser);
+
+    //     // var size;
+
+    //     // const subscriber = await firestore()
+    //     //     .collection('Students')
+    //     //     // .where('Email', '==', email)
+    //     //     .get()
+    //     //     .then(querySnapshot => {
+    //     //         console.log('Total users: ', querySnapshot.size);
+    //     //         size = querySnapshot.size;
+    //     //         querySnapshot.forEach(documentSnapshot => {
+    //     //             console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+    //     //             console.log(documentSnapshot.get('Email'));
+
+    //     //             onSuccess(true);
+    //     //         });
+    //     //     });
+
+    //     // if (size == 0) {
+    //     //     console.log('Total success user: ', querySnapshot.size);
+    //     //     onSuccess(false);
+    //     // }
+
+    //     // return () => subscriber();
     // }
+
+
+
 
 
 
 
 }
+
+
 export default UserLoginActivity;

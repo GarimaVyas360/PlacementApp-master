@@ -11,7 +11,7 @@ import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
 
-const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastName, Gender, Email, Password }) => {
+const StudentProfileDashboardDesign = ({ navigation, Key, nav_title, FirstName, LastName, Gender, Email, Password, Department, Enrollment, Phoneno }) => {
     useEffect(() => {
         navigation.setOptions({
             title: nav_title, //Set Header Title
@@ -49,7 +49,11 @@ const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastNam
                 </View>
                 <View style={styles.baseContainer}>
                     <TouchableOpacity style={styles.textEditViewStyle}
-                        onPress={() => { navigation.navigate('AdminProfileEditActivity') }}>
+                        onPress={() => {
+                            navigation.navigate('StudentProfileEditActivity',
+                                { email: Email, department: Department, firstName: FirstName, lastName: LastName, password: Password, enrollment: Enrollment, phoneno: Phoneno, gender: Gender })
+                            // console.log("FirstName" + FirstName);
+                        }} >
                         <Icon name="account-edit" size={30} color="black" style={styles.textEdit} />
                     </TouchableOpacity>
                     <View style={styles.baseContainerView}>
@@ -67,16 +71,25 @@ const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastNam
                         <Text style={styles.detailText}>{Email}</Text>
                     </View>
                     <Divider style={styles.headingDividerBaseBottom}></Divider>
+                    <View style={styles.baseContainerView}>
+                        <Text style={styles.detailHeading}>Department</Text>
+                        <Text style={styles.detailText}>{Department}</Text>
+                    </View>
+                    {/* <Divider style={styles.headingDividerBaseBottom}></Divider>
+                </View> */}
+
+
+                    <Divider style={styles.headingDividerBaseBottom}></Divider>
                 </View>
                 <View style={styles.footerView}>
                     <TouchableOpacity
-                        onPress={() => { navigation.navigate('AdminProfileChangePasswordActivity', { oldPassword: Password }); console.log("old Password " + Password); }}>
+                        onPress={() => { navigation.navigate('StudentProfileChangePasswordActivity', { oldPassword: Password, Key: Key }); console.log("old Password ,Key" + Password, Key); }}>
                         <Button>{strings.buttons.change_password}</Button>
                         <Divider style={styles.headingDividerBase}></Divider>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.mpinView}
-                    onPress={() => { navigation.navigate('AdminProfileSetMpinActivity') }}>
+                    onPress={() => { navigation.navigate('StudentProfileSetMpinActivity') }}>
                     {/* <Icon name="delete" size={30} color='#Ba020a' style={styles.deleteEdit} /> */}
                     <Text style={styles.mpinEdit}>{strings.buttons.set_mpin}</Text>
                 </TouchableOpacity>
@@ -84,4 +97,4 @@ const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastNam
         </View>
     );
 }
-export default AdminProfileDashboardDesign;
+export default StudentProfileDashboardDesign;

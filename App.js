@@ -26,6 +26,12 @@ import TermsConditionActivity from './src/components/Users/User/TermsCondition';
 import AdminBottomNavActivity from './src/components/Users/Admin/BottomNavigation';
 import AdminChattingDashboardActivity from './src/components/Users/Admin/ChattingDashboard/Dashboard';
 import AdminChattingGroupActivity from './src/components/Users/Admin/ChattingDashboard/Group';
+import StudentBottomNavActivity from "./src/components/Users/Student/BottomNavigation/index";
+import StudentChattingDashboardActivity from "./src/components/Users/Student/ChattingDashboard/Dashboard";
+import StudentChattingGroupActivity from './src/components/Users/Student/ChattingDashboard/Group';
+import StudentProfileEditActivity from './src/components/Users/Student/ProfileDashboard/EditProfile';
+import StudentProfileChangePasswordActivity from './src/components/Users/Student/ProfileDashboard/ChangePassword';
+import StudentProfileDashboardActivity from './src/components/Users/Student/ProfileDashboard/Dashboard/index';
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -58,6 +64,16 @@ const App = () => {
         {/* Admin's Chatting Section */}
         <Stack.Screen options={{ headerShown: true }} name="AdminChattingDashboardActivity" component={AdminChattingDashboardActivity} />
         <Stack.Screen options={{ headerShown: true }} name="AdminChattingGroupActivity" component={AdminChattingGroupActivity} />
+
+        {/*Students Section  */}
+        <Stack.Screen options={{ headerShown: true }} name="StudentBottomNavActivity" component={StudentBottomNavActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="StudentChattingDashboardActivity" component={StudentChattingDashboardActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="StudentChattingGroupActivity" component={StudentChattingGroupActivity} />
+
+        {/* Students Profile Section */}
+        <Stack.Screen options={{ headerShown: true }} name="StudentProfileDashboard" component={StudentProfileDashboardActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="StudentProfileEditActivity" component={StudentProfileEditActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="StudentProfileChangePasswordActivity" component={StudentProfileChangePasswordActivity} />
       </Stack.Navigator>
     </NavigationContainer>
   );

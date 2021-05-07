@@ -88,7 +88,7 @@ const UserLoginDesign = ({ navigation, user, submitLogin, validateEmail, validat
                                     icon="login"
                                     mode="contained"
                                     onPress={() => {
-                                        submitLogin(email, password);
+                                        { () => submitLogin(email, password); }
                                         checkEmail(email);
                                         checkPassword(password);
                                         formDataClear(formClear(true));

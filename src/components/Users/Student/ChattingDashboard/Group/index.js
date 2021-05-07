@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import AdminChattingGroupDesign from './Design';
+import StudentChattingGroupDesign from './Design';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from "./styles";
-import moment from 'moment'
+import moment from 'moment';
 import strings from "../../../../../res/strings";
 import firestore from "@react-native-firebase/firestore";
 import { addGroupsChats } from '../../../../../firebase/firestore/UserSignUp';
 
-const AdminChattingGroupActivity = ({ route, navigation }) => {
+const StudentChattingGroupActivity = ({ route, navigation }) => {
     const [group, setgroup] = useState([]);
     const user = route.params.user;
     const user_type = route.params.user_type;
@@ -85,7 +85,7 @@ const AdminChattingGroupActivity = ({ route, navigation }) => {
     // 
 
     return (
-        <AdminChattingGroupDesign
+        <StudentChattingGroupDesign
             navigation={navigation}
             groupChats={group}
             user={user}
@@ -162,4 +162,4 @@ const AdminChattingGroupActivity = ({ route, navigation }) => {
     }
 
 }
-export default AdminChattingGroupActivity;
+export default StudentChattingGroupActivity;

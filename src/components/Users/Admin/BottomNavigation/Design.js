@@ -17,7 +17,7 @@ const AdminBottomNavDesign = ({ navigation, users }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'key1', title: 'DASHBOARD', icon: 'home', }, // home-account, view-dashboard
-    { key: 'key2', title: 'NOTIFICATION', icon: 'bell', },
+    { key: 'key2', title: 'CHATS', icon: 'bell', },
     { key: 'key3', title: 'PROFILE', icon: 'account-cog', },
   ]);
 

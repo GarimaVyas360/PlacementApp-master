@@ -153,6 +153,24 @@ export const UpdateAdmin = (firstName, lastName, email, phoneno, whatsAppNumber)
 }
 
 
+export const UpdateStudent = (firstName, lastName, email, phoneno, key) => {
+    console.log(firstName, lastName, email, phoneno, key);
+    firestore()
+        .collection('Students')
+        .doc(key)
+        .update({
+            FirstName: firstName,
+            LastName: lastName,
+            Email: email,
+            Mobile: phoneno,
+        })
+        .then(() => {
+            console.log('Student added!');
+        });
+}
+
+
+
 export const suspendTPOList = (firstName, lastName, email, phoneno, selectedDepartment, password, key) => {
     console.log(firstName, lastName, email, password, phoneno, selectedDepartment);
     firestore()
@@ -285,6 +303,7 @@ export const addGroupsChats = (sender, message, date, time, size) => {
         .collection('UserGroup')
         .doc('' + groupSize)
         .set({
+            id: groupSize,
             Sender: sender,
             Message: message,
             Date: date,
@@ -299,6 +318,18 @@ export const updatePassword = (newPassword) => {
     firestore()
         .collection('Admin')
         .doc('YfqQCFkWSiWoGBeOoiCX')
+        .update({
+            Password: newPassword,
+        })
+        .then(() => {
+            console.log("Password updated");
+        })
+}
+
+export const updateStudentPassword = (newPassword, Key) => {
+    firestore()
+        .collection('Students')
+        .doc(Key)
         .update({
             Password: newPassword,
         })

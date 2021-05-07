@@ -17,6 +17,7 @@ const AdminDashboardDesign = ({ navigation, nav_title }) => {
                     </TouchableOpacity>
                 </View>
             ),
+            headerLeft: () => { }
         });
     }, []);
 

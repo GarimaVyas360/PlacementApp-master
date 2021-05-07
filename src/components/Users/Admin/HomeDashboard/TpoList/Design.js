@@ -97,16 +97,12 @@ const TpoListDesign = ({ navigation, data, list }) => {
                         {user == "" || user == null ? <Text style={styles.emptyTextArea}>Record not found</Text> : []}
                     </View>
                     <View style={styles.listView}>
+                        <FlatList
 
-                        {(user != []) ?
-                            <FlatList
-                                data={user}
-                                renderItem={renderItem}
-                                keyExtractor={(item, index) => item.key}
-                            />
-                            : <View style={{ backgroundColor: 'blue' }}  >  <Text>Record not found  </Text> </View>
-                        }
-
+                            data={user}
+                            renderItem={renderItem}
+                            keyExtractor={(item, index) => item.key}
+                        />
                     </View>
                 </View>
             </View>

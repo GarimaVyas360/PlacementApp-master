@@ -16,9 +16,9 @@ const ActivityIndicatorElement = () => {
         </View>
     );
 };
-const TermsConditionDesign = () => {
+const StudentDashboardWebviewDesign = ({ link }) => {
     const [visible, setVisible] = useState(false);
-    const [url, setUrl] = useState('https://www.medicaps.ac.in/index.php?action=sf-page&pageid=254&sysmenuid=890');
+    const [url, setUrl] = useState(link);
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
@@ -38,4 +38,4 @@ const TermsConditionDesign = () => {
         </SafeAreaView>
     );
 }
-export default TermsConditionDesign;
+export default StudentDashboardWebviewDesign;
