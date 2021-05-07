@@ -32,7 +32,7 @@ function UserLoginActivity({ route, navigation }) {
                 console.log("btn click");
                 // userVerify(email);
                 // console.log("usrs" + currentUser);
-                userVerify(email, (status) => {
+                userVerify(email, password, (status) => {
                     onSuccess(status)
                     console.log("status" + status),
                         console.log("usrs" + key + currentUsers + userEmail + Department + LastName + Enrollment + userPassword + Phoneno + Gender);
@@ -81,7 +81,7 @@ function UserLoginActivity({ route, navigation }) {
                 console.log("btn click");
                 // userVerify(email);
                 // console.log("usrs" + currentUser);
-                userVerify(email, (status) => {
+                userVerify(email, password, (status) => {
                     onSuccess(status)
                     console.log("status" + status),
                         console.log("usrs" + currentUsers + userEmail + Department + LastName + Enrollment + userPassword + Phoneno + Gender);
@@ -196,11 +196,12 @@ function UserLoginActivity({ route, navigation }) {
     }
 
 
-    function userVerify(email, onSuccess) {
+    function userVerify(email, password, onSuccess) {
         firestore()
             .collection(user)
             // order by asc and desc order
             .where('Email', '==', email)
+            .where('Password', '==', password)
             .get()
             .then(querySnapshot => {
                 console.log('Total users: ', querySnapshot.size);

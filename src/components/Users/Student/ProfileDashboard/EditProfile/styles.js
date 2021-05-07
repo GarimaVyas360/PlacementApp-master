@@ -1,120 +1,120 @@
 import { StyleSheet } from "react-native";
 import dimensions from '../../../../../res/dimensions';
-export const styles = StyleSheet.create( 
-    {  
+export const styles = StyleSheet.create(
+    {
         mainContainer: {
             flex: 1,
             // backgroundColor: '#F5FCFF',
             backgroundColor: 'white',
         },
-        container:{
-            flex:1,
+        container: {
+            flex: 1,
         },
-        header:{
-            height:250,
+        header: {
+            height: 250,
             // backgroundColor:'#0c1b32',
-            backgroundColor:'#0c1b32',
-            flex:1,
-            justifyContent:'center',
-            alignItems:'center'
+            backgroundColor: '#0c1b32',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
         },
-        headingDivider:{
-            backgroundColor:'gray',
-            height:1,
+        headingDivider: {
+            backgroundColor: 'gray',
+            height: 1,
         },
-        cardViewStyle:{
-            width:156, 
-            height:156, 
-            justifyContent:'center',
-            alignItems:'center'
+        cardViewStyle: {
+            width: 156,
+            height: 156,
+            justifyContent: 'center',
+            alignItems: 'center'
         },
         tinyLogo: {
             width: 155,
             height: 155,
-            borderRadius:100,
+            borderRadius: 100,
         },
-        tinyImageLogo:{
+        tinyImageLogo: {
             width: 155,
             height: 155,
             borderRadius: 100,
-            backgroundColor:'black',
-            borderColor:'white',
-            borderWidth:1,
+            backgroundColor: 'black',
+            borderColor: 'white',
+            borderWidth: 1,
         },
-        updateView:{
-            position:'absolute',
-            top:15,
-            right:15,
-          },
-        imageEdit:{
-            
+        updateView: {
+            position: 'absolute',
+            top: 15,
+            right: 15,
         },
-        logoutEditView:{
-            position:'absolute',
-            top:15,
-            right:15,
+        imageEdit: {
+
         },
-        mpinView:{
+        logoutEditView: {
+            position: 'absolute',
+            top: 15,
+            right: 15,
+        },
+        mpinView: {
             // position:'absolute',
             // right:15,
-            paddingTop:5,
-            bottom:35,
-            justifyContent:'center',
-            alignSelf:'center',
+            paddingTop: 5,
+            bottom: 35,
+            justifyContent: 'center',
+            alignSelf: 'center',
         },
-        mpinEdit:{
+        mpinEdit: {
             color: dimensions.color.lightblack,
-            fontWeight:'bold',
+            fontWeight: 'bold',
         },
-        textEditViewStyle:{
-            position:'absolute',
-            top:15,
-            right:15,
-            padding:5,
-            backgroundColor:'white',
-            borderWidth:2,
-            borderColor:'lightgray',
-            borderRadius:25,
+        textEditViewStyle: {
+            position: 'absolute',
+            top: 15,
+            right: 15,
+            padding: 5,
+            backgroundColor: 'white',
+            borderWidth: 2,
+            borderColor: 'lightgray',
+            borderRadius: 25,
         },
-        textEditView:{
-            
+        textEditView: {
+
         },
-        textEdit:{
-            color:'black'
+        textEdit: {
+            color: 'black'
         },
-        baseContainer:{
-            flex:1,
-            padding:25,
-        },        
-        submitButton:{
-            marginTop:20,
-            marginBottom:10,
-            alignSelf:'center',
+        baseContainer: {
+            flex: 1,
+            padding: 25,
         },
-        loginButton:{
-           
+        submitButton: {
+            marginTop: 20,
+            marginBottom: 10,
+            alignSelf: 'center',
         },
-        pickerView:{
-            borderColor:'darkgray',
-            borderWidth:1.3,
-            borderRadius:4,
-            backgroundColor:'#f6f6f6',
+        loginButton: {
+
         },
-        spacing5:{
-            marginBottom:5,
+        pickerView: {
+            borderColor: 'darkgray',
+            borderWidth: 1.3,
+            borderRadius: 4,
+            backgroundColor: '#f6f6f6',
         },
-        spacing15:{
-            marginBottom:15,
+        spacing5: {
+            marginBottom: 5,
         },
-        textInputFieldRadio:{
-            marginBottom:5,
-            flexDirection:'row',
+        spacing15: {
+            marginBottom: 15,
         },
-        textInputFieldRadioButtonView:{
-            marginBottom:5,
-            flexDirection:'row',
-            marginRight:25,
-            alignItems:'center',
+        textInputFieldRadio: {
+            marginBottom: 5,
+            flexDirection: 'row',
+        },
+        textInputFieldRadioButtonView: {
+            marginBottom: 5,
+            flexDirection: 'row',
+            marginRight: 25,
+            alignItems: 'center',
         },
     }
 );
