@@ -3,6 +3,7 @@ import UserSignupDesign from './Design';
 import firestore from '@react-native-firebase/firestore';
 import { Alert, FlatList, ToastAndroid, Keyboard } from 'react-native';
 import { newUserSignup, UserSignUp } from '../../../../firebase/firestore/UserSignUp';
+import CreateUser from '../../../../firebase/CreateUser';
 
 const UserSignupActivity = ({ navigation }) => {
     const [users, setUsers] = useState([]);
@@ -89,7 +90,7 @@ const UserSignupActivity = ({ navigation }) => {
                             onPress: () => {
                                 userVerification(firstName, lastName, gender, email, password, mobile, branch, enrollment);
                                 // UserSignUp(firstName, lastName, gender, email, password, mobile, branch, enrollment)
-                                navigation.navigate('UserLoginActivity', { user: "Students" }); formClear(allow);
+                                // navigation.navigate('UserLoginActivity', { user: "Students" }); formClear(allow);
 
                             },
                             style: "destructive"
@@ -377,7 +378,7 @@ const UserSignupActivity = ({ navigation }) => {
     }
 
     function userVerification(firstName, lastName, gender, email, password, mobile, branch, enrollment) {
-        const status = "unVerified";
+        const statusValue = "unVerified";
         const usersList = {
             FirstName: firstName,
             LastName: lastName,
@@ -387,13 +388,25 @@ const UserSignupActivity = ({ navigation }) => {
             Department: branch,
             Enrollment: enrollment,
             Phoneno: mobile,
-            value: status,
+            value: statusValue,
         }
 
         usersCreateList.push(usersList)
-        newUserSignup(firstName, lastName, gender, email, password, mobile, branch, enrollment, status);
-        console.log("item saved");
-        { usersCreateList.map((item, value) => { return (console.log("item user" + JSON.stringify(item))) }); }
+        CreateUser(email, password,
+            (status) => {
+                console.log("status" + status)
+                if (status) {
+                    newUserSignup(firstName, lastName, gender, email, password, mobile, branch, enrollment, statusValue);
+                    console.log("item saved");
+                    { usersCreateList.map((item, value) => { return (console.log("item user" + JSON.stringify(item))) }); }
+                    navigation.goBack();
+                }
+                else {
+                    console.log("Email/Password are incorrect"),
+                        ToastAndroid.show("Email/Password is already in use ", ToastAndroid.SHORT);
+                    // navigation.goBack();
+                };
+            });
 
     }
     // 

@@ -11,12 +11,13 @@ import { addGroupsChats } from '../../../../../firebase/firestore/UserSignUp';
 const StudentChattingGroupActivity = ({ route, navigation }) => {
     const [group, setgroup] = useState([]);
     const user = route.params.user;
+    const groupName = route.params.group;
     const user_type = route.params.user_type;
     var Size;
     const [groupSize, setGroupSize] = useState('');
     // const GroupName = route.params.group;
     useEffect(() => {
-        console.log("user routee  " + user);
+        console.log("user routee  " + groupName);
         // groupChats();
         navigation.setOptions({
             title: route.params.group, //Set Header Title
@@ -26,8 +27,8 @@ const StudentChattingGroupActivity = ({ route, navigation }) => {
             headerTintColor: '#fff',
         });
         const subscribe = firestore()
-            .collection('UserGroup')
-            .orderBy('id', 'asc')
+            .collection(groupName)
+            // .orderBy('id', 'asc')
             .onSnapshot(querySnapshot => {
                 const groupChat = [];
                 console.log('Total users: ', querySnapshot.size);
@@ -101,9 +102,9 @@ const StudentChattingGroupActivity = ({ route, navigation }) => {
         var date = getCurrentDate().date;
         var time = getCurrentDate().time + " " + getCurrentDate().AMPM;
         if (validateInput(message)) {
-            addGroupsChats(sender, message, date, time, groupSize);
+            addGroupsChats(sender, message, date, time, groupSize, groupName);
 
-            console.log("Group Size" + groupSize);
+            console.log("Group Size and Name", groupSize, groupName);
             console.log(sender + "\n" + message + "\n" + date + "\n" + time);
         }
     }

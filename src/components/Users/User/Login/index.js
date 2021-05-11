@@ -36,9 +36,10 @@ function UserLoginActivity({ route, navigation }) {
                     onSuccess(status)
                     console.log("status" + status),
                         console.log("usrs" + key + currentUsers + userEmail + Department + LastName + Enrollment + userPassword + Phoneno + Gender);
+                    console.log("user Key " + key);
                     (status) ?
                         navigation.replace('StudentBottomNavActivity',
-                            { user: currentUsers, key: key, email: userEmail, department: Department, firstName: FirstName, lastName: LastName, password: userPassword, enrollment: Enrollment, phoneno: Phoneno, gender: Gender })
+                            { user: currentUsers, Key: key, email: userEmail, department: Department, firstName: FirstName, lastName: LastName, password: userPassword, enrollment: Enrollment, phoneno: Phoneno, gender: Gender })
                         : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
 
                 });
@@ -47,6 +48,20 @@ function UserLoginActivity({ route, navigation }) {
             }
 
             else if (user == strings.users.tpo) {
+                console.log("btn click");
+                // userVerify(email);
+                // console.log("usrs" + currentUser);
+                userVerify(email, password, (status) => {
+                    onSuccess(status)
+                    console.log("status" + status),
+                        console.log("usrs" + key + currentUsers + userEmail + Department + LastName + Enrollment + userPassword + Phoneno + Gender);
+                    console.log("user Key " + key);
+                    (status) ?
+                        navigation.replace('TpoBottomNavActivity',
+                            { user: currentUsers, token: key, email: userEmail, department: Department, firstName: FirstName, lastName: LastName, password: userPassword, enrollment: Enrollment, phoneno: Phoneno, gender: Gender })
+                        : ToastAndroid.show("Email/Password is incorrect.", ToastAndroid.SHORT)
+
+                });
             }
 
             else if (user == strings.users.admin) {

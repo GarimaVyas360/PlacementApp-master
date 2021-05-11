@@ -4,7 +4,7 @@ import StudentChattingDashboardDesign from './Design';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from "./styles";
 import strings from "../../../../../res/strings";
-const StudentChattingDashboardActivity = ({ navigation, nav_title, user, user_type }) => {
+const StudentChattingDashboardActivity = ({ navigation, nav_title, user, user_type, Department }) => {
     const [group, setGroup] = useState('');
     useEffect(() => {
         navigation.setOptions({
@@ -23,7 +23,32 @@ const StudentChattingDashboardActivity = ({ navigation, nav_title, user, user_ty
             ),
             headerLeft: () => { }
         });
-        setGroup("Group...");
+
+        if (Department == 'IT') {
+            setGroup("MU_IT_Group");
+        }
+        else if (Department == 'Civil') {
+            setGroup("MU_Civil_Group");
+        }
+        else if (Department == 'Aeronautical') {
+            setGroup("MU_Aeronautical_Group");
+        }
+        else if (Department == 'Architectural') {
+            setGroup("MU_Architectural_Group");
+        }
+        else if (Department == 'Forensic') {
+            setGroup("MU_Forensic_Group");
+        }
+        else if (Department == 'Human Resources') {
+            setGroup("MU_Human Resources_Group");
+        }
+        else if (Department == 'Management') {
+            setGroup("MU_Management_Group");
+        }
+        else {
+            setGroup("UserGroup");
+        }
+
     }, []);
     return (
         <StudentChattingDashboardDesign

@@ -2,9 +2,10 @@ import firestore from '@react-native-firebase/firestore';
 import CreateUser from '../CreateUser';
 import keywords from "../../res/databasekeywords/keywords";
 
-export const UserSignUp = (firstName, lastName, gender, email, password, phoneno, branch, enrollment, status) => {
+export const UserSignUp = (firstName, lastName, gender, email, password, phoneno, branch, enrollment) => {
     console.log(firstName, lastName, gender, email, password, phoneno, branch, enrollment);
     // keywords.student_table.FirstName = FirstName;
+    const status = 'Verified';
     firestore()
         .collection('Students')
         .add({
@@ -19,7 +20,7 @@ export const UserSignUp = (firstName, lastName, gender, email, password, phoneno
             value: status
         })
         .then(() => {
-            console.log('User added!');
+            console.log('Student  added!');
         });
     return true;
 }
@@ -113,6 +114,18 @@ export const deleteStudents = (key) => {
         })
 }
 
+export const deleteStudentList = (key) => {
+    firestore()
+        .collection('NewStudentsList')
+        .doc(key)
+        .delete()
+        .then(() => {
+            console.log("Students deleted");
+        })
+}
+
+
+
 export const deleteDepartment = (key) => {
     firestore()
         .collection('departments')
@@ -153,7 +166,7 @@ export const UpdateAdmin = (firstName, lastName, email, phoneno, whatsAppNumber)
 }
 
 
-export const UpdateStudent = (firstName, lastName, email, phoneno, key) => {
+export const UpdateStudent = (firstName, lastName, gender, email, phoneno, key) => {
     console.log(firstName, lastName, email, phoneno, key);
     firestore()
         .collection('Students')
@@ -162,14 +175,30 @@ export const UpdateStudent = (firstName, lastName, email, phoneno, key) => {
             FirstName: firstName,
             LastName: lastName,
             Email: email,
-            Mobile: phoneno,
+            Phoneno: phoneno,
+            Gender: gender
         })
         .then(() => {
             console.log('Student added!');
         });
 }
 
-
+export const updateTpo = (firstName, lastName, department, email, phoneno, key) => {
+    console.log(firstName, lastName, department, email, phoneno, key);
+    firestore()
+        .collection('TPO')
+        .doc(key)
+        .update({
+            FirstName: firstName,
+            LastName: lastName,
+            Email: email,
+            Phoneno: phoneno,
+            Department: department
+        })
+        .then(() => {
+            console.log('Tpo added!');
+        });
+}
 
 export const suspendTPOList = (firstName, lastName, email, phoneno, selectedDepartment, password, key) => {
     console.log(firstName, lastName, email, password, phoneno, selectedDepartment);
@@ -295,12 +324,12 @@ export const newUserSignup = (firstName, lastName, gender, email, password, phon
 }
 
 
-export const addGroupsChats = (sender, message, date, time, size) => {
-    console.log(sender, message, date, time, size);
+export const addGroupsChats = (sender, message, date, time, size, groupName) => {
+    console.log(sender, message, date, time, size, groupName);
     // keywords.student_table.FirstName = FirstName;
     var groupSize = size + 1;
     firestore()
-        .collection('UserGroup')
+        .collection(groupName)
         .doc('' + groupSize)
         .set({
             id: groupSize,
@@ -337,3 +366,51 @@ export const updateStudentPassword = (newPassword, Key) => {
             console.log("Password updated");
         })
 }
+
+export const updateTpoPassword = (newPassword, Key) => {
+    firestore()
+        .collection('TPO')
+        .doc(Key)
+        .update({
+            Password: newPassword,
+        })
+        .then(() => {
+            console.log("Password updated");
+        })
+}
+
+
+
+export const addGroups = (sender, message, date, time, size, groupName) => {
+    console.log(sender, message, date, time, size, groupName);
+    // keywords.student_table.FirstName = FirstName;
+    const groups = groupName;
+    var groupSize = size + 1;
+    const InfoTec = {
+
+        id: groupSize,
+        Sender: sender,
+        Message: message,
+        Date: date,
+        Time: time,
+    }
+
+    firestore()
+        .collection('Group')
+        .doc('' + groupSize)
+        .collection(groupName)
+        // .doc("" + groupSize)
+        .add(
+            // id: groupSize,
+            // Sender: sender,
+            // Message: message,
+            // Date: date,
+            // Time: time,
+            InfoTec
+        )
+        .then(() => {
+            console.log('groups added!');
+        });
+    return true;
+}
+

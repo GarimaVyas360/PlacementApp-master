@@ -29,9 +29,23 @@ import AdminChattingGroupActivity from './src/components/Users/Admin/ChattingDas
 import StudentBottomNavActivity from "./src/components/Users/Student/BottomNavigation/index";
 import StudentChattingDashboardActivity from "./src/components/Users/Student/ChattingDashboard/Dashboard";
 import StudentChattingGroupActivity from './src/components/Users/Student/ChattingDashboard/Group';
-import StudentProfileEditActivity from './src/components/Users/Student/ProfileDashboard/EditProfile';
+import StudentProfileEditActivity from './src/components/Users/Student/ProfileDashboard/EditProfile copy';
 import StudentProfileChangePasswordActivity from './src/components/Users/Student/ProfileDashboard/ChangePassword';
-import StudentProfileDashboardActivity from './src/components/Users/Student/ProfileDashboard/Dashboard/index';
+import StudentProfileDashboardActivity from './src/components/Users/Student/ProfileDashboard/Dashboard copy';
+import TpoBottomNavActivity from "./src/components/Users/TPO/BottomNavigation";
+import TpoDashboardActivity from "./src/components/Users/TPO/HomeDashboard/Dashboard";
+import TpoProfileDashboardActivity from "./src/components/Users/TPO/ProfileDashboard/Dashboard";
+import TpoAddStudentActivity from "./src/components/Users/TPO/HomeDashboard/AddStudent/index";
+import TpoStudentListActivity from "./src/components/Users/TPO/HomeDashboard/StudentList/index";
+import TpoSuspendStudentListActivity from "./src/components/Users/TPO/HomeDashboard/SuspendStudentList/index";
+import TpoProfileEditActivity from "./src/components/Users/TPO/ProfileDashboard/EditProfile/index";
+import TpoProfileChangePasswordActivity from "./src/components/Users/TPO/ProfileDashboard/ChangePassword/index";
+import TpoProfileSetSecurityCodeActivity from "./src/components/Users/TPO/ProfileDashboard/SetSecurityCode/index";
+import TpoProfileSetMpinActivity from "./src/components/Users/TPO/ProfileDashboard/SetMpin/index";
+import TpoChattingDashboardActivity from "./src/components/Users/TPO/ChattingDashboard/Dashboard/index";
+import TpoChattingGroupActivity from "./src/components/Users/TPO/ChattingDashboard/Group/index";
+import StudentApprovalListActivity from './src/components/Users/TPO/HomeDashboard/StudentApprovalList/index';
+import TpoAddGroupsActivity from "./src/components/Users/TPO/HomeDashboard/AddGroups/index";
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -74,6 +88,30 @@ const App = () => {
         <Stack.Screen options={{ headerShown: true }} name="StudentProfileDashboard" component={StudentProfileDashboardActivity} />
         <Stack.Screen options={{ headerShown: true }} name="StudentProfileEditActivity" component={StudentProfileEditActivity} />
         <Stack.Screen options={{ headerShown: true }} name="StudentProfileChangePasswordActivity" component={StudentProfileChangePasswordActivity} />
+
+        {/* Tpo's Dashboard Section */}
+        <Stack.Screen options={{ headerShown: true }} name="TpoBottomNavActivity" component={TpoBottomNavActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoDashboardActivity" component={TpoDashboardActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoAddStudentActivity" component={TpoAddStudentActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoStudentListActivity" component={TpoStudentListActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoSuspendStudentListActivity" component={TpoSuspendStudentListActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="StudentApprovalList" component={StudentApprovalListActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoAddGroupsActivity" component={TpoAddGroupsActivity} />
+
+
+        {/* Tpo's Profile Section */}
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileDashboardActivity" component={TpoProfileDashboardActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileEditActivity" component={TpoProfileEditActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileChangePasswordActivity" component={TpoProfileChangePasswordActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileSetMpinActivity" component={TpoProfileSetMpinActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoProfileSetSecurityCodeActivity" component={TpoProfileSetSecurityCodeActivity} />
+        {/*Tpo's Notification Section */}
+
+        {/*Tpo's Chatting Section */}
+        <Stack.Screen options={{ headerShown: true }} name="TpoChattingDashboardActivity" component={TpoChattingDashboardActivity} />
+        <Stack.Screen options={{ headerShown: true }} name="TpoChattingGroupActivity" component={TpoChattingGroupActivity} />
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -12,9 +12,10 @@ const StudentBottomNavActivity = ({ route, navigation }) => {
     const Department = route.params.department;
     const Gender = route.params.gender;
     const Phoneno = route.params.phoneno;
-    const Key = route.params.key;
-
+    const keyid = route.params.Key;
+    console.log("User Keyyy" + keyid);
     return (
+
         <StudentBottomNavDesign navigation={navigation}
             // route={route}
             users={user}
@@ -26,7 +27,7 @@ const StudentBottomNavActivity = ({ route, navigation }) => {
             Department={Department}
             Gender={Gender}
             Phoneno={Phoneno}
-            Key={Key}
+            keyid={keyid}
         />
     );
 }

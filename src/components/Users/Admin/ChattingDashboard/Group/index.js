@@ -12,6 +12,7 @@ const AdminChattingGroupActivity = ({ route, navigation }) => {
     const [group, setgroup] = useState([]);
     const user = route.params.user;
     const user_type = route.params.user_type;
+    const groupName = route.params.group;
     var Size;
     const [groupSize, setGroupSize] = useState('');
     // const GroupName = route.params.group;
@@ -26,7 +27,7 @@ const AdminChattingGroupActivity = ({ route, navigation }) => {
             headerTintColor: '#fff',
         });
         const subscribe = firestore()
-            .collection('UserGroup')
+            .collection(groupName)
             .orderBy('id', 'asc')
             .onSnapshot(querySnapshot => {
                 const groupChat = [];
@@ -101,9 +102,9 @@ const AdminChattingGroupActivity = ({ route, navigation }) => {
         var date = getCurrentDate().date;
         var time = getCurrentDate().time + " " + getCurrentDate().AMPM;
         if (validateInput(message)) {
-            addGroupsChats(sender, message, date, time, groupSize);
+            addGroupsChats(sender, message, date, time, groupSize, groupName);
 
-            console.log("Group Size" + groupSize);
+            console.log("Group Size and Group Name" + groupSize, groupName);
             console.log(sender + "\n" + message + "\n" + date + "\n" + time);
         }
     }

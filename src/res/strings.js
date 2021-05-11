@@ -2,6 +2,8 @@ const strings = {
     onBoarding: {
         dashboard: 'Dashboard',
         profile_dashboard: 'Profile Dashboard',
+        student_approvallist: 'Student Approval List',
+        add_group: 'Add Groups',
         add_department: 'Add Department',
         add_tpo: 'Add TPO',
         add_student: 'Add Student',
@@ -36,6 +38,8 @@ const strings = {
     textInput: {
         first_name: 'First Name',
         last_name: 'Last Name',
+        sender: 'Sender',
+        message: 'Message',
         email: 'Email ID',
         password: 'Password',
         confirm_password: 'Confirm Passwword',
@@ -51,6 +55,7 @@ const strings = {
         create_account: 'Create Account',
         login: 'LOGIN',
         signup: 'SIGNUP',
+        approval: 'APPROVE',
         signup_page: 'Don\'t have an account? Create one new',
         login_page: 'Login!',
         cancel: 'Cancel',

@@ -5,8 +5,8 @@ import strings from '../../../../../res/strings';
 import StudentProfileChangePasswordDesign from './Design';
 
 const StudentProfileChangePasswordActivity = ({ route, navigation }) => {
-    const adminPassword = route.params.oldPassword;
-    const Key = route.params.Key;
+    const StudentPassword = route.params.oldPassword;
+    const keyid = route.params.keyid;
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -35,9 +35,9 @@ const StudentProfileChangePasswordActivity = ({ route, navigation }) => {
         if (ValidateOldPass(oldPass).isValidate && ValidateNewPass(newPass, oldPass).isValidate
             && ValidateConfirmPass(confirmPass, newPass).isValidate) {
             console.log(oldPass, newPass, confirmPass);
-            console.log("Key", Key);
+            console.log("Key", keyid);
             // console.log("oldPassword" + oldPassword);
-            updateStudentPassword(confirmPass, Key);
+            updateStudentPassword(confirmPass, keyid);
             // navigation.replace('StudentProfileDashboard');
             navigation.goBack();
             ToastAndroid.show("Successfully Changed Password", ToastAndroid.SHORT);
@@ -109,7 +109,7 @@ const StudentProfileChangePasswordActivity = ({ route, navigation }) => {
                 isValidate: false
             };
         } else {
-            if (oldPass != adminPassword) {
+            if (oldPass != StudentPassword) {
                 // console.log(adminPassword);
                 return {
                     errorOldPass: true,

@@ -13,7 +13,7 @@ const StudentProfileDashboardActivity = ({ navigation, Key, nav_title }) => {
     const [password, setPassword] = useState('');
     const [department, setDepartment] = useState('');
     const [enrollment, setEnrollment] = useState('');
-    const [key, setKey] = useState('');
+    // const [key, setKey] = useState('');
 
     // useEffect(() => {
     //     var size;
@@ -62,54 +62,51 @@ const StudentProfileDashboardActivity = ({ navigation, Key, nav_title }) => {
     // }, []);
 
 
-    useEffect(() => {
-        firestore()
-            .collection('Students')
-            .doc(Key)
-            .get()
-            .then(documentSnapshot => {
-                console.log('User exists: ', documentSnapshot.exists);
-                const users = [];
-                if (documentSnapshot.exists) {
-                    console.log('User data: ', documentSnapshot.data());
-                    users.push({
-                        ...documentSnapshot.data(),
-                        key: documentSnapshot.id,
-                    });
+    // useEffect(() => {
+    //     firestore()
+    //         .collection('Students')
+    //         .doc(Key)
+    //         .get()
+    //         .then(documentSnapshot => {
+    //             console.log('User exists: ', documentSnapshot.exists);
+    //             const users = [];
+    //             if (documentSnapshot.exists) {
+    //                 console.log('User data: ', documentSnapshot.data());
+    //                 users.push({
+    //                     ...documentSnapshot.data(),
+    //                     key: documentSnapshot.id,
+    //                 });
 
-                    users.map((item, index) => {
-                        console.log(item.FirstName, item.key);
-                        setFirstName(item.FirstName);
-                        setLastName(item.LastName);
-                        setGender(item.Gender);
-                        setEmail(item.Email);
-                        setMobileNo(item.Phoneno);
-                        setPassword(item.Password);
-                        setEnrollment(item.Enrollment);
-                        setDepartment(item.Department);
-                        setKey(item.key);
-                    })
-                }
-            });
-    })
-
-
-
+    //                 users.map((item, index) => {
+    //                     console.log(item.FirstName, item.key);
+    //                     setFirstName(item.FirstName);
+    //                     setLastName(item.LastName);
+    //                     setGender(item.Gender);
+    //                     setEmail(item.Email);
+    //                     setMobileNo(item.Phoneno);
+    //                     setPassword(item.Password);
+    //                     setEnrollment(item.Enrollment);
+    //                     setDepartment(item.Department);
+    //                     setKey(item.key);
+    //                 })
+    //             }
+    //         });
+    // })
 
     return (
         <StudentProfileDashboardDesign
             navigation={navigation}
             nav_title={nav_title}
             list={users}
-            FirstName={firstName}
-            LastName={lastName}
-            Email={email}
-            Gender={gender}
-            Password={password}
-            Department={department}
-            Enrollment={enrollment}
-            Phoneno={mobileNo}
-            Key={key} />
+            // FirstName={firstName}
+            // LastName={lastName}
+            // Email={email}
+            // Gender={gender}
+            // Password={password}
+            // Department={department}
+            // Enrollment={enrollment}
+            // Phoneno={mobileNo}
+            Key={Key} />
     );
 }
 export default StudentProfileDashboardActivity;
