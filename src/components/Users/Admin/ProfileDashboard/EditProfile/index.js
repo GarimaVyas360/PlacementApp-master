@@ -76,6 +76,8 @@ const AdminProfileEditActivity = ({ navigation, nav_title }) => {
         return () => subscribe();
         // Unsubscribe from events when no longer in use
     }
+
+
     React.useLayoutEffect(() => {
         navigation.setOptions({
             title: strings.onBoarding.edit_profile, //Set Header Title
