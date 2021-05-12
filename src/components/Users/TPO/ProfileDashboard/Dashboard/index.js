@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, TouchableOpacity, } from 'react-native';
+import { View, TouchableOpacity, Alert, } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import strings from '../../../../../res/strings';
