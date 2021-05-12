@@ -64,14 +64,14 @@ const TpoProfileDashboardDesign = ({ navigation, FirstName, LastName, Department
                     <TouchableOpacity
                         onPress={() => { navigation.navigate('TpoProfileChangePasswordActivity', { oldPassword: Password, keyid: Token }) }}>
                         <Button>{strings.buttons.change_password}</Button>
-                        <Divider style={styles.headingDividerBase}></Divider>
+                        {/* <Divider style={styles.headingDividerBase}></Divider> */}
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.mpinView}
+                {/* <TouchableOpacity style={styles.mpinView}
                     onPress={() => { navigation.navigate('TpoProfileSetMpinActivity') }}>
                     {/* <Icon name="delete" size={30} color='#Ba020a' style={styles.deleteEdit} /> */}
-                    <Text style={styles.mpinEdit}>{strings.buttons.set_mpin}</Text>
-                </TouchableOpacity>
+                {/* <Text style={styles.mpinEdit}>{strings.buttons.set_mpin}</Text>
+                </TouchableOpacity> */}
             </ScrollView>
         </View>
     );

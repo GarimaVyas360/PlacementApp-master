@@ -38,6 +38,7 @@ const strings = {
     textInput: {
         first_name: 'First Name',
         last_name: 'Last Name',
+        group_name: 'Group Name',
         sender: 'Sender',
         message: 'Message',
         email: 'Email ID',
@@ -52,6 +53,7 @@ const strings = {
         whatsapp_number: 'Whatsapp Number'
     },
     buttons: {
+        create_group: 'Create Group',
         create_account: 'Create Account',
         login: 'LOGIN',
         signup: 'SIGNUP',

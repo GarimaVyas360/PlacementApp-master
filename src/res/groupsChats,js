@@ -1,0 +1,37 @@
+const GroupChats = [
+    IT:[
+        MU_IT_Group: {
+            Sender: user,
+            Message: 'This is IT group',
+            Date: '',
+            Time: '',
+
+           },
+       
+        MU_IT_Group1 :{
+             Sender: user1,
+            Message: 'This is IT group',
+            Date: '',
+            Time: '',
+        }
+    ]
+    
+   Mechanical:[
+        MU_Mech_Group: {
+            Sender: user1,
+            Message: 'This is Mech group',
+            Date: '',
+            Time: '',
+
+           },
+       
+        MU_Mech_Group1 :{
+             Sender: user2,
+            Message: 'This is Mech group',
+            Date: '',
+            Time: '',
+        }
+    ]
+
+
+]

@@ -78,35 +78,32 @@ const AddTpoActivity = ({ navigation }) => {
             && validateBranch(branch).isValidate
             && validatePassword(password).isValidate && validatePassConf(passConf).isValidate
             && validatePasswordChecker(password, passConf).isValidate
-        ) {
+        ) 
+        {
+            CreateUser(email, password,
+                (status) => {
+                console.log("status" + status)
+                if (status) {
+                    addTPO(firstName, lastName, email, mobile, branch, password),
+                        navigation.goBack();
+                }
+                else {
+                    console.log("Email/Password are incorrect"),
+                    ToastAndroid.show("Account not created.", ToastAndroid.SHORT);
+                    navigation.goBack();
+                };
+            });
             Alert.alert("Account created !", "TPO account is successfully created by Admin.",
                 [
                     {
-                        text: "Stay on Page",
-                        onPress: () => { formClear(true) },
-                        style: "cancel"
+
                     },
                     {
 
                     },
                     {
                         text: "Ok",
-                        onPress: () => {
-
-                            CreateUser(email, password,
-                                (status) => {
-                                    console.log("status" + status)
-                                    if (status) {
-                                        addTPO(firstName, lastName, email, mobile, branch, password),
-                                            navigation.goBack();
-                                    }
-                                    else {
-                                        console.log("Email/Password are incorrect"),
-                                            ToastAndroid.show("Email/Password is incorrect", ToastAndroid.SHORT);
-                                        navigation.goBack();
-                                    };
-                                });
-                        },
+                        onPress: () => { },
                         style: "destructive"
                     }
                 ],
@@ -219,7 +216,7 @@ const AddTpoActivity = ({ navigation }) => {
         }
     }
     function validateMobile(mobile) {
-        const mobileReg = /^[0]?[789]\d{9}$/;
+        const mobileReg = /^[0]?[6789]\d{9}$/;
         if (!mobile) {
             return {
                 errorMobile: true,

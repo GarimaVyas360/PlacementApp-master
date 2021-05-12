@@ -6,13 +6,13 @@ import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
 
-const AdminDashboardDesign = ({ navigation, nav_title }) => {
+const AdminDashboardDesign = ({ navigation, nav_title, logout }) => {
     useEffect(() => {
         navigation.setOptions({
             title: nav_title, //Set Header Title
             headerRight: () => (
                 <View style={styles.headerView}>
-                    <TouchableOpacity onPress={() => { navigation.replace("UserDashboardActivity") }}>
+                    <TouchableOpacity onPress={() => { logout() }}>
                         <Icon name="logout" size={30} color="black" style={styles.logoutEdit} />
                     </TouchableOpacity>
                 </View>
@@ -20,7 +20,6 @@ const AdminDashboardDesign = ({ navigation, nav_title }) => {
             headerLeft: () => { }
         });
     }, []);
-
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>

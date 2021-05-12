@@ -7,7 +7,7 @@ import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
 import InvertibleScrollView from 'react-native-invertible-scroll-view';
 
-const TpoChattingDashboardDesign = ({ navigation, submitButton, validateInput, groupChats, user, user_type }) => {
+const AdminChattingDashboardDesign = ({ navigation, submitButton, validateInput, groupChats, user, user_type }) => {
     let rowHeight = 146;
     const [height, setHeight] = useState(0);
     const [message, setMessage] = useState('');
@@ -15,34 +15,16 @@ const TpoChattingDashboardDesign = ({ navigation, submitButton, validateInput, g
         <View style={styles.mainContainer}>
             <View style={styles.container}>
                 <ImageBackground source={images.chat.group_bg} style={styles.imageBackground}>
-                    <ScrollView contentContainerStyle={styles.scrollView}>
-                        <View style={styles.chatArea}>
-                            <View style={[styles.chatTextArea, { alignSelf: 'flex-start', alignItems: 'flex-start' }]}>
-                                <Text style={styles.name}>Shefali</Text>
-                                <Text style={styles.chatText}>Hiii</Text>
-                                <Text style={styles.date}>10:30AM 30/04/2020</Text>
-                            </View>
+                    {/* <ScrollView contentContainerStyle={styles.scrollView}>
+                        <View style={styles.chatArea} >
+                            {chatgroup()}
                         </View>
-                        <View style={styles.chatArea}>
-                            <View style={[styles.chatTextArea, { alignSelf: 'flex-end', alignItems: 'flex-start' }]}>
-                                <Text style={styles.chatText}>Hello</Text>
-                                <Text style={styles.date}>10:30AM 30/04/2020</Text>
-                            </View>
+                    </ScrollView> */}
+                    <InvertibleScrollView contentContainerStyle={styles.scrollView} inverted>
+                        <View style={styles.chatArea} >
+                            {chatgroup()}
                         </View>
-                        <View style={styles.chatArea}>
-                            <View style={[styles.chatTextArea, { alignSelf: 'flex-start', alignItems: 'flex-start' }]}>
-                                <Text style={styles.name}>Shefali</Text>
-                                <Text style={styles.chatText}>Do you know about React Native???</Text>
-                                <Text style={styles.date}>10:30AM 30/04/2020</Text>
-                            </View>
-                        </View>
-                        <View style={styles.chatArea}>
-                            <View style={[styles.chatTextArea, { alignSelf: 'flex-end', alignItems: 'flex-end' }]}>
-                                <Text style={styles.chatText}>No, I think used in Mob dev's</Text>
-                                <Text style={styles.date}>10:30AM 30/04/2020</Text>
-                            </View>
-                        </View>
-                    </ScrollView>
+                    </InvertibleScrollView>
                     <View style={styles.textArea}>
                         <View style={styles.textAreaSec1}>
                             <View style={styles.textSection}>
@@ -85,5 +67,37 @@ const TpoChattingDashboardDesign = ({ navigation, submitButton, validateInput, g
             </View>
         </View>
     );
+
+
+
+    function chatgroup() {
+        return (
+            groupChats.map((item, index) => {
+                console.log("data show" + item.Message);
+                return (
+                    <View style={styles.chatArea} key={index}>
+                        { user == item.Sender ?
+                            <View style={[styles.chatTextAreaB, { alignSelf: 'flex-end', alignItems: 'flex-start' }]}>
+                                <View>
+                                    {/* {(item.key == 1) ?<Text style={styles.name}>{item.Sender}</Text>: console.log("item:"+item.key)} */}
+                                    {/* <Text style={styles.name}>{item.Sender}</Text> */}
+                                    <Text style={styles.chatText}>{item.Message}</Text>
+                                    <Text style={[styles.date, { alignSelf: 'flex-end' }]}>{item.Date} {item.Time} </Text>
+
+                                </View>
+                            </View> :
+                            <View style={[styles.chatTextAreaA, { alignSelf: 'flex-start', alignItems: 'flex-start' }]}>
+                                <View>
+                                    {/* {(item.key == 1) ?<Text style={styles.name}>{item.Sender}</Text>: console.log("item:"+item.key)} */}
+                                    <Text style={styles.name}>{item.Sender}</Text>
+                                    <Text style={styles.chatText}>{item.Message}</Text>
+                                    <Text style={styles.date}>{item.Date}  {item.Time} </Text>
+                                </View>
+                            </View>}
+                    </View>
+                );
+            })
+        );
+    }
 }
-export default TpoChattingDashboardDesign;
+export default AdminChattingDashboardDesign;

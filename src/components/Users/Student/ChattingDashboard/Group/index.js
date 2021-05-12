@@ -6,18 +6,19 @@ import { styles } from "./styles";
 import moment from 'moment';
 import strings from "../../../../../res/strings";
 import firestore from "@react-native-firebase/firestore";
-import { addGroupsChats } from '../../../../../firebase/firestore/UserSignUp';
+import { addGroups, addGroupsChats } from '../../../../../firebase/firestore/UserSignUp';
 
 const StudentChattingGroupActivity = ({ route, navigation }) => {
     const [group, setgroup] = useState([]);
     const user = route.params.user;
     const groupName = route.params.group;
     const user_type = route.params.user_type;
-    var Size;
+    const department = route.params.department;
+    var Size;                // group: group_name, department: department, user: user, user_type: user_type
     const [groupSize, setGroupSize] = useState('');
     // const GroupName = route.params.group;
     useEffect(() => {
-        console.log("user routee  " + groupName);
+        console.log("user routee  " + groupName + department);
         // groupChats();
         navigation.setOptions({
             title: route.params.group, //Set Header Title
@@ -27,8 +28,10 @@ const StudentChattingGroupActivity = ({ route, navigation }) => {
             headerTintColor: '#fff',
         });
         const subscribe = firestore()
+            .collection('UserGroup')
+            .doc(department)
             .collection(groupName)
-            // .orderBy('id', 'asc')
+            .orderBy('id', 'asc')
             .onSnapshot(querySnapshot => {
                 const groupChat = [];
                 console.log('Total users: ', querySnapshot.size);
@@ -102,8 +105,8 @@ const StudentChattingGroupActivity = ({ route, navigation }) => {
         var date = getCurrentDate().date;
         var time = getCurrentDate().time + " " + getCurrentDate().AMPM;
         if (validateInput(message)) {
-            addGroupsChats(sender, message, date, time, groupSize, groupName);
-
+            // addGroupsChats(sender, message, date, time, groupSize, groupName);
+            addGroups(sender, groupName, message, date, time, groupSize, department);
             console.log("Group Size and Name", groupSize, groupName);
             console.log(sender + "\n" + message + "\n" + date + "\n" + time);
         }

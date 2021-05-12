@@ -17,13 +17,38 @@ const StudentProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastN
             title: nav_title, //Set Header Title
             headerRight: () => (
                 <View style={styles.headerView}>
-                    <TouchableOpacity onPress={() => { navigation.replace("UserDashboardActivity") }}>
+                    <TouchableOpacity onPress={() => { logout() }}>
                         <Icon name="logout" size={30} color="black" style={styles.logoutEdit} />
                     </TouchableOpacity>
                 </View>
             ),
+            headerLeft: () => { }
         });
     }, []);
+
+    function logout() {
+        Alert.alert("Want to Logout!", "",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => { },
+                    style: "cancel"
+                },
+                {
+
+                },
+                {
+                    text: "Logout!",
+                    onPress: () => {
+                        navigation.replace("UserDashboardActivity")
+                    },
+                    style: "destructive"
+                }
+            ],
+            { cancelable: false }
+        );
+    }
+
 
     return (
         <View style={styles.mainContainer}>
@@ -72,14 +97,14 @@ const StudentProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastN
                     <TouchableOpacity
                         onPress={() => { navigation.navigate('StudentProfileChangePasswordActivity', { oldPassword: Password, keyid: keyid }); console.log("old Password ,Key" + Password, keyid); }}>
                         <Button>{strings.buttons.change_password}</Button>
-                        <Divider style={styles.headingDividerBase}></Divider>
+                        {/* <Divider style={styles.headingDividerBase}></Divider> */}
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.mpinView}
+                {/* <TouchableOpacity style={styles.mpinView}
                     onPress={() => { navigation.navigate('AdminProfileSetMpinActivity') }}>
                     {/* <Icon name="delete" size={30} color='#Ba020a' style={styles.deleteEdit} /> */}
-                    <Text style={styles.mpinEdit}>{strings.buttons.set_mpin}</Text>
-                </TouchableOpacity>
+                {/* <Text style={styles.mpinEdit}>{strings.buttons.set_mpin}</Text>
+                </TouchableOpacity> */}
             </ScrollView>
         </View>
     );

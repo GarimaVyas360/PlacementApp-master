@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import CreateUser from '../CreateUser';
 import keywords from "../../res/databasekeywords/keywords";
+import { exp } from 'react-native/Libraries/Animated/Easing';
 
 export const UserSignUp = (firstName, lastName, gender, email, password, phoneno, branch, enrollment) => {
     console.log(firstName, lastName, gender, email, password, phoneno, branch, enrollment);
@@ -380,11 +381,41 @@ export const updateTpoPassword = (newPassword, Key) => {
 }
 
 
-
-export const addGroups = (sender, message, date, time, size, groupName) => {
+export const addGroups = (sender, groupName, message, date, time, size, departmentName) => {
     console.log(sender, message, date, time, size, groupName);
     // keywords.student_table.FirstName = FirstName;
     const groups = groupName;
+    var groupSize = size + 1;
+    // const InfoTec = {
+
+    //     id: groupSize,
+    //     Sender: sender,
+    //     Message: message,
+    //     Date: date,
+    //     Time: time,
+    // }
+
+    firestore()
+        .collection('UserGroup')
+        .doc(departmentName)
+        .collection(groupName)
+        .doc('' + groupSize)
+        .set({
+            id: groupSize,
+            Sender: sender,
+            Message: message,
+            Date: date,
+            Time: time,
+        })
+        .then(() => {
+            console.log('groups chats added!');
+        });
+    return true;
+
+}
+
+
+export const addgroups = (sender, message, date, time, size, groupName) => {
     var groupSize = size + 1;
     const InfoTec = {
 
@@ -396,21 +427,38 @@ export const addGroups = (sender, message, date, time, size, groupName) => {
     }
 
     firestore()
-        .collection('Group')
-        .doc('' + groupSize)
+        .collection('GroupChats')
+        .doc("" + groupSize)
         .collection(groupName)
-        // .doc("" + groupSize)
-        .add(
-            // id: groupSize,
-            // Sender: sender,
-            // Message: message,
-            // Date: date,
-            // Time: time,
-            InfoTec
-        )
+        .collection('MU_IT_Group')
+        .add({
+            id: groupSize,
+            Sender: sender,
+            Message: message,
+            Date: date,
+            Time: time,
+        })
+        .then(() => {
+            console.log('groups added!');
+        });
+    return true;
+
+}
+
+export const groupList = (groupName, department, groupSize) => {
+
+    var groupsize = groupSize + 1;
+
+    firestore()
+        .collection('GroupList')
+        .doc('' + groupsize)
+        .set({
+            id: groupsize,
+            GroupName: groupName,
+            Department: department
+        })
         .then(() => {
             console.log('groups added!');
         });
     return true;
 }
-

@@ -21,28 +21,44 @@ export const styles = StyleSheet.create(
         },
         chatArea: {
             paddingTop: 10,
-            paddingLeft: 10,
-            paddingRight: 10,
+            paddingLeft: 3.5,
+            paddingRight: 3.5,
 
         },
-        chatTextArea: {
+        chatTextAreaA: {
             backgroundColor: '#f7f7f7',
             maxWidth: '80%',
-            padding: 5,
+            padding: 4,
             paddingLeft: 10,
             paddingRight: 10,
             borderRadius: 5,
+            borderBottomLeftRadius: 0,
+            alignSelf: 'center'
+        },
+        chatTextAreaB: {
+            backgroundColor: '#f7f7f7',
+            maxWidth: '80%',
+            padding: 4,
+            paddingLeft: 10,
+            paddingRight: 10,
+            borderRadius: 5,
+            borderBottomRightRadius: 0,
             alignSelf: 'center'
         },
         chatText: {
-            alignItems: 'center',
-            alignSelf: 'center',
-
+            alignItems: 'flex-start',
+            alignSelf: 'flex-start',
         },
         name: {
             color: 'tomato',
             fontWeight: 'bold',
             fontSize: dimensions.font_size.small_x,
+        },
+        date: {
+            fontSize: dimensions.font_size.small_x,
+            color: 'gray',
+            fontFamily: 'sans-serif-light',
+            fontWeight: 'bold'
         },
         textArea: {
             margin: 5,

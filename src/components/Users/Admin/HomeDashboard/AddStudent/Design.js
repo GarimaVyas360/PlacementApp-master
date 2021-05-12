@@ -154,7 +154,7 @@ const AddStudentDesign = ({ navigation, departmentlist, submitAccount, validateF
                                     error={isErrorEmail}
                                     value={email}
                                     onChangeText={(email) => {
-                                        setEmail(email.replace(/[\s]/g, ''));
+                                        setEmail(email.replace(/[\s]/g, '').toLowerCase());
                                         validateEmail(email);
                                         checkEmail(email);
                                     }}
@@ -232,6 +232,7 @@ const AddStudentDesign = ({ navigation, departmentlist, submitAccount, validateF
                                     blurOnSubmit={true}
                                     autoCapitalize='characters'
                                     // autoFocus
+                                    error={isErrorEnrollment}
                                     value={enrollment}
                                     onChangeText={(enrollment) => {
                                         setEnrollment(enrollment.replace(/[\s]/g, ''));
@@ -280,8 +281,9 @@ const AddStudentDesign = ({ navigation, departmentlist, submitAccount, validateF
                                     autoCorrect={false}
                                     textContentType={'password'}
                                     multiline={false}
-                                    onTextInput={() => { }}
                                     value={passConf}
+                                    error={isErrorPassConf}
+                                    onTextInput={() => { }}
                                     onChangeText={(passConf) => {
                                         setPassConf(passConf.replace(/[\s]/g, ''));
                                         validatePassConf(passConf);

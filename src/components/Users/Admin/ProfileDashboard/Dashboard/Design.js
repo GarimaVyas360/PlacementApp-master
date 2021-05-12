@@ -11,20 +11,20 @@ import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
 
-const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastName, Gender, Email, Password }) => {
+const AdminProfileDashboardDesign = ({ navigation, nav_title, logout, FirstName, LastName, Gender, Email, Password }) => {
     useEffect(() => {
         navigation.setOptions({
             title: nav_title, //Set Header Title
             headerRight: () => (
                 <View style={styles.headerView}>
-                    <TouchableOpacity onPress={() => { navigation.replace("UserDashboardActivity") }}>
+                    <TouchableOpacity onPress={() => { logout() }}>
                         <Icon name="logout" size={30} color="black" style={styles.logoutEdit} />
                     </TouchableOpacity>
                 </View>
             ),
+            headerLeft: () => { }
         });
     }, []);
-
     return (
         <View style={styles.mainContainer}>
             <ScrollView style={styles.container}>
@@ -56,11 +56,11 @@ const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastNam
                         <Text style={styles.detailHeading}>Name</Text>
                         <Text style={styles.detailText}>{FirstName}&nbsp;{LastName}</Text>
                     </View>
-                    <Divider style={styles.headingDividerBase}></Divider>
+                    {/* <Divider style={styles.headingDividerBase}></Divider>
                     <View style={styles.baseContainerView}>
                         <Text style={styles.detailHeading}>Gender</Text>
                         <Text style={styles.detailText}>{Gender}</Text>
-                    </View>
+                    </View> */}
                     <Divider style={styles.headingDividerBase}></Divider>
                     <View style={styles.baseContainerView}>
                         <Text style={styles.detailHeading}>Email</Text>
@@ -72,14 +72,14 @@ const AdminProfileDashboardDesign = ({ navigation, nav_title, FirstName, LastNam
                     <TouchableOpacity
                         onPress={() => { navigation.navigate('AdminProfileChangePasswordActivity', { oldPassword: Password }); console.log("old Password " + Password); }}>
                         <Button>{strings.buttons.change_password}</Button>
-                        <Divider style={styles.headingDividerBase}></Divider>
+                        {/* <Divider style={styles.headingDividerBase}></Divider> */}
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.mpinView}
-                    onPress={() => { navigation.navigate('AdminProfileSetMpinActivity') }}>
-                    {/* <Icon name="delete" size={30} color='#Ba020a' style={styles.deleteEdit} /> */}
-                    <Text style={styles.mpinEdit}>{strings.buttons.set_mpin}</Text>
-                </TouchableOpacity>
+                {/* <TouchableOpacity style={styles.mpinView}
+                    onPress={() => { navigation.navigate('AdminProfileSetMpinActivity') }}> */}
+                {/* <Icon name="delete" size={30} color='#Ba020a' style={styles.deleteEdit} /> */}
+                {/* <Text style={styles.mpinEdit}>{strings.buttons.set_mpin}</Text>
+                </TouchableOpacity> */}
             </ScrollView>
         </View>
     );

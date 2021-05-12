@@ -6,7 +6,9 @@ const StudentDashboardWebviewActivity = ({ nav_title, navigation }) => {
     useEffect(() => {
         navigation.setOptions({
             title: nav_title, //Set Header Title
+
         });
+
     }, []);
     return (
         <StudentDashboardWebviewDesign

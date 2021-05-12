@@ -12,11 +12,8 @@ const StudentBottomNavDesign = ({ navigation, keyid, users, Email, Password, Fir
   // const email = email;
   // console.log("email address" + );
   const adminTitle = 'Welcome ' + user;
-  const Key1 = () => <StudentChattingDashboardActivity navigation={navigation} nav_title={adminTitle} Department={Department} user={user} user_type={strings.users.admin} />;
+  const Key1 = () => <StudentChattingDashboardActivity navigation={navigation} nav_title={adminTitle} department={Department} user={user} user_type={strings.users.admin} />;
   const Key2 = () => <StudentDashboardWebviewActivity navigation={navigation} nav_title={adminTitle} />
-  // const Key3 = () => <StudentProfileDashboardActivity navigation={navigation} nav_title={adminTitle}
-  //   user={user} Key={Key} user_type={strings.users.admin} FirstName={FirstName} LastName={LastName}
-  //   Department={Department} Enrollment={Enrollment} Email={Email} Password={Password} Gender={Gender} Phoneno={Phoneno} />;
   const Key3 = () => <StudentProfileDashboardActivity navigation={navigation} nav_title={adminTitle} keyid={keyid} />;
 
 

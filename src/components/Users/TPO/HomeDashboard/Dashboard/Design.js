@@ -6,7 +6,7 @@ import { styles } from "./styles";
 import strings from '../../../../../res/strings';
 import images from '../../../../../res/images';
 
-const AdminDashboardDesign = ({ navigation, department }) => {
+const AdminDashboardDesign = ({ navigation, department, user }) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
@@ -25,7 +25,7 @@ const AdminDashboardDesign = ({ navigation, department }) => {
                             </View>
 
                             <View style={styles.newActivityCardView}
-                                onTouchEnd={() => navigation.navigate('TpoAddGroupsActivity', { department: department })}>
+                                onTouchEnd={() => navigation.navigate('TpoAddGroupsActivity', { department: department, user: user })}>
                                 <Image source={images.user_dash.student}
                                     style={styles.activityCardImage} />
                                 <Text style={styles.activityCardText}>{strings.onBoarding.add_group}</Text>

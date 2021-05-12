@@ -15,11 +15,16 @@ const AdminChattingDashboardDesign = ({ navigation, submitButton, validateInput,
         <View style={styles.mainContainer}>
             <View style={styles.container}>
                 <ImageBackground source={images.chat.group_bg} style={styles.imageBackground}>
-                    <ScrollView contentContainerStyle={styles.scrollView}>
+                    {/* <ScrollView contentContainerStyle={styles.scrollView}>
                         <View style={styles.chatArea} >
                             {chatgroup()}
                         </View>
-                    </ScrollView>
+                    </ScrollView> */}
+                    <InvertibleScrollView contentContainerStyle={styles.scrollView} inverted>
+                        <View style={styles.chatArea} >
+                            {chatgroup()}
+                        </View>
+                    </InvertibleScrollView>
                     <View style={styles.textArea}>
                         <View style={styles.textAreaSec1}>
                             <View style={styles.textSection}>
@@ -72,16 +77,16 @@ const AdminChattingDashboardDesign = ({ navigation, submitButton, validateInput,
                 return (
                     <View style={styles.chatArea} key={index}>
                         { user == item.Sender ?
-                            <View style={[styles.chatTextArea, { alignSelf: 'flex-end', alignItems: 'flex-start' }]}>
+                            <View style={[styles.chatTextAreaB, { alignSelf: 'flex-end', alignItems: 'flex-start' }]}>
                                 <View>
                                     {/* {(item.key == 1) ?<Text style={styles.name}>{item.Sender}</Text>: console.log("item:"+item.key)} */}
                                     {/* <Text style={styles.name}>{item.Sender}</Text> */}
                                     <Text style={styles.chatText}>{item.Message}</Text>
-                                    <Text style={styles.date}>{item.Date}  {item.Time} </Text>
+                                    <Text style={[styles.date, { alignSelf: 'flex-end' }]}>{item.Date} {item.Time} </Text>
 
                                 </View>
                             </View> :
-                            <View style={[styles.chatTextArea, { alignSelf: 'flex-start', alignItems: 'flex-start' }]}>
+                            <View style={[styles.chatTextAreaA, { alignSelf: 'flex-start', alignItems: 'flex-start' }]}>
                                 <View>
                                     {/* {(item.key == 1) ?<Text style={styles.name}>{item.Sender}</Text>: console.log("item:"+item.key)} */}
                                     <Text style={styles.name}>{item.Sender}</Text>

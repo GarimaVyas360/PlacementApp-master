@@ -6,16 +6,19 @@ import { styles } from "./styles";
 import moment from 'moment'
 import strings from "../../../../../res/strings";
 import firestore from "@react-native-firebase/firestore";
-import { addGroupsChats } from '../../../../../firebase/firestore/UserSignUp';
+import { addGroups, addGroupsChats } from '../../../../../firebase/firestore/UserSignUp';
 
 const TpoChattingGroupActivity = ({ route, navigation }) => {
     const [group, setgroup] = useState([]);
     const user = route.params.user;
+    const groupName = route.params.group;
     const user_type = route.params.user_type;
-
+    const department = route.params.department;
+    var Size;                // group: group_name, department: department, user: user, user_type: user_type
+    const [groupSize, setGroupSize] = useState('');
     // const GroupName = route.params.group;
     useEffect(() => {
-        console.log("user routee  " + user);
+        console.log("user routee  " + groupName);
         // groupChats();
         navigation.setOptions({
             title: route.params.group, //Set Header Title
@@ -25,8 +28,10 @@ const TpoChattingGroupActivity = ({ route, navigation }) => {
             headerTintColor: '#fff',
         });
         const subscribe = firestore()
-            .collection('Group1')
-            //   .orderBy('department', 'asc')
+            .collection('UserGroup')
+            .doc(department)
+            .collection(groupName)
+            .orderBy('id', 'asc')
             .onSnapshot(querySnapshot => {
                 const groupChat = [];
                 console.log('Total users: ', querySnapshot.size);
@@ -42,14 +47,21 @@ const TpoChattingGroupActivity = ({ route, navigation }) => {
                 group.map((item, index) => {
                     console.log("data saved");
                 })
-
+                Size = querySnapshot.size;
+                // console.log("Size", Size);
+                showSize(Size);
             });
         return () => subscribe();
 
 
     }, []);
 
-
+    function showSize(size) {
+        Size = size;
+        console.log("Total Size", Size);
+        setGroupSize(Size);
+        return size;
+    }
     // const groupChats = () => {
     //     const subscribe = firestore()
     //         .collection('Group1')
@@ -93,8 +105,9 @@ const TpoChattingGroupActivity = ({ route, navigation }) => {
         var date = getCurrentDate().date;
         var time = getCurrentDate().time + " " + getCurrentDate().AMPM;
         if (validateInput(message)) {
-            addGroupsChats(sender, message, date, time);
-            // groupChats();
+            addGroupsChats(sender, message, date, time, groupSize, groupName);
+            addGroups(sender, groupName, message, date, time, groupSize, department);
+            console.log("Group Size and Name", groupSize, groupName);
             console.log(sender + "\n" + message + "\n" + date + "\n" + time);
         }
     }
@@ -149,7 +162,7 @@ const TpoChattingGroupActivity = ({ route, navigation }) => {
                     console.log('Total success user: ', querySnapshot.size);
                     onSuccess(false);
                 }
-            }); 
+            });
     }
 
 }

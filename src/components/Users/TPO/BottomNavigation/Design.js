@@ -14,8 +14,8 @@ const TpoBottomNavDesign = ({ navigation, users, token, department }) => {
   //alert("Email="+Email);
   console.log("department user", department);
 
-  const Key1 = () => <TpoDashboardActivity navigation={navigation} nav_title={tpoTitle} department={department} />;
-  const Key2 = () => <TpoChattingDashboardActivity navigation={navigation} nav_title={tpoTitle} user={user} token={token} user_type={strings.users.tpo} />;
+  const Key1 = () => <TpoDashboardActivity navigation={navigation} nav_title={tpoTitle} user={user} department={department} />;
+  const Key2 = () => <TpoChattingDashboardActivity navigation={navigation} nav_title={tpoTitle} user={user} department={department} token={token} user_type={strings.users.tpo} />;
   const Key3 = () => <TpoProfileDashboardActivity navigation={navigation} nav_title={tpoTitle} user={user} token={token} />
 
   // user={user} Key={Key} user_type={strings.users.admin} FirstName={FirstName} LastName={LastName}
@@ -23,7 +23,7 @@ const TpoBottomNavDesign = ({ navigation, users, token, department }) => {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'key1', title: 'DASHBOARD', icon: 'home', }, // home-account, view-dashboard
-    { key: 'key2', title: 'NOTIFICATION', icon: 'bell', },
+    { key: 'key2', title: 'GROUPS', icon: 'bell', },
     { key: 'key3', title: 'PROFILE', icon: 'account-cog', },
   ]);
 

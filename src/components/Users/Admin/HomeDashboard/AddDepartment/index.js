@@ -5,6 +5,7 @@ import firestore from "@react-native-firebase/firestore";
 import { ToastAndroid, Alert } from "react-native";
 import { departmentListCollection } from '../../../../../firebase/firestore/UserSignUp';
 import { updateDepartment } from "../../../../../firebase/firestore/UserSignUp";
+import { cond } from 'react-native-reanimated';
 const AddDepartmentActivity = ({ navigation }) => {
     const [users, setUsers] = useState([]);
     const departmentlist = [];
@@ -54,17 +55,29 @@ const AddDepartmentActivity = ({ navigation }) => {
 
     function submitDepartment(department) {
         if (validateDepartment(department).isValidate) {
-            console.log("btn click");
-            departmentListCollection(department);
-            ToastAndroid.show("Department Added ", ToastAndroid.SHORT);
-            formClear(true);
-            return true;
+            var condition = false;
+            users.map((item, index) => {
+                if(item.department == department){
+                    condition= true;
+                }
+            })
+            if(condition==true){
+                ToastAndroid.show("\""+department+"\" Department already exist.", ToastAndroid.SHORT);
+                formClear(false);
+                return false;
+            }
+            else{
+                console.log("btn click");
+                departmentListCollection(department);
+                ToastAndroid.show("Department added.", ToastAndroid.SHORT);
+                formClear(true);
+                return true;
+            }
         }
         else {
-            ToastAndroid.show("Enter The Valid  Department", ToastAndroid.SHORT);
+            ToastAndroid.show("Enter the valid  department", ToastAndroid.SHORT);
             return false;
         }
-        // formClear(true);
     }
 
 
@@ -98,7 +111,8 @@ const AddDepartmentActivity = ({ navigation }) => {
             '',
             [
                 { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                { text: 'OK', onPress: (department) => updateDepartment(departmentkey, department) },
+                //{ text: 'OK', onPress: (department) => updateDepartment(departmentkey, department) },
+                { text: 'OK', onPress: (department) => (department=="" || department==null) ? ToastAndroid.show("Department not updated.", ToastAndroid.SHORT) : (updateDepartment(departmentkey, department),ToastAndroid.show("Department updated.", ToastAndroid.SHORT)) },
             ],
             {
                 type: 'plain-text',

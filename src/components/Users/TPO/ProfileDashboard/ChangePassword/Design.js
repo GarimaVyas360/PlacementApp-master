@@ -67,7 +67,7 @@ const TpoProfileChangePasswordDesign = ({ navigation, submitChangePass, Validate
                     </CardView>
                 </View>
                 <View style={styles.baseContainer}>
-                    <View style={styles.setCodeView}>
+                    {/* <View style={styles.setCodeView}>
                         <CardView
                             cardElevation={6}
                             cardMaxElevation={5}
@@ -78,7 +78,7 @@ const TpoProfileChangePasswordDesign = ({ navigation, submitChangePass, Validate
                                 <Text style={styles.setCodeText}>{strings.buttons.set_security_code}</Text>
                             </TouchableOpacity>
                         </CardView>
-                    </View>
+                    </View> */}
                     <View>
                         <TextInput
                             autoCompleteType="password"

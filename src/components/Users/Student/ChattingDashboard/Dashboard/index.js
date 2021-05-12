@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import StudentChattingDashboardDesign from './Design';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from "./styles";
 import strings from "../../../../../res/strings";
-const StudentChattingDashboardActivity = ({ navigation, nav_title, user, user_type, Department }) => {
+import firestore from "@react-native-firebase/firestore";
+const StudentChattingDashboardActivity = ({ navigation, nav_title, user, user_type, department }) => {
     const [group, setGroup] = useState('');
+    var currentUsers, size;
+
     useEffect(() => {
         navigation.setOptions({
             title: nav_title, //Set Header Title
@@ -13,48 +16,100 @@ const StudentChattingDashboardActivity = ({ navigation, nav_title, user, user_ty
                 backgroundColor: '#fff',
             },
             headerTintColor: 'black',
-
             headerRight: () => (
                 <View style={styles.headerView}>
-                    <TouchableOpacity onPress={() => { navigation.replace("UserDashboardActivity") }}>
+                    <TouchableOpacity onPress={() => { logout() }}>
                         <Icon name="logout" size={30} color="black" style={styles.logoutEdit} />
                     </TouchableOpacity>
                 </View>
             ),
             headerLeft: () => { }
         });
-
-        if (Department == 'IT') {
-            setGroup("MU_IT_Group");
-        }
-        else if (Department == 'Civil') {
-            setGroup("MU_Civil_Group");
-        }
-        else if (Department == 'Aeronautical') {
-            setGroup("MU_Aeronautical_Group");
-        }
-        else if (Department == 'Architectural') {
-            setGroup("MU_Architectural_Group");
-        }
-        else if (Department == 'Forensic') {
-            setGroup("MU_Forensic_Group");
-        }
-        else if (Department == 'Human Resources') {
-            setGroup("MU_Human Resources_Group");
-        }
-        else if (Department == 'Management') {
-            setGroup("MU_Management_Group");
-        }
-        else {
-            setGroup("UserGroup");
-        }
-
+        // setGroup("MU_IT_Group");
+        userVerify();
     }, []);
+    function logout() {
+        Alert.alert("Want to Logout!", "",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => { },
+                    style: "cancel"
+                },
+                {
+
+                },
+                {
+                    text: "Logout!",
+                    onPress: () => {
+                        navigation.replace("UserDashboardActivity")
+                    },
+                    style: "destructive"
+                }
+            ],
+            { cancelable: false }
+        );
+    }
+
+
+
+
+    function userVerify() {
+        var currentUsers;
+        firestore()
+            .collection('GroupList')
+            // order by asc and desc order
+            .where('Department', '==', department)
+            // .where('Password', '==', password)
+            .get()
+            .then(querySnapshot => {
+                console.log('Total users: ', querySnapshot.size);
+                size = querySnapshot.size;
+                querySnapshot.forEach(documentSnapshot => {
+                    console.log('User exists: ', size);
+
+                    if (documentSnapshot.exists) {
+                        console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                        // console.log(" Users Data", documentSnapshot.data().FirstName);
+
+                        currentUsers = documentSnapshot.data().GroupName;
+                        // userEmail = documentSnapshot.data().Email;
+                        // userPassword = documentSnapshot.data().Password;
+                        // FirstName = documentSnapshot.data().FirstName;
+                        // LastName = documentSnapshot.data().LastName;
+                        // Gender = documentSnapshot.data().Gender;
+                        // Department = documentSnapshot.data().Department;
+                        // Enrollment = documentSnapshot.data().Enrollment;
+                        // Phoneno = documentSnapshot.data().Phoneno;
+                        // key = documentSnapshot.id;
+                        // setCurrentUser(documentSnapshot.data().FirstName);
+                        console.log("currentUser" + currentUsers);
+                        // setUsers(currentUsers, userEmail);
+                        // onSuccess(true, currentUsers);
+
+                    }
+                });
+                if (size == 0) {
+                    console.log('Total success user: ', querySnapshot.size);
+                    // onSuccess(false, currentUsers);
+
+                }
+
+                setGroup(currentUsers);
+
+            });
+    }
+
+
+
+
+
     return (
         <StudentChattingDashboardDesign
             navigation={navigation}
             nav_title={nav_title}
             group_name={group}
+            department={department}
             user={user}
             user_type={user_type}
         />

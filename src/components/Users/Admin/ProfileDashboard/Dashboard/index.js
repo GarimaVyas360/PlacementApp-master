@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { View, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { styles } from "./styles";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import strings from '../../../../../res/strings';
 import AdminProfileDashboardDesign from './Design';
 import firestore from "@react-native-firebase/firestore";
@@ -11,7 +14,6 @@ const AdminProfileDashboardActivity = ({ navigation, nav_title }) => {
     const [email, setEmail] = useState('');
     const [mobileNo, setMobileNo] = useState('');
     const [password, setPassword] = useState('');
-
 
     useEffect(() => {
 
@@ -44,11 +46,33 @@ const AdminProfileDashboardActivity = ({ navigation, nav_title }) => {
         // Unsubscribe from events when no longer in use
         return () => subscriber()
     }, []);
+    function logout() {
+        Alert.alert("Want to Logout!", "",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => {  },
+                    style: "cancel"
+                },
+                {
 
+                },
+                {
+                    text: "Logout!",
+                    onPress: () => {
+                        navigation.replace("UserDashboardActivity")
+                    },
+                    style: "destructive"
+                }
+            ],
+            { cancelable: false }
+        );
+    }
     return (
         <AdminProfileDashboardDesign
             navigation={navigation}
             nav_title={nav_title}
+            logout={()=>logout()}
             list={users}
             FirstName={firstName}
             LastName={lastName}

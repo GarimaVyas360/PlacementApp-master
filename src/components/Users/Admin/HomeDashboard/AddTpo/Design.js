@@ -122,7 +122,7 @@ const AddTpoDesign = ({ navigation, departmentlist, submitAccount, validateFirst
                                     error={isErrorEmail}
                                     value={email}
                                     onChangeText={(Email) => {
-                                        setEmail(Email.replace(/[\s]/g, ''));
+                                        setEmail(Email.replace(/[\s]/g, '').toLowerCase());
                                         validateEmail(Email);
                                         checkEmail(Email);
                                     }}

@@ -16,7 +16,7 @@ const TpoAddStudentDesign = ({ navigation, submitButton, validateFirstName, vali
     const [height, setHeight] = useState(0);
     const [message, setMessage] = useState('');
 
-    const [senderName, setSenderName] = useState('');
+    const [groupName, setGroupName] = useState('');
     const [errorFirstName, setErrorFirstName] = useState(false);
     const [errorFirstNameText, setErrorFirstNameText] = useState('');
     const [isErrorFirstName, setIsErrorFirstName] = useState(false);
@@ -41,16 +41,16 @@ const TpoAddStudentDesign = ({ navigation, submitButton, validateFirstName, vali
                             <View>
                                 <TextInput
                                     autoCompleteType="name"
-                                    label={strings.textInput.sender}
+                                    label={strings.textInput.group_name}
                                     mode="outlined"
-                                    placeholder={strings.textInput.sender}
+                                    placeholder={strings.textInput.group_name}
                                     blurOnSubmit={true}
                                     autoCapitalize='words'
                                     // autoFocus
                                     error={isErrorFirstName}
-                                    value={senderName}
-                                    onChangeText={(senderName) => {
-                                        setSenderName(senderName);
+                                    value={groupName}
+                                    onChangeText={(groupName) => {
+                                        setGroupName(groupName);
                                         // validateFirstName(senderName);
                                         // checkFirstName(senderName);
                                     }}
@@ -59,28 +59,6 @@ const TpoAddStudentDesign = ({ navigation, submitButton, validateFirstName, vali
                                 />
                                 <HelperText type="error" visible={errorFirstName}>{errorFirstNameText}</HelperText>
                             </View>
-
-                            <View style={styles.spacing15}></View>
-
-                            {/* <View>
-                                <View style={styles.pickerView}>
-                                    <Picker
-                                        style={{}}
-                                        error={isErrorBranch}
-                                        selectedValue={branch}
-                                        onValueChange={(itemValue, itemIndex) => {
-                                            setBranch(itemValue);
-                                            // validateBranch(itemValue);
-                                            // checkBranch(itemValue);
-                                        }}>
-                                        <Picker.Item label="--- Select Branch ---" value="" />
-                                        <Picker.Item label="Ankush" value="A" />
-                                        <Picker.Item label="Shefali" value="S" />
-                                        <Picker.Item label="Garima" value="G" />
-                                    </Picker>
-                                </View>
-                                <HelperText type="error" visible={errorBranch}>{errorBranchText}</HelperText> */}
-                            {/* </View> */}
 
                             <View style={styles.spacing5}></View>
                             <View>
@@ -105,13 +83,13 @@ const TpoAddStudentDesign = ({ navigation, submitButton, validateFirstName, vali
                                     mode="contained"
                                     // onPress={ () => { navigation.goBack(); }}
                                     onPress={() => {
-                                        submitButton(senderName, message);
+                                        submitButton(groupName, message);
                                         // checkFirstName(firstName);
                                         // checkBranch(branch);
                                         // formDataClear(formClear(true));
                                     }}
                                 >
-                                    {strings.buttons.create_account}
+                                    {strings.buttons.create_group}
                                 </Button>
                             </View>
                         </View>
@@ -123,9 +101,10 @@ const TpoAddStudentDesign = ({ navigation, submitButton, validateFirstName, vali
     );
 
     function formDataClear(allow) {
-        if (submitAccount(senderName, lastName, gender, email, mobile, branch, enrollment, password, passConf)) {
-            setSenderName('');
-            setBranch('');
+        if (submitAccount(groupName, message)) {
+            setGroupName('');
+            // setBranch('');
+            setMessage('');
 
         }
     }

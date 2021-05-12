@@ -167,7 +167,7 @@ const AdminProfileEditDesign = ({ navigation, submitEditeProfileAdmin, validateF
                             error={isErrorEmail}
                             value={email}
                             onChangeText={(email) => {
-                                setEmail(email);
+                                setEmail(email.replace(/[\s]/g, '').toLowerCase());
                                 validateEmail(email);
                                 checkEmail(email);
                             }}
@@ -190,7 +190,7 @@ const AdminProfileEditDesign = ({ navigation, submitEditeProfileAdmin, validateF
                             error={isErrorMobile}
                             value={mobile}
                             onChangeText={(mobile) => {
-                                setMobile(mobile);
+                                setMobile(mobile.replace(/[^0-9]/g, ''));
                                 validateMobile(mobile);
                                 checkMobile(mobile)
                             }}
@@ -214,7 +214,7 @@ const AdminProfileEditDesign = ({ navigation, submitEditeProfileAdmin, validateF
                             error={isErrorWhatsAppNumber}
                             value={whatsAppNumber}
                             onChangeText={(whatsAppNumber) => {
-                                setWhatsAppNumber(whatsAppNumber);
+                                setWhatsAppNumber(whatsAppNumber.replace(/[^0-9]/g, ''));
                                 validateWhatsAppNumber(whatsAppNumber);
                                 checkWhatsAppNumber(whatsAppNumber);
                             }}

@@ -79,47 +79,35 @@ const AddStudentActivity = ({ navigation }) => {
             && validatePassword(password).isValidate && validatePassConf(passConf).isValidate
             && validatePasswordChecker(password, passConf).isValidate
         ) {
-            Alert.alert("Account created !", "Student account is successfully created by Admin.",
-                [
-                    {
-                        text: "Stay on Page",
-                        onPress: () => { formClear(true) },
-                        style: "cancel"
-                    },
-                    {
+            CreateUser(email, password,
+                (status) => {
+                    console.log("status" + status)
+                    if (status) {
+                        UserSignUp(firstName, lastName, gender, email, password, mobile, branch, enrollment);
+                        navigation.goBack();
+                        Alert.alert("Account created !", "Student account is successfully created by Admin.",
+                            [
+                                {
 
-                    },
-                    {
-                        text: "Ok",
-                        onPress: () => {
-                            // navigation.goBack(); formClear(true);
+                                },
+                                {
 
-                            // UserSignUp(firstName, lastName,
-                            //     gender, email, password, mobile, branch, enrollment)
-
-                            CreateUser(email, password,
-                                (status) => {
-                                    console.log("status" + status)
-                                    if (status) {
-                                        UserSignUp(firstName, lastName,
-                                            gender, email, password, mobile, branch, enrollment),
-                                            navigation.goBack();
-                                    }
-                                    else {
-                                        console.log("Email/Password are incorrect"),
-                                            ToastAndroid.show("Email/Password is incorrect", ToastAndroid.SHORT);
-                                        // navigation.goBack();
-                                    };
-                                });
-
-
-
-                        },
-                        style: "destructive"
+                                },
+                                {
+                                    text: "Ok",
+                                    onPress: () => { },
+                                    style: "destructive"
+                                }
+                            ],
+                            { cancelable: false }
+                        );
                     }
-                ],
-                { cancelable: false }
-            );
+                    else {
+                        //console.log("Email/Password are incorrect"),
+                        ToastAndroid.show("Account not created.", ToastAndroid.SHORT);
+                        // navigation.goBack();
+                    };
+                });
             return true;
         }
         else {
@@ -227,7 +215,7 @@ const AddStudentActivity = ({ navigation }) => {
         }
     }
     function validateMobile(mobile) {
-        const mobileReg = /^[0]?[789]\d{9}$/;
+        const mobileReg = /^[0]?[6789]\d{9}$/;
         if (!mobile) {
             return {
                 errorMobile: true,
@@ -344,7 +332,7 @@ const AddStudentActivity = ({ navigation }) => {
         if (!enrollment) {
             return {
                 errorEnrollment: true,
-                errorEnrollmentText: "EnrollmentId required.",
+                errorEnrollmentText: "Enrollment Id required.",
                 isErrorEnrollment: true,
                 isValidate: false,
             };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, ScrollView, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { View, Image, ScrollView, TouchableOpacity, Modal, Pressable, ToastAndroid } from 'react-native';
 import { Headline, TextInput, Button, Text, HelperText, Divider, map } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Picker } from '@react-native-picker/picker';
@@ -53,15 +53,7 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                                 placeholder={strings.textInput.department}
                                 blurOnSubmit={true}
                                 autoCapitalize='words'
-                                // autoFocus
                                 error={errorBranch}
-                                // value={firstName}
-                                // onChangeText={ (text) => { 
-                                //     setFirstName(text);
-                                //     validateFirstName(text);
-                                //     checkFirstName(text);
-                                // } }
-
                                 value={department}
                                 onChangeText={(department) => {
                                     setDepartment(department);
@@ -77,7 +69,6 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                                     style={styles.loginButton}
                                     mode="contained"
                                     onPress={() => { submitDepartment(department); clearDepartment(true); }}
-
                                 >
                                     Save
                                 </Button>
@@ -118,6 +109,7 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                     onRequestClose={() => {
                         setModalVisible(!modalVisible);
                         setSelectedDepartment('');
+                        setBranch('');
                     }}
                 >
                     <View style={styles.centeredView}>
@@ -125,7 +117,7 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                             <Text style={styles.modalText}>{strings.onBoarding.do_you_want_delete}</Text>
                             <View style={styles.modalSubTextView}>
                                 <Text style={styles.modalSubText}>"{selectedDepartment}" Department</Text>
-                                <TouchableOpacity onPress={() => { updateAlert(departmentKey, selectedDepartment), setModalVisible(false) }}>
+                                <TouchableOpacity onPress={() => { updateAlert(departmentKey, selectedDepartment); setModalVisible(false);setBranch(''); }}>
                                     <Icon name="playlist-edit" size={25} style={styles.modalEditIcon} />
                                 </TouchableOpacity>
                             </View>
@@ -133,14 +125,14 @@ const AddDepartmentDesign = ({ navigation, list, validateBranch, submitDepartmen
                                 <Button
                                     style={styles.cancelButton}
                                     mode="contained"
-                                    onPress={() => { setModalVisible(!modalVisible); setDepartmentKey(""); console.log("selected departemnt", selectedDepartment); }}
+                                    onPress={() => { setModalVisible(!modalVisible); setDepartmentKey(""); console.log("selected departemnt", selectedDepartment); setBranch(''); }}
                                 >
                                     {strings.buttons.cancel}
                                 </Button>
                                 <Button
                                     style={styles.deleteButton}
                                     mode="contained"
-                                    onPress={() => { deleteDepartment(departmentKey); setModalVisible(false) }}
+                                    onPress={() => { deleteDepartment(departmentKey); ToastAndroid.show("Department deleted.", ToastAndroid.SHORT); setModalVisible(false);setBranch(''); }}
                                 >
                                     {strings.buttons.delete}
                                 </Button>
